@@ -130,6 +130,85 @@ IMPORT_?gMonsterDatabase@@3PAUtag_monsterInfo@@A = 1
 IMPORT_??0armyGroup@@QAE@XZ = 1
 
 ;;game
+;;IMPORT_?MainLoop@executive@@QAEXXZ = 1
+;;?MainLoop@executive@@QAEXXZ_clone EQU ?MainLoop_orig@executive@@QAEXXZ
+IMPORT_?Process1WindowsMessage@@YIXXZ = 1
+?Process1WindowsMessage@@YIXXZ_clone EQU ?Process1WindowsMessage_orig@@YIXXZ
+
+;;sound
+;;IMPORT___imp__AIL_redbook_play@12 = 1
+IMPORT_?CDPlay@soundManager@@QAEXHHHH@Z = 1
+?CDPlay@soundManager@@QAEXHHHH@Z_clone EQU CDPlay_orig@soundManager@@QAEXHHHH@Z
+IMPORT_?CDStop@soundManager@@QAEXXZ = 1
+?CDStop@soundManager@@QAEXXZ_clone EQU ?CDStop_orig@soundManager@@QAEXXZ
+IMPORT_?CDSetVolume@soundManager@@QAEXHH@Z = 1
+?CDSetVolume@soundManager@@QAEXHH@Z_clone EQU ?CDSetVolume_orig@soundManager@@QAEXHH@Z
+IMPORT_?ConvertVolume@soundManager@@QAEHHH@Z = 1
+?ConvertVolume@soundManager@@QAEHHH@Z_clone EQU ?ConvertVolume_orig@soundManager@@QAEHHH@Z
+
+
+;;mouse manager
+IMPORT_?NewUpdate@mouseManager@@QAEXH@Z = 1
+?NewUpdate@mouseManager@@QAEXH@Z_clone EQU ?NewUpdate_orig@mouseManager@@QAEXH@Z
+?iHotSpot@@3PAY01CA EQU ?iHotSpot_asm@@3PAY01CA
+?iMouseSize@@3PAY01CA EQU ?iMouseSize_asm@@3PAY01CA
+
+IMPORT_?MouseMessageHandler@@YIHPAXIIJ@Z = 1
+?MouseMessageHandler@@YIHPAXIIJ@Z_clone EQU MouseMessageHandler_orig@@YIHPAXIIJ@Z
+
+
+;;drawing
+IMPORT_?CompleteDraw@advManager@@QAEXHHHH@Z = 1
+?CompleteDraw@advManager@@QAEXHHHH@Z_clone EQU ?CompleteDraw_orig@advManager@@QAEXHHHH@Z
+IMPORT_?DrawAdventureBorder@advManager@@QAEXXZ = 1
+?DrawAdventureBorder@advManager@@QAEXXZ_clone EQU ?DrawAdventureBorder_orig@advManager@@QAEXXZ
+IMPORT_?DrawCell@advManager@@QAEXHHHHHH@Z = 1
+?DrawCell@advManager@@QAEXHHHHHH@Z_clone EQU ?DrawCell_orig@advManager@@QAEXHHHHHH@Z
+IMPORT_?ComboDraw@advManager@@QAEHHHH@Z = 1
+?ComboDraw@advManager@@QAEHHHH@Z_clone EQU ?ComboDraw_orig@advManager@@QAEHHHH@Z
+IMPORT_?RedrawAdvScreen@advManager@@QAEXHH@Z = 1
+?RedrawAdvScreen@advManager@@QAEXHH@Z_clone EQU ?RedrawAdvScreen_orig@advManager@@QAEXHH@Z
+
+
+IMPORT_?IconToBitmap@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z = 1
+?IconToBitmap@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z_clone EQU ?IconToBitmap_orig@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z
+IMPORT_?WGAppPaint@@YIHPAX0@Z = 1
+?WGAppPaint@@YIHPAX0@Z_clone EQU ?WGAppPaint_orig@@YIHPAX0@Z
+
+IMPORT_?InitGraphics@@YIXXZ = 1
+?InitGraphics@@YIXXZ_clone EQU ?InitGraphics_orig@@YIXXZ
+IMPORT_?WGInitGraphics@@YIXXZ = 1
+?WGInitGraphics@@YIXXZ_clone EQU ?WGInitGraphics_orig@@YIXXZ
+IMPORT_?DDInitGraphics@@YIXXZ = 1
+?DDInitGraphics@@YIXXZ_clone EQU ?DDInitGraphics_orig@@YIXXZ
+IMPORT_?SetGraphicsType@@YIHH@Z = 1
+?SetGraphicsType@@YIHH@Z_clone EQU ?SetGraphicsType_orig@@YIHH@Z
+
+IMPORT_@BlitBitmapToScreenVesa@28 = 1
+@BlitBitmapToScreenVesa@28_clone EQU @BlitBitmapToScreenVesa_orig@28
+;;IMPORT_?BlitBitmapToScreenNoMouseCheck@@YIXPAVbitmap@@HHHHHH@Z = 1
+;;BlitBitmapToScreenNoMouseCheck@@YIXPAVbitmap@@HHHHHH@Z_clone EQU BlitBitmapToScreenNoMouseCheck_orig@@YIXPAVbitmap@@HHHHHH@Z
+
+;;adventure screen
+IMPORT_?InMapArea@@YIHHH@Z = 1
+
+IMPORT_?Open@heroWindowManager@@UAEHH@Z = 1
+?Open@heroWindowManager@@UAEHH@Z_clone EQU ?Open_orig@heroWindowManager@@QAEHH@Z
+
+;;adventure screen 'radar' (mini-map)
+;;IMPORT_?UpdateRadar@advManager@@QAEXHH@Z = 1
+;;?UpdateRadar@advManager@@QAEXHH@Z_clone EQU ?UpdateRadar_orig@advManager@@QAEXHH@Z
+
+;;keyboard input
+IMPORT_?KeyboardMessageHandler@@YIHPAXIIJ@Z = 1
+?KeyboardMessageHandler@@YIHPAXIIJ@Z_clone EQU ?KeyboardMessageHandler_orig@@YIHPAXIIJ@Z
+
+;;mouse input / cursor
+IMPORT_?MouseCoords@mouseManager@@QAEXAAH0@Z = 1
+?MouseCoords@mouseManager@@QAEXAAH0@Z_clone EQU ?MouseCoords_orig@mouseManager@@QAEXAAH0@Z
+
+
+
 IMPORT_?GetRandomNumTroops@game@@QAEHH@Z = 1
 IMPORT_?NextPlayer@game@@QAEXXZ = 1
 ?NextPlayer@game@@QAEXXZ_clone EQU ?NextPlayer_orig@game@@QAEXXZ
@@ -165,6 +244,10 @@ IMPORT_?SetVisibility@game@@QAEXHHHH@Z = 1
 ?SetVisibility@game@@QAEXHHHH@Z_clone EQU ?SetVisibility_orig@game@@QAEXHHHH@Z
 IMPORT_?MakeAllWaterVisible@game@@QAEXH@Z = 1
 ?MakeAllWaterVisible@game@@QAEXH@Z_clone EQU ?MakeAllWaterVisible_orig@game@@QAEXH@Z
+
+;;hero movement reminder
+IMPORT_?ProcessDeSelect@advManager@@QAEHPAUtag_message@@PAHPAPAVmapCell@@@Z = 1
+?ProcessDeSelect@advManager@@QAEHPAUtag_message@@PAHPAPAVmapCell@@@Z_clone EQU ?ProcessDeSelect_orig@advManager@@QAEHPAUtag_message@@PAHPAPAVmapCell@@@Z
 
 ;;;; border guards
 IMPORT_?BarrierEvent@advManager@@QAEHPAVmapCell@@PAVhero@@@Z = 1

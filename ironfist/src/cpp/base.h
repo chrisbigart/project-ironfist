@@ -26,6 +26,16 @@ extern void __fastcall EarlyShutdown(char*, char*);
 extern char gText[];
 extern void __fastcall LogStr(char *);
 
+//
+extern int iMainWinScreenWidth;
+extern int iMainWinScreenHeight;
+extern int gbEnlargeScreenBlit; //BOOL
+extern void* hwndApp;
+extern void* lpInitWin;
+extern int bShowIt; //BOOL
+extern int gbAllBlack; //BOOL
+//
+
 /*
  * Updates sound, graphics if needed.
  *

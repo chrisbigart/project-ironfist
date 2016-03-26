@@ -11,22 +11,26 @@
 
 class executive {
 public:
-	char _[16];
+	baseManager *firstManager;
+	baseManager *lastManager;
+	baseManager *currentManager;
+	unsigned long C;
+	void MainLoop();
 	executive();
 };
 
-class inputManager {
-public:
-	char _[2154];
-	inputManager();
-};
+//class inputManager {
+//public:
+//	char _[2154];
+//	inputManager();
+//};
 
-class mouseManager {
-public:
-	char _[138];
-	mouseManager();
-	void ShowColorPointer();
-};
+//class mouseManager {
+//public:
+//	char _[138];
+//	mouseManager();
+//	void ShowColorPointer();
+//};
 
 class soundManager {
 public:

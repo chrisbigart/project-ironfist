@@ -3,6 +3,65 @@
 #include "game/game.h"
 #include "scripting/hook.h"
 
+int advManager::ProcessDeSelect(struct tag_message *GUIMessage_evt, int *a3, class mapCell * *a4)
+	{
+	/*
+	switch(evt->fieldID)
+		{
+		...
+		case 4:
+			if(!playerData::HasMobileHero(gpCurPlayer)
+			   || (NormalDialog(
+				   "One or more heroes may still move, are you sure you want to end your turn?",
+				   2,
+				   -1,
+				   -1,
+				   -1,
+				   0,
+				   -1,
+				   0,
+				   -1,
+				   0),
+				   gpWindowManager->buttonPressedCode != 30726))
+				game::NextPlayer(gpGame);
+			break;
+		...
+		}
+	*/
+	//todo: check prefs to see if this option is enabled or not
+	if(GUIMessage_evt->yCoordOrFieldID == 4)
+		{
+		gpGame->NextPlayer();
+		/* //i doubt this is needed but it can be added in if it causes an issue
+		if(if(GUIMessage_evt->yCoordOrFieldID == 4)
+		   ->fieldID >= 2000 && if(GUIMessage_evt->yCoordOrFieldID == 4)
+		   ->fieldID <= 2200)
+			{
+			if(giBottomViewOverride == 2)
+				{
+				giBottomViewOverride = 1;
+				}
+			else if(giBottomViewOverride)
+				{
+				giBottomViewOverride = 0;
+				}
+			else if(iCurBottomView == 2)
+				{
+				giBottomViewOverride = 1;
+				}
+			else
+				{
+				giBottomViewOverride = 2;
+				}
+			giBottomViewOverrideEndTime = KBTickCount() + 3000;
+			advManager::UpdBottomView(1, 1, 1);
+			}
+		*/
+		return 1;
+		}
+	return ProcessDeSelect_orig(GUIMessage_evt, a3, a4);
+	}
+
 int advManager::Open(int idx) {
 	int res = this->Open_orig(idx);
 	if(gpGame->day == 1 && gpGame->week == 1 && gpGame->month == 1) {

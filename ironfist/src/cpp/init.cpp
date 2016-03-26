@@ -17,20 +17,22 @@ class executive {
 public:
 	char _[16];
 	executive();
+	void MainLoop_orig();
+	void MainLoop();
 };
 
-class inputManager {
-public:
-	char _[2154];
-	inputManager();
-};
+//class inputManager {
+//public:
+//	char _[2154];
+//	inputManager();
+//};
 
-class mouseManager {
-public:
-	char _[138];
-	mouseManager();
-	void ShowColorPointer();
-};
+//class mouseManager {
+//public:
+//	char _[138];
+//	mouseManager();
+//	void ShowColorPointer();
+//};
 
 class highScoreManager {
 public:

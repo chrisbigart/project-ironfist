@@ -246,6 +246,27 @@
     <ClCompile Include="..\src\cpp\adventure\map_events.cpp">
       <Filter>Source Files\adventure</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cpp\xbrz\xbrz.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="test.c">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\game\event_loop.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\game\sound.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\game\mouse.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\game\graphics.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\game\radar.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cpp\stdafx.h">
@@ -418,6 +439,9 @@
     </ClInclude>
     <ClInclude Include="..\src\cpp\adventure\terrain.h">
       <Filter>Header Files\adventure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cpp\xbrz\xbrz.h">
+      <Filter>Source Files\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

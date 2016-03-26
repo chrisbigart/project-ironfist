@@ -32,6 +32,9 @@ class textWidget : public widget {
   font *font;
   __int16 field_28;
   char field_2A;
+public:
+  //textWidget(__int16 offsetX, __int16 offsetY, __int16 width, __int16 height, char *content, const char *fontName, __int16 a8, __int16 fieldID, __int16 a7, char a11);
+	textWidget(short, short, short, short, char *, char *, short, short, short, short);
 };
 
 class heroWindow {
@@ -51,7 +54,11 @@ public:
   bitmap *bitmap;
 
   heroWindow(int, int, char*);
+  
+  void DrawWindow(int);
+  void DrawWindow(int updateScreen, int lowID, int highID);
   int BroadcastMessage(tag_message&);
+  void AddWidget(widget *guiObj, int index);
 };
 
 class heroWindowManager : public baseManager
@@ -71,7 +78,11 @@ public:
 
   heroWindowManager();
 
+  void UpdateScreenRegion(int, int, int, int);
+
   int DoDialog(heroWindow *,int (__fastcall*)(tag_message &),int);
+  int Open(int);
+  int Open_orig(int);
 };
 
 extern heroWindowManager* gpWindowManager;

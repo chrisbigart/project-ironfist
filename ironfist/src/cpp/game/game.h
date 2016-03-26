@@ -22,6 +22,21 @@ extern char* gAlignmentNames[];
 #define BUILDING_SPECIAL_DEFENSE_BUILT  0x20
 
 
+
+/*
+class executive
+	{
+	public:
+		//baseManager *firstManager;
+		//baseManager *lastManager;
+		//baseManager *currentManager;
+		//unsigned long field_C;
+		char _[16];
+		void MainLoop();
+		void MainLoop_orig();
+	};*/
+
+
 class playerData {
 public:
 	char color;

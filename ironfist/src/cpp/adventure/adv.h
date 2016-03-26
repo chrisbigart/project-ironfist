@@ -12,6 +12,14 @@
 
 #define MAX_TOTAL_HEROES 48
 
+static bool draw_mask_0 = true;
+static bool draw_mask_1 = true;
+static bool draw_mask_2 = true;
+static bool draw_mask_3 = true;
+static bool draw_mask_4 = true;
+static bool draw_mask_5 = true;
+static bool draw_mask_6 = true;
+
 enum PRIMARY_SKILL
 {
   PRIMARY_SKILL_ATTACK = 0,
@@ -159,21 +167,81 @@ enum HERO_FLAGS {
 char cHeroTypeInitial[];
 
 class mapCell;
+class fullMap;
+class tileset;
 
 class advManager : public baseManager {
 public:
-	char _[0xA6-sizeof(baseManager)];
+	int field_36;
+	widget *someComponents[2][12];
+	heroWindow *adventureScreen;
+	int sizeOfSomethingMapRelated;
+	int field_A2;
 	int currentTerrain;
-	char _1[0x12C];
+	int field_AA;
+	fullMap *map;
+	//iconWidget *heroScrollbarKnob;
+	//iconWidget *castleScrollbarKnob;
+
+	void *heroScrollbarKnob;
+	void *castleScrollbarKnob;
+	int field_BA;
+	int field_BE;
+	tileset *groundTileset;
+	tileset *clofTileset;
+	tileset *stonTileset;
+	int field_CE[64];
+	icon *radarIcon;
+	icon *clopIcon;
 	int viewX;
 	int viewY;
 	int field_1DE;
 	int field_1E2;
 	int xOff;
 	int yOff;
-	char _2[0xB8];
-    int heroMobilized;
-    char _3[0xD4];
+	int field_1EE;
+	int field_1F2;
+	int field_1F6;
+	int field_1FA;
+	int field_1FE;
+	int field_202;
+	int field_206;
+	int field_20A;
+	int field_20E;
+	int field_212;
+	int field_216;
+	void *heroIcons[6];
+	icon *boatIcon;
+	icon *frothIcon;
+	icon *shadowIcon;
+	icon *boatShadowIcon;
+	void *flagIcons1[6];
+	void *flagIcons2[6];
+	int field_272;
+	int field_276;
+	int field_27A;
+	int field_27E;
+	int field_282;
+	int field_286;
+	int field_28A;
+	int field_28E;
+	int field_292;
+	int field_296;
+	int field_29A;
+	int field_29E;
+	int field_2A2;
+	int heroMobilized;
+	int field_2AA;
+	int field_2AE;
+	int field_2B2;
+	int field_2B6;
+	int field_2BA;
+	int field_2BE;
+	int field_2C2[4][2];
+	void *loopSamples[28];
+	sample *walkSamples[9];
+	int identifyCast;
+	int field_37A;
 
 	advManager();
 
@@ -190,9 +258,34 @@ public:
 	void CastSpell(int);
 	void CastSpell_orig(int);
 
+	int ComboDraw(int, int, int);
+	int ComboDraw_orig(int, int, int);
+
+	void CompleteDraw(int left, int top, int a6, int a5);
+	void CompleteDraw_orig(int left, int top, int a6, int a5);
+
+	void DrawCell(int, int, int, int, int, int);
+	void DrawCell_orig(int, int, int, int, int, int);
+
+	void DrawAdventureBorder();
+	void DrawAdventureBorder_orig();
+	void SaveAdventureBorder();
+
+	void UpdBottomView(int, int, int);
+
+	int ProcessDeSelect_orig(struct tag_message *, int *, class mapCell * *);
+	int ProcessDeSelect(struct tag_message *, int *, class mapCell * *);
+
 	void RedrawAdvScreen(int,int);
+	void RedrawAdvScreen_orig(int, int);
+
+	void UpdateRadar_orig(int, int);
 	void UpdateRadar(int, int);
+	void UpdateScreen(int, int);
     void UpdateHeroLocator(int, int, int);
+	void UpdateHeroLocators(int, int);
+	void UpdateTownLocators(int, int);
+
     void EventSound(int locType, int locType2, SAMPLE2 *samp);
 
 	virtual int Open(int);

@@ -36,6 +36,8 @@ public:
   __int16 height;
   signed __int8 *contents;
 
+  void CopyToCareful(bitmap *target, int targX, int targY, int offX, int offY, int width, int height);
+
   bitmap();
   bitmap(unsigned long);
   ~bitmap();
@@ -60,6 +62,7 @@ public:
   icon(unsigned long);
   ~icon();
   void DrawToBuffer(int,int,int,int);
+  void ClipFillToBuffer(int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10);
 };
 
 class sample : public resource
