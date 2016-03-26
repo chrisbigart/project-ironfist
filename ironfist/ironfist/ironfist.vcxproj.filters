@@ -249,9 +249,6 @@
     <ClCompile Include="..\src\cpp\xbrz\xbrz.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="test.c">
-      <Filter>Source Files\game</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\cpp\game\event_loop.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>

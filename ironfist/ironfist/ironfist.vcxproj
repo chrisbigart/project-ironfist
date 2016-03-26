@@ -159,7 +159,6 @@
     <ClCompile Include="..\src\cpp\spell\spells.cpp" />
     <ClCompile Include="..\src\cpp\town\town.cpp" />
     <ClCompile Include="..\src\cpp\xbrz\xbrz.cpp" />
-    <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\resources\windows\resource.h" />
