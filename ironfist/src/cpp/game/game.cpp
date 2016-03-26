@@ -16,7 +16,6 @@ extern int giLimitUpdMinX;
 extern class mouseManager* gpMouseManager;
 extern int gbNoCDRom;
 
-
 int heroWindowManager::Open(int a2)
 	{
 	//int original_width = this->screenBuffer->width;
