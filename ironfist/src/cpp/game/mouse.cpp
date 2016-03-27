@@ -2,6 +2,12 @@
 #include "game/game.h"
 #include "manager.h"
 
+
+extern inputManager* gpInputManager;
+extern BOOL bInCheckChangeCursor;
+extern BOOL bLastMouseOffscreen;
+extern BOOL bLastOnscreenMouseColor;
+
 extern "C" void __fastcall BlitBitmapToScreenVesa(bitmap* bmp, int x, int y, unsigned int width, int height, int screenX, signed int screenY);
 void __fastcall IconToBitmap(class icon * icn, class bitmap * bmp,
 							 int x, int y, int spriteIdx, int a6, int a7, int a8,
@@ -37,7 +43,57 @@ void mouseManager::MouseCoords(int& x, int& y)
 
 extern BOOL gbPutzingWithMouseCtr;
 extern BOOL gbColorMice;
-extern void __fastcall CheckChangeCursor(signed int a1, signed int a2, int a3);
+void __fastcall CheckChangeCursor(signed int a1, signed int a2, int a3)
+	{
+	int result; // eax@1
+	int v4; // [sp-4h] [bp-Ch]@12
+
+	const int SCREEN_WIDTH = 800;
+	const int SCREEN_HEIGHT = 480;
+
+	result = bInCheckChangeCursor;
+	if(!bInCheckChangeCursor)
+		{
+		//result = 28 * giCurExe;
+		//if(!*(&bMenu + 7 * giCurExe + 5) || a3) //if(!fullscreen
+		if(a3)
+			{
+			//if(*(BOOL *)((char *)&bMenu + result + 24)) //?
+				{
+				bInCheckChangeCursor = 1;
+				if(a3 || a1 >= 0 && a1 < SCREEN_WIDTH && a2 >= 0 && a2 < SCREEN_HEIGHT)
+					{
+					if(bLastMouseOffscreen)
+						{
+						bLastMouseOffscreen = 0;
+						gpMouseManager->SetPointer(1000);
+						}
+					result = bLastOnscreenMouseColor;
+					if(bLastOnscreenMouseColor == gbColorMice)
+						goto LABEL_18;
+					v4 = 1;
+					}
+				else
+					{
+					result = bLastMouseOffscreen;
+					if(bLastMouseOffscreen)
+						goto LABEL_18;
+					bLastMouseOffscreen = 1;
+					bLastOnscreenMouseColor = gbColorMice;
+					if(!gbColorMice)
+						goto LABEL_18;
+					v4 = 0;
+					}
+				gpMouseManager->SetColorMice(v4);
+			LABEL_18:
+				bInCheckChangeCursor = 0;
+				//return result;
+				return;
+				}
+			}
+		}
+	//return result;
+	}
 
 #pragma pack(push, 1)
 struct CursorHotspot
@@ -51,6 +107,74 @@ struct CursorDimension
 	char height;
 	};
 #pragma pack(pop)
+
+void mouseManager::SaveAndDraw()
+	{
+	int v1; // edx@1
+	mouseManager *thisa; // esi@1
+	int cursorIdx; // edi@1
+	int newCursorWidth; // eax@1
+	int *widthPtr; // ecx@1
+	int v6; // eax@3
+	int v7; // edi@3
+	int *heightPtr; // edx@3
+	int width; // ecx@5
+
+	extern signed char iMouseSize_asm[][2];
+	extern signed char iHotSpot_asm[][2];
+	CursorHotspot* iHotSpot = (CursorHotspot*)(iHotSpot_asm);
+	CursorDimension* iMouseSize = (CursorDimension*)(iMouseSize_asm);
+
+	const int SCREEN_WIDTH = 640;
+
+	v1 = this->field_66;
+	thisa = this;
+	cursorIdx = this->cursorIdx;
+	newCursorWidth = iMouseSize[cursorIdx].width;
+	widthPtr = &this->cursorWidth;
+	if(v1 + newCursorWidth > SCREEN_WIDTH)
+		newCursorWidth = SCREEN_WIDTH - v1;
+	*widthPtr = newCursorWidth;
+	v6 = iMouseSize[cursorIdx].height;
+	v7 = thisa->field_6A;
+	heightPtr = &thisa->cursorHeight;
+	if(v7 + v6 > 480)
+		v6 = 480 - v7;
+	width = *widthPtr;
+	*heightPtr = v6;
+	gpWindowManager->screenBuffer->CopyToCareful(
+		thisa->bitmap,
+		0,
+		0,
+		thisa->cursorTopLeftX,
+		thisa->cursorTopLeftY,
+		width,
+		*heightPtr);
+	IconToBitmap(
+		thisa->cursorIcon,
+		gpWindowManager->screenBuffer,
+		thisa->field_66,
+		thisa->field_6A,
+		thisa->spriteIdx,
+		1,
+		0,
+		0,
+		640u,
+		480,
+		0);
+	}
+
+void mouseManager::RestoreUnderlying()
+	{
+	this->bitmap->CopyToCareful(
+		gpWindowManager->screenBuffer,
+		this->cursorTopLeftX,
+		this->cursorTopLeftY,
+		0,
+		0,
+		this->cursorWidth,
+		this->cursorHeight);
+	}
 
 void mouseManager::NewUpdate(int a2)
 	{
@@ -259,11 +383,6 @@ int __fastcall MouseMessageHandler(void* hWnd, unsigned int msg, unsigned int wP
 	int v12; // [sp-4h] [bp-10h]@37
 
 
-	extern inputManager* gpInputManager;
-	extern BOOL bInCheckChangeCursor;
-	extern BOOL bLastMouseOffscreen;
-	extern BOOL bLastOnscreenMouseColor;
-
 	const int SCREEN_WIDTH = 800;
 	const int SCREEN_HEIGHT = 480;
 
@@ -316,33 +435,35 @@ int __fastcall MouseMessageHandler(void* hWnd, unsigned int msg, unsigned int wP
 			evt->altXCoord = evt->xCoordOrKeycode;
 			evt->altYCoord = evt->yCoordOrFieldID;
 			
-			
+			extern int iLastBWOnScreenCheck;
+			extern long __fastcall KBTickCount();
 			//todo fix this
 			//if(!*(&bMenu + 7 * giCurExe + 5)) //if(!fullscreen)
-			//	{
-			//	if(!*(&bMenu + 7 * giCurExe + 6)) //dunno what this is, has to do with bw or color cursor?
-			//		{
-			//		if(KBTickCount() > iLastBWOnScreenCheck)
-			//			{
-			//			v7 = evt->xCoordOrKeycode;
-			//			if(v7 > 3)
-			//				{
-			//				if(v7 < 636)
-			//					{
-			//					v8 = evt->yCoordOrFieldID;
-			//					if(v8 > 3)
-			//						{
-			//						if(v8 < 476)
-			//							{
-			//							iLastBWOnScreenCheck = KBTickCount() + 500;
-			//							mouseManager::SetPointer(gpMouseManager, 1000);
-			//							}
-			//						}
-			//					}
-			//				}
-			//			}
-			//		}
-			//	}
+				{
+				//if(!*(&bMenu + 7 * giCurExe + 6)) //if(!color_cursor)
+				if(false)
+					{
+					if(KBTickCount() > iLastBWOnScreenCheck)
+						{
+						v7 = evt->xCoordOrKeycode;
+						if(v7 > 3)
+							{
+							if(v7 < SCREEN_WIDTH - 4)
+								{
+								v8 = evt->yCoordOrFieldID;
+								if(v8 > 3)
+									{
+									if(v8 < SCREEN_HEIGHT - 4)
+										{
+										iLastBWOnScreenCheck = KBTickCount() + 500;
+										gpMouseManager->SetPointer(1000);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			break;
 		default:
 			break;
@@ -355,7 +476,7 @@ int __fastcall MouseMessageHandler(void* hWnd, unsigned int msg, unsigned int wP
 			x = evt->xCoordOrKeycode;
 			if(!bInCheckChangeCursor)
 				{
-				//if(!*(&bMenu + 7 * giCurExe + 5) && *(&bMenu + 7 * giCurExe + 6)) //if(!fullscreen && 
+				//if(!*(&bMenu + 7 * giCurExe + 5) && *(&bMenu + 7 * giCurExe + 6)) //if(!fullscreen && colorMouse)
 					{
 					bInCheckChangeCursor = 1;
 					if(x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)

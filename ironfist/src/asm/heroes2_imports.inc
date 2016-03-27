@@ -188,6 +188,9 @@ IMPORT_@BlitBitmapToScreenVesa@28 = 1
 @BlitBitmapToScreenVesa@28_clone EQU @BlitBitmapToScreenVesa_orig@28
 ;;IMPORT_?BlitBitmapToScreenNoMouseCheck@@YIXPAVbitmap@@HHHHHH@Z = 1
 ;;BlitBitmapToScreenNoMouseCheck@@YIXPAVbitmap@@HHHHHH@Z_clone EQU BlitBitmapToScreenNoMouseCheck_orig@@YIXPAVbitmap@@HHHHHH@Z
+IMPORT_?BlitBitmapToScreen@@YIXPAVbitmap@@HHHHHH@Z = 1
+?BlitBitmapToScreen@@YIXPAVbitmap@@HHHHHH@Z_clone EQU ?BlitBitmapToScreen_orig@@YIXPAVbitmap@@HHHHHH@Z
+
 
 ;;adventure screen
 IMPORT_?InMapArea@@YIHHH@Z = 1
@@ -208,7 +211,12 @@ IMPORT_?KeyboardMessageHandler@@YIHPAXIIJ@Z = 1
 ;;mouse input / cursor
 IMPORT_?MouseCoords@mouseManager@@QAEXAAH0@Z = 1
 ?MouseCoords@mouseManager@@QAEXAAH0@Z_clone EQU ?MouseCoords_orig@mouseManager@@QAEXAAH0@Z
-
+IMPORT_?SaveAndDraw@mouseManager@@QAEXXZ = 1
+?SaveAndDraw@mouseManager@@QAEXXZ_clone EQU ?SaveAndDraw_orig@mouseManager@@QAEXXZ
+IMPORT_?RestoreUnderlying@mouseManager@@QAEXXZ = 1
+?RestoreUnderlying@mouseManager@@QAEXXZ_clone EQU ?RestoreUnderlying_orig@mouseManager@@QAEXXZ
+IMPORT_?CheckChangeCursor@@YIXHHH@Z= 1
+?CheckChangeCursor@@YIXHHH@Z_clone EQU ?CheckChangeCursor_orig@@YIXHHH@Z
 
 
 IMPORT_?GetRandomNumTroops@game@@QAEHH@Z = 1

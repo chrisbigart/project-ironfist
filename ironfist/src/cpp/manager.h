@@ -60,6 +60,8 @@ class mouseManager : public baseManager
 
 		mouseManager();
 
+		int IsVis();
+
 		void MouseCoords(int &, int &);
 		void MouseCoords_orig(int &, int &);
 
@@ -69,6 +71,9 @@ class mouseManager : public baseManager
 		void ShowColorPointer();
 		void SetPointer(int);
 		void SetColorMice(int);
+
+		void RestoreUnderlying();
+		void SaveAndDraw();
 	};
 #pragma pack(pop)
 
