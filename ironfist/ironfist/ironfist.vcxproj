@@ -208,6 +208,7 @@
     <ClInclude Include="..\src\cpp\msg.h" />
     <ClInclude Include="..\src\cpp\mss32.h" />
     <ClInclude Include="..\src\cpp\prefs.h" />
+    <ClInclude Include="..\src\cpp\registry_prefs.h" />
     <ClInclude Include="..\src\cpp\resource\resourceManager.h" />
     <ClInclude Include="..\src\cpp\resource\resources.h" />
     <ClInclude Include="..\src\cpp\scripting\hook.h" />
@@ -228,7 +229,10 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VCInstallDir)\bin\ml.exe" /c /Cx /coff "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).obj</Outputs>
     </CustomBuild>
-    <None Include="..\src\asm\heroes2_imports.inc" />
+    <None Include="..\src\asm\advManager_ProcessHover.inc" />
+    <ClInclude Include="..\src\asm\heroes2_imports.inc">
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\resources\windows\ironfist.rc" />

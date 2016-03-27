@@ -572,12 +572,13 @@ void advManager::DrawAdventureBorder()
 		{
 		char* content = new char[128];
 		memset(content, 0, 128);
-		sprintf(content, "%s: %d  %s: %d", "Month", gpGame->month, "Week", gpGame->week);
+		sprintf(content, "%s: %d  %s: %d  %s: %d",
+				"Month", gpGame->month, "Week", gpGame->week, "Day", gpGame->day);
 		day_display_widget = new textWidget(
-				120 + 479,
+				160 + 479,
 				//424,
 				2,
-				145,
+				160,
 				12,
 				content,
 				"smalfont.fnt",

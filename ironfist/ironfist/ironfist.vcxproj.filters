@@ -440,9 +440,15 @@
     <ClInclude Include="..\src\cpp\xbrz\xbrz.h">
       <Filter>Source Files\game</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\asm\heroes2_imports.inc">
+      <Filter>Assembly Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cpp\registry_prefs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\asm\heroes2_imports.inc">
+    <None Include="..\src\asm\advManager_ProcessHover.inc">
       <Filter>Assembly Interop</Filter>
     </None>
   </ItemGroup>

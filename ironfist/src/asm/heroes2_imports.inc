@@ -192,6 +192,8 @@ IMPORT_@BlitBitmapToScreenVesa@28 = 1
 ;;adventure screen
 IMPORT_?InMapArea@@YIHHH@Z = 1
 
+;;IMPORT_?ProcessHover@advManager@@QAEHHH@Z = 1
+
 IMPORT_?Open@heroWindowManager@@UAEHH@Z = 1
 ?Open@heroWindowManager@@UAEHH@Z_clone EQU ?Open_orig@heroWindowManager@@QAEHH@Z
 
