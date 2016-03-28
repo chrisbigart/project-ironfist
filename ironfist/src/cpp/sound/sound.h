@@ -1,12 +1,12 @@
 #ifndef SOUND_H
 #define SOUND_H
 
-typedef void * 	H3DPOBJECT;
-typedef void * 	H3DSAMPLE;
+//typedef void * 	H3DPOBJECT;
+//typedef void * 	H3DSAMPLE;
 typedef void * 	HDIGDRIVER;
-typedef unsigned int 	HPROVIDER;
-typedef void * 	HSAMPLE;
-typedef void * 	HSTREAM;
+//typedef unsigned int 	HPROVIDER;
+//typedef void * 	HSAMPLE;
+//typedef void * 	HSTREAM;
 
 class soundManager {
 public:
@@ -25,8 +25,8 @@ public:
 	int redbookStatus;
 	HDIGDRIVER hdidriver;
 	int field_3E;
-	char _0[22];
-	HSAMPLE hsamples[14];
+	char _0[22];	
+	void * hsamples[14];  //HSAMPLE hsamples[14];
 	int field_90;
 	int field_94;
 	int numSamplesAllocated;

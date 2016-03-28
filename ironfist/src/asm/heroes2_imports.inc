@@ -204,6 +204,10 @@ IMPORT_?Open@heroWindowManager@@UAEHH@Z = 1
 ;;IMPORT_?UpdateRadar@advManager@@QAEXHH@Z = 1
 ;;?UpdateRadar@advManager@@QAEXHH@Z_clone EQU ?UpdateRadar_orig@advManager@@QAEXHH@Z
 
+;;system options
+IMPORT_?SystemOptionsHandler@@YIHAAUtag_message@@@Z = 1
+?SystemOptionsHandler@@YIHAAUtag_message@@@Z_clone EQU ?SystemOptionsHandler_orig@@YIHAAUtag_message@@@Z
+
 ;;keyboard input
 IMPORT_?KeyboardMessageHandler@@YIHPAXIIJ@Z = 1
 ?KeyboardMessageHandler@@YIHPAXIIJ@Z_clone EQU ?KeyboardMessageHandler_orig@@YIHPAXIIJ@Z

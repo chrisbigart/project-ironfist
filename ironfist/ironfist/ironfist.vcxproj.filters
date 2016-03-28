@@ -264,6 +264,9 @@
     <ClCompile Include="..\src\cpp\game\radar.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="sound_h2cdplay.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cpp\stdafx.h">
