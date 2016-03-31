@@ -201,8 +201,8 @@ IMPORT_?Open@heroWindowManager@@UAEHH@Z = 1
 ?Open@heroWindowManager@@UAEHH@Z_clone EQU ?Open_orig@heroWindowManager@@QAEHH@Z
 
 ;;adventure screen 'radar' (mini-map)
-;;IMPORT_?UpdateRadar@advManager@@QAEXHH@Z = 1
-;;?UpdateRadar@advManager@@QAEXHH@Z_clone EQU ?UpdateRadar_orig@advManager@@QAEXHH@Z
+IMPORT_?UpdateRadar@advManager@@QAEXHH@Z = 1
+?UpdateRadar@advManager@@QAEXHH@Z_clone EQU ?UpdateRadar_orig@advManager@@QAEXHH@Z
 
 ;;system options
 IMPORT_?SystemOptionsHandler@@YIHAAUtag_message@@@Z = 1

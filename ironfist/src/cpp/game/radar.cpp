@@ -131,7 +131,10 @@ void advManager::UpdateRadar(int a2, int a3)
 						}
 					else if((*(BYTE *)(v13 + 9) & 0x7F) == 42)
 						{
-						v9 = gpGame->relatedToHeroForHireStatus[(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)];
+						v9 = gpGame->relatedToHeroForHireStatus[
+							//(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)
+							(unsigned __int8)((*(WORD *)(v13 + 4) >> 3)) & 0x1FFF
+							];
 						if(giCurPlayer == v9)
 							{
 							if(v9 < 0)

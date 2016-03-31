@@ -454,6 +454,9 @@
     <None Include="..\src\asm\advManager_ProcessHover.inc">
       <Filter>Assembly Interop</Filter>
     </None>
+    <None Include="advManager_UpdateRadar.inc">
+      <Filter>Assembly Interop</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\resources\windows\ironfist.rc">

@@ -77,91 +77,6 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 	if(draw_mask_4)
 		return WGAppPaint_orig(thisptr, ptr2);
 
-	////if(dword_530418)
-	//if(lpInitWin)
-	//	{
-	//	v2 = BeginPaint(hWnd, &Paint);
-	//	SelectPalette(v2, (HPALETTE)hpalApp, 0);
-	//RealizePalette(v2);
-	//GetClientRect(hWnd, &Rect);
-	//v7 = Rect.right - Rect.left;
-	//v5 = 0 / iMainWinScreenWidth;
-	//v6 = 0 / iMainWinScreenHeight;
-	//if(giScrollX)
-	//	v5 += giScrollX;
-	//if(giScrollY)
-	//	v6 += giScrollY;
-	////++dword_519704;
-	//if(iMainWinScreenWidth != 640 || iMainWinScreenHeight != 480)
-	//	{
-	//	/*old_blt_mode = SetStretchBltMode(hdcDst, COLORONCOLOR);
-	//	ret = StretchBlt(hdcDst, xDst, yDst, widthDst, heightDst,
-	//					 hdcSrc, xSrc, ySrc, widthSrc, heightSrc, SRCCOPY);
-	//	SetStretchBltMode(hdcDst, old_blt_mode);*/
-	//	int old_blt_mode = SetStretchBltMode(v2, COLORONCOLOR);
-	//	StretchBlt(
-	//		v2,
-	//		0,
-	//		0,
-	//		v7,
-	//		Rect.bottom - Rect.top,
-	//		(HDC)hdcImage,
-	//		v5,
-	//		v6,
-	//		640 * v7 / iMainWinScreenWidth,
-	//		480 * (Rect.bottom - Rect.top) / iMainWinScreenHeight,
-	//		SRCCOPY);
-	//	SetStretchBltMode(v2, old_blt_mode);
-	//	}
-	//else
-	//	{
-	//	v7 = Paint.rcPaint.right - (unsigned __int16)(Paint.rcPaint.left & 0xFFFC) + 1;
-	//	BitBlt(
-	//		v2,
-	//		Paint.rcPaint.left & 0xFFFC,
-	//		Paint.rcPaint.top,
-	//		v7,
-	//		Paint.rcPaint.bottom - Paint.rcPaint.top + 1,
-	//		(HDC)hdcImage,
-	//		giScrollX + (unsigned __int16)(Paint.rcPaint.left & 0xFFFC),
-	//		giScrollY + Paint.rcPaint.top,
-	//		MERGECOPY);
-	//	}
-	//EndPaint(hWnd, &Paint);
-	//}
-	//return 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//return 1;
 	///////////////
 	if(lpInitWin)
@@ -184,51 +99,12 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 			v6 += giScrollY;
 		//++dword_519704;
 		//_thunk_WinGStretchBlt@40
-		//extern int __stdcall _thunk_WinGStretchBlt(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);
-		//extern int (*_thunk_WinGStretchBlt)(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);
-		
-		//extern void* __imp__WinGStretchBlt;
-		//int(*WinGStretchBlt_impl)(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD) = (int(*)(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD))__imp__WinGStretchBlt;
-		//BOOL WINAPI WinGStretchBlt(HDC hdcDst, INT xDst, INT yDst, INT widthDst, INT heightDst, HDC hdcSrc, INT xSrc, INT ySrc, INT widthSrc, INT heightSrc);
-		//extern void* _thunk_WinGStretchBlt;
 		if(iMainWinScreenWidth != 640 || iMainWinScreenHeight != 480)
 			{
 			//thunk_WinGStretchBlt(
 			//_thunk_WinGStretchBlt_impl(
 			int sz = Rect.bottom - Rect.top;
-			/*	__asm
-				{
-				mov  eax, [ebp + v7]
-				lea  eax, [eax + eax * 2]
-					lea  eax, [eax + eax * 4]
-					shl  eax, 5
-					cdq
-					idiv iMainWinScreenHeight
-					push  eax
-					mov  eax, [ebp + sz]
-					lea  eax, [eax + eax * 4]
-					shl  eax, 7
-					cdq
-					idiv iMainWinScreenWidth
-					push  eax
-					mov  eax, [ebp + v6]
-					push  eax
-					mov  eax, [ebp + v5]
-					push  eax
-					mov  eax, hdcImage
-					push  eax
-					mov  eax, [ebp + sz]
-					push  eax
-					mov  eax, [ebp + v7]
-					push  eax
-					mov  eax, 0 ;; [ebp + var_68]
-					push  eax
-					mov  eax, 0 ;; [ebp + var_70]
-				push  eax
-				mov  eax, [ebp + v2]
-				push  eax
-				call  _thunk_WinGStretchBlt
-				}*/
+			
 				//WinGStretchBlt_impl(
 				//	(int)v2,
 				//	///v2,
@@ -246,9 +122,10 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 			static HDC buffer_hdc = nullptr;
 			static HBITMAP buffer_bmp = nullptr;
 			//static uint32_t* buffer = nullptr;
+			BITMAP bm1;
+			BITMAP bm2; 
 			if(!buffer_hdc)
 				{
-				BITMAP bm1;
 				HBITMAP screenbmp = (HBITMAP)GetCurrentObject((HDC)hdcImage, OBJ_BITMAP);
 				GetObject(screenbmp, sizeof(BITMAP), &bm1);
 				std::cout << bm1.bmWidth << ", " << bm1.bmWidthBytes << "\n";
@@ -258,9 +135,9 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 				SelectObject(buffer_hdc, buffer_bmp);
 				//buffer = new uint32_t[1280 * 960 * 3];
 				//int res = GetDIBits((HDC)hdcImage, )
-				BITMAP bm; 
-				GetObject(buffer_bmp, sizeof(BITMAP), &bm);
-				std::cout << bm.bmWidth << ", " << bm.bmWidthBytes << "\n";
+				
+				GetObject(buffer_bmp, sizeof(BITMAP), &bm2);
+				std::cout << bm2.bmWidth << ", " << bm2.bmWidthBytes << "\n";
 				}
 			//float factor = .25;
 			//bitmap* screen = gpWindowManager->screenBuffer;
@@ -277,6 +154,13 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 
 			//	}
 			//int mode = GetStretchBltMode((HDC)hdcImage);
+			/*struct _PALETTE {
+    WORD        palVersion;
+	WORD        palNumEntries;
+	_Field_size_opt_(palNumEntries) PALETTEENTRY        palPalEntry[1];
+				};*/
+			//extern struct LogicalPalette;
+			//LOGPALETTE curpal = *(LOGPALETTE*)&LogicalPalette;
 			SetStretchBltMode((HDC)hdcImage, COLORONCOLOR);
 			SetStretchBltMode(buffer_hdc, COLORONCOLOR);
 			BOOL res = BitBlt(buffer_hdc, 0, 0, 800, 480, (HDC)hdcImage, 0, 0, SRCCOPY);
