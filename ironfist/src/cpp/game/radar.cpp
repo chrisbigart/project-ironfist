@@ -9,6 +9,15 @@ extern int giViewWorldScale;
 extern unsigned char giGroundToTerrain[];
 
 
+int xarg1 = 640;
+int xarg2 = 640;
+int xarg3 = 480;
+
+int SCREEN_WIDTH = 800;
+int SCREEN_HEIGHT = 480;
+
+ int RADAR_XOFFSET = 740;
+
 void advManager::UpdateRadar(int a2, int a3)
 	{
 	advManager *v3; // [sp+4Ch] [bp-74h]@1
@@ -40,10 +49,52 @@ void advManager::UpdateRadar(int a2, int a3)
 	int v29; // [sp+B8h] [bp-8h]@12
 	signed __int8 *v30; // [sp+BCh] [bp-4h]@13
 
+
 	extern int iVWMapOriginX;
 	extern int iVWMapOriginY;
-	static char byte_4F0A48[73]; //byte_4F0A48	db 49h	; DATA XREF : advManager__UpdateRadar(int, int) + 43C
-	static char byte_4F0A28[77]; //byte_4F0A28	db 4Dh	; DATA XREF: advManager__UpdateRadar(int,int)+61Cr
+/*
+	align 8
+		IFDEF IMPORT_byte_4F0A28
+		extern byte_4F0A28 : dword
+		ELSE
+		byte_4F0A28     db 4Dh; DATA XREF : advManager__UpdateRadar(int, int) + 61Cr
+		ENDIF
+		IFDEF IMPORT_aBHV6
+		extern aBHV6 : dword
+		ELSE
+		aBHV6           db 'b', 0Dh, 'h v6Î)', 0
+		ENDIF
+		align 8
+
+
+		db  10h
+		db  30h; 0
+		db  62h; b
+		db 0A0h;
+	db  7Eh; ~
+		db  4Ah; J
+		db  6Eh; n
+		db 0B3h; ³
+		db  64h; d
+		db 0DAh; Ú
+		db  0Ch
+		db  0Ch
+		db  0Ch
+		db  0Ch
+		db  0Ch
+		db  0Ch
+		IFDEF IMPORT_byte_4F0A48
+		extern byte_4F0A48 : dword
+		ELSE
+		byte_4F0A48     db 49h; DATA XREF : advManager__UpdateRadar(int, int) + 43Cr
+		ENDIF
+		IFDEF IMPORT_aIRK
+		extern aIRK : dword
+		ELSE
+		aIRK            db 'i¾rÍŠ', 0Ah, 0
+		ENDIF*/
+	static char byte_4F0A48[32] = "i¾rÍŠ"; //byte_4F0A48	db 49h	; DATA XREF : advManager__UpdateRadar(int, int) + 43C
+	static char minimap_terrain_colors[32] = { 0x49, 'b', 0x0D, 'h', ' ', 'v', '6', 'Î' }; //byte_4F0A28	db 4Dh	; DATA XREF: advManager__UpdateRadar(int,int)+61Cr
 	v3 = this;
 	v27 = 36;
 	if(a3)
@@ -76,21 +127,21 @@ void advManager::UpdateRadar(int a2, int a3)
 		switch(MAP_HEIGHT)
 			{
 			case 36:
-				v30 = &gpWindowManager->screenBuffer->contents[128 * (20 * v19 + 80) + 480];
+				v30 = &gpWindowManager->screenBuffer->contents[128 * (20 * v19 + 80) + RADAR_XOFFSET];
 				v14 = 4 * v24;
 				break;
 			case 72:
-				v30 = &gpWindowManager->screenBuffer->contents[128 * (10 * v19 + 80) + 480];
+				v30 = &gpWindowManager->screenBuffer->contents[128 * (10 * v19 + 80) + RADAR_XOFFSET];
 				v14 = 2 * v24;
 				break;
 			case 108:
-				v30 = &gpWindowManager->screenBuffer->contents[128 * (5 * ((v19 + 2) / 3 + v19) + 80) + 480];
+				v30 = &gpWindowManager->screenBuffer->contents[128 * (5 * ((v19 + 2) / 3 + v19) + 80) + RADAR_XOFFSET];
 				v14 = (v24 + 2) / 3 + v24;
 				v28 = v24 % 3;
 				v29 = v19 % 3;
 				break;
 			default:
-				v30 = &gpWindowManager->screenBuffer->contents[128 * (5 * v19 + 80) + 480];
+				v30 = &gpWindowManager->screenBuffer->contents[128 * (5 * v19 + 80) + RADAR_XOFFSET];
 				v14 = v24;
 				break;
 			}
@@ -110,12 +161,12 @@ void advManager::UpdateRadar(int a2, int a3)
 					if(v29 > 2)
 						v29 = 0;
 					if(v29)
-						v30 += 640;
+						v30 += SCREEN_WIDTH;
 					else
-						v30 += 1280;
+						v30 += SCREEN_WIDTH * 2;
 					break;
 				case 144:
-					v30 += 640;
+					v30 += SCREEN_WIDTH;
 					break;
 				default:
 					break;
@@ -211,7 +262,7 @@ void advManager::UpdateRadar(int a2, int a3)
 											v27 = byte_4F0A48[v5];
 											break;
 										default:
-											v27 = byte_4F0A28[(unsigned __int8)giGroundToTerrain[*(WORD *)v13]] + 3;
+											v27 = minimap_terrain_colors[(unsigned __int8)giGroundToTerrain[*(WORD *)v13]] + 3;
 											break;
 										}
 									break;
@@ -233,7 +284,7 @@ void advManager::UpdateRadar(int a2, int a3)
 												v27 = byte_4F0A48[v4];
 												break;
 											default:
-												v27 = byte_4F0A28[(unsigned __int8)giGroundToTerrain[*(WORD *)v13]];
+												v27 = minimap_terrain_colors[(unsigned __int8)giGroundToTerrain[*(WORD *)v13]];
 												break;
 											}
 										break;
@@ -241,7 +292,7 @@ void advManager::UpdateRadar(int a2, int a3)
 							}
 						else
 							{
-							v27 = byte_4F0A28[(unsigned __int8)giGroundToTerrain[*(WORD *)v13]] + 3;
+							v27 = minimap_terrain_colors[(unsigned __int8)giGroundToTerrain[*(WORD *)v13]] + 3;
 							}
 						}
 					}
@@ -253,14 +304,14 @@ void advManager::UpdateRadar(int a2, int a3)
 					{
 					case 36:
 						memset((void *)v26, v27, 4u);
-						memset((void *)(v26 + 640), v27, 4u);
-						memset((void *)(v26 + 1280), v27, 4u);
-						memset((void *)(v26 + 1920), v27, 4u);
+						memset((void *)(v26 + SCREEN_WIDTH), v27, 4u);
+						memset((void *)(v26 + SCREEN_WIDTH * 2), v27, 4u);
+						memset((void *)(v26 + SCREEN_WIDTH * 3), v27, 4u);
 						v26 += 4;
 						break;
 					case 72:
 						memset((void *)v26, v27, 2u);
-						memset((void *)(v26 + 640), v27, 2u);
+						memset((void *)(v26 + SCREEN_WIDTH), v27, 2u);
 						v26 += 2;
 						break;
 					case 108:
@@ -273,7 +324,7 @@ void advManager::UpdateRadar(int a2, int a3)
 							else
 								{
 								*(BYTE *)v26 = v27;
-								*(BYTE *)(v26++ + 640) = v27;
+								*(BYTE *)(v26++ + SCREEN_WIDTH) = v27;
 								}
 							}
 						else if(v29)
@@ -286,8 +337,8 @@ void advManager::UpdateRadar(int a2, int a3)
 							{
 							*(BYTE *)v26 = v27;
 							*(BYTE *)(v26 + 1) = v27;
-							*(BYTE *)(v26 + 640) = v27;
-							*(BYTE *)(v26 + 641) = v27;
+							*(BYTE *)(v26 + SCREEN_WIDTH) = v27;
+							*(BYTE *)(v26 + SCREEN_WIDTH + 1) = v27;
 							v26 += 2;
 							}
 						++v28;
@@ -372,27 +423,28 @@ void advManager::UpdateRadar(int a2, int a3)
 					break;
 				}
 			}
-		if(!v17)
+		//if(!v17)
+		if(false)
 			{
 			if(gbInViewWorld)
 				v3->radarIcon->ClipFillToBuffer(
-					(signed __int64)((double)iVWMapOriginX * v15 + 480.0),
+					(signed __int64)((double)iVWMapOriginX * v15 + xarg1),
 					(signed __int64)((double)iVWMapOriginY * v15 + 16.0),
 					a4,
 					-75,
 					0,
-					480,
+					RADAR_XOFFSET,
 					16,
 					0x90u,
 					144);
 			else
 				v3->radarIcon->ClipFillToBuffer(
-					(signed __int64)((double)v3->viewX * v15 + 480.0),
+					(signed __int64)((double)v3->viewX * v15 + xarg1),
 					(signed __int64)((double)v3->viewY * v15 + 16.0),
 					a4,
 					-75,
 					0,
-					480,
+					RADAR_XOFFSET,
 					16,
 					0x90u,
 					144);
@@ -401,12 +453,12 @@ void advManager::UpdateRadar(int a2, int a3)
 			{
 			if(a3)
 				gpWindowManager->UpdateScreenRegion(
-					(signed __int64)((double)v24 * v15 + 480.0),
+					(signed __int64)((double)v24 * v15 + xarg2),
 					(signed __int64)((double)v19 * v15 + 16.0),
 					(signed __int64)((double)(v25 - v24 + 1) * v15),
 					(signed __int64)((double)(v20 - v19 + 1) * v15));
 			else
-				gpWindowManager->UpdateScreenRegion(480, 16, 0x90u, 144);
+				gpWindowManager->UpdateScreenRegion(xarg3, 16, 0x90u, 144);
 			}
 		}
 	}
