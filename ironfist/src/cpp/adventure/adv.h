@@ -286,6 +286,10 @@ public:
 	void UpdateHeroLocators(int, int);
 	void UpdateTownLocators(int, int);
 
+	int GetCloudLookup(int, int);
+	mapCell* DoAdvCommand();
+	void DoEvent(mapCell *loc, int locX, int locY);
+
     void EventSound(int locType, int locType2, SAMPLE2 *samp);
 
 	virtual int Open(int);

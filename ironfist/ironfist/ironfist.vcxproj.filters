@@ -267,6 +267,9 @@
     <ClCompile Include="sound_h2cdplay.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cpp\adventure\adv_draw.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cpp\stdafx.h">
@@ -455,6 +458,9 @@
       <Filter>Assembly Interop</Filter>
     </None>
     <None Include="advManager_UpdateRadar.inc">
+      <Filter>Assembly Interop</Filter>
+    </None>
+    <None Include="..\src\asm\advManager_ComboDraw.inc">
       <Filter>Assembly Interop</Filter>
     </None>
   </ItemGroup>

@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cpp\adventure\adv.cpp" />
+    <ClCompile Include="..\src\cpp\adventure\adv_draw.cpp" />
     <ClCompile Include="..\src\cpp\adventure\hero.cpp" />
     <ClCompile Include="..\src\cpp\adventure\map.cpp" />
     <ClCompile Include="..\src\cpp\adventure\map_events.cpp" />
@@ -233,6 +234,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).obj</Outputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatOutputAsContent>
     </CustomBuild>
+    <None Include="..\src\asm\advManager_ComboDraw.inc" />
     <None Include="..\src\asm\advManager_ProcessHover.inc" />
     <ClInclude Include="..\src\asm\heroes2_imports.inc">
       <FileType>Document</FileType>

@@ -376,19 +376,446 @@ void advManager::CompleteDraw(int left, int top, int a6, int a5)
 	this->CompleteDraw_orig(left, top, a6, a5);
 	}
 
+
+	extern long __fastcall KBTickCount();
+	void __fastcall Process1WindowsMessage();
+
+	int CELLS_WIDTH = 20;
+	int CELLS_HEIGHT = 15;
 //draw_mask_1 (keyboard "2")
-int advManager::ComboDraw(int a2, int a3, int a4)
+int advManager::ComboDraw(int view_x, int view_y, int a4)
 	{
 	if(draw_mask_1)
-		return ComboDraw_orig(a2, a3, a4);
+		return ComboDraw_orig(view_x, view_y, a4);
 
+	signed int result; // eax@2
+	int v5; // edx@11
+	mapCell *v7; // [sp+10h] [bp-18h]@19
+	mapCell *v8; // [sp+10h] [bp-18h]@81
+	signed int a4a; // [sp+14h] [bp-14h]@11
+	signed int a4b; // [sp+14h] [bp-14h]@55
+	signed int a4c; // [sp+14h] [bp-14h]@69
+	signed int a4d; // [sp+14h] [bp-14h]@79
+	signed int a4e; // [sp+14h] [bp-14h]@105
+	signed int a4f; // [sp+14h] [bp-14h]@122
+	signed int a4g; // [sp+14h] [bp-14h]@130
+	signed int a4h; // [sp+14h] [bp-14h]@143
+	signed int a4i; // [sp+14h] [bp-14h]@177
+	signed int a4j; // [sp+14h] [bp-14h]@185
+	signed int a4k; // [sp+14h] [bp-14h]@193
+	signed int a3a; // [sp+18h] [bp-10h]@13
+	signed int a3b; // [sp+18h] [bp-10h]@53
+	signed int a3c; // [sp+18h] [bp-10h]@71
+	signed int a3d; // [sp+18h] [bp-10h]@77
+	signed int a3e; // [sp+18h] [bp-10h]@107
+	signed int a3f; // [sp+18h] [bp-10h]@124
+	signed int a3g; // [sp+18h] [bp-10h]@132
+	signed int a3h; // [sp+18h] [bp-10h]@138
+	signed int a3i; // [sp+18h] [bp-10h]@145
+	signed int a3j; // [sp+18h] [bp-10h]@150
+	signed int a3k; // [sp+18h] [bp-10h]@155
+	signed int a3l; // [sp+18h] [bp-10h]@167
+	signed int a3m; // [sp+18h] [bp-10h]@172
+	signed int a3n; // [sp+18h] [bp-10h]@179
+	signed int a3o; // [sp+18h] [bp-10h]@187
+	signed int a3p; // [sp+18h] [bp-10h]@195
+	int v36; // [sp+1Ch] [bp-Ch]@111
+	int v37; // [sp+20h] [bp-8h]@111
+	int v38; // [sp+24h] [bp-4h]@193
+
+	extern int giFrameCount;
+	extern int giFrameStep;
+	extern int glTimers;
+	extern int giLimitUpdMinY;
+	extern int giLimitUpdMaxX;
+	extern int giLimitUpdMaxY;
+	extern int giDeferObjDrawX;
+	extern int giDeferObjDrawY;
+
+	const int bcsize = 4*512; //(16 * 16)
+	//BYTE bComboDraw[bcsize]; //memset(&bComboDraw, 0, 0x100u);
+
+
+	struct d
+		{
+		BYTE pre_padding[256];
+		BYTE data[bcsize];
+		BYTE post_padding[256];
+		d()
+			{
+			memset(pre_padding, 0xaa, 256);
+			memset(post_padding, 0xbb, 256);
+			memset(data, 0, bcsize);
+			}
+		BYTE& operator[](const int index)
+			{
+			if(index < 0)
+				{
+				std::cerr << "negative index\n";
+				return pre_padding[128 + index];
+				}
+			if(index > 256)
+				std::cerr << "index out of bounds\n";
+			
+			return data[index];
+			}
+		} bComboDraw;
+
+
+	//BYTE* dword_524D2C = (bComboDraw);
+	//BYTE* byte_524D31 = (bComboDraw + 1);
+	//BYTE* byte_524D3E = (bComboDraw + 14);
+
+	typedef BYTE _BYTE;
+
+	typedef WORD _WORD;
+	
+	PollSound();
 	if(!bShowIt)
 		return 0;
-	//if(this->field_2AE)
-	//	{
-		advManager::CompleteDraw(a2, a3, 0, 1);
+	if(this->field_2AE)
+		{
+		CompleteDraw(view_x, view_y, 0, 1);
 		return 1;
-	//	}
+		}
+	if(a4)
+		{
+		giFrameCount += giFrameStep;
+		if(giFrameCount < 12)
+			{
+			Process1WindowsMessage();
+			if(KBTickCount() > glTimers)
+				glTimers = KBTickCount() + 120;
+			PollSound();
+			return 0;
+			}
+		giFrameCount = 0;
+		}
+	this->field_1DE = this->viewX;
+	this->field_1E2 = this->viewY;
+	//memset(&bComboDraw, 0, 0x100u);
+	this->field_2A2 = 0;
+	for(a4a = 0; a4a < CELLS_HEIGHT; ++a4a)
+		{
+		for(a3a = 0; a3a < CELLS_WIDTH; ++a3a)
+			{
+			if(view_x + a3a >= 0 && view_x + a3a < MAP_WIDTH && view_y + a4a >= 0 && view_y + a4a < MAP_HEIGHT)
+				{
+				v7 = GetCell(view_x + a3a, view_y + a4a);
+				//if(v7->bitfield_1_hasObject_1_isRoad_6_objTileset & 1
+				//	|| v7->field__1_hasOverlay_1_hasLateOverlay_6_overlayTileset & 1)
+				if(v7->hasObject & 1
+					|| v7->hasOverlay & 1)
+					++bComboDraw[ 18 * a3a + a4a];
+				if((v7->objType & 0x7F) == LOCATION_WINDMILL)
+					++bComboDraw[ 18 * a3a + a4a];
+				if((v7->objType & 0x7F) == LOCATION_ALCHEMIST_LAB)
+					++bComboDraw[ 18 * a3a + a4a];
+				if(v7->objType == (TILE_HAS_EVENT | LOCATION_ARMY_CAMP)) // 152)
+					{
+					++bComboDraw[ 18 * a3a + a4a];
+					++bComboDraw[ 9 * (2 * a3a - 2) + a4a];
+					if(GetCloudLookup(view_x + a3a, view_y + a4a))
+						{
+						v5 = a4a;
+						bComboDraw[ 9 * (2 * a3a + 2) + a4a] += 10;
+						if(a4a >= 1)
+							{
+							bComboDraw[18 * a3a + a4a  - 1] += 10;
+							v5 = a4a;
+							bComboDraw[9 * (2 * a3a + 2) + a4a - 1] += 10;
+							}
+						}
+					else
+						{
+						++bComboDraw[ 9 * (2 * a3a + 2) + a4a];
+						if(a4a >= 1)
+							{
+							++bComboDraw[18 * a3a + a4a - 1];
+							++bComboDraw[9 * (2 * a3a + 2) + a4a - 1];
+							}
+						}
+					}
+				if(v7->objType == (TILE_HAS_EVENT | LOCATION_HERO)
+				   || v7->objType == (TILE_HAS_EVENT | LOCATION_BOAT)) //170, 171
+					{
+					++bComboDraw[ 18 * a3a + a4a];
+					if(GetCloudLookup(view_x + a3a, view_y + a4a))
+						{
+						bComboDraw[ 9 * (2 * a3a + 2) + a4a] += 10;
+						bComboDraw[18 * a3a + a4a + 1] += 10;
+						bComboDraw[9 * (2 * a3a + 2) + a4a + 1] += 10;
+						v5 = a4a;
+						bComboDraw[ 9 * (2 * a3a + 4) + a4a] += 10;
+						if(a4a >= 1)
+							{
+							v5 = 18 * a3a;
+							bComboDraw[18 * a3a + a4a - 1] += 10;
+							}
+						if(a3a >= 1)
+							{
+							bComboDraw[ 9 * (2 * a3a - 2) + a4a] += 10;
+							v5 = a4a;
+							bComboDraw[9 * (2 * a3a - 2) + a4a + 1] += 10;
+							if(a3a >= 2)
+								{
+								v5 = a4a;
+								bComboDraw[ 9 * (2 * a3a - 4) + a4a] += 10;
+								}
+							if(a4a >= 1)
+								++bComboDraw[9 * (2 * a3a - 4) + a4a - 1];
+							}
+						}
+					else
+						{
+						++bComboDraw[ 9 * (2 * a3a + 2) + a4a];
+						++bComboDraw[18 * a3a + a4a + 1];
+						++bComboDraw[9 * (2 * a3a + 2) + a4a + 1];
+						++bComboDraw[ 9 * (2 * a3a + 4) + a4a];
+						if(a4a >= 1)
+							++bComboDraw[18 * a3a + a4a - 1];
+						if(a3a >= 1)
+							{
+							++bComboDraw[ 9 * (2 * a3a - 2) + a4a];
+							++bComboDraw[9 * (2 * a3a - 2) + a4a + 1];
+							if(a3a >= 2)
+								++bComboDraw[ 9 * (2 * a3a - 4) + a4a];
+							if(a4a >= 1)
+								++bComboDraw[9 * (2 * a3a - 4) + a4a - 1];
+							}
+						}
+					}
+				}
+			}
+		}
+	for(a3b = 0; a3b < CELLS_WIDTH; ++a3b)
+		{
+		for(a4b = 0; a4b < CELLS_HEIGHT; ++a4b)
+			{
+			if(bComboDraw[ 18 * a3b + a4b])
+				{
+				if(view_x + a3b >= 0 && view_x + a3b < MAP_WIDTH && view_y + a4b >= 0 && view_y + a4b < MAP_HEIGHT)
+					{
+					if((signed int)bComboDraw[ 18 * a3b + a4b] < 10
+						&& !GetCloudLookup(view_x + a3b, view_y + a4b))
+						bComboDraw[ 18 * a3b + a4b] = 0;
+					}
+				else
+					{
+					bComboDraw[ 18 * a3b + a4b] = 0;
+					}
+				}
+			}
+		}
+	if(this->heroMobilized)
+		{
+		for(a4c = 6; a4c <= 8; ++a4c)
+			{
+			for(a3c = 5; a3c <= 9; ++a3c)
+				++bComboDraw[ 18 * a3c + a4c];
+			}
+		}
+	if(this->field_27A == 6)
+		{
+		int a = 0;
+		a++;
+		//++byte_524DA1;
+		//++byte_524DB3;
+		//++byte_524DC5;
+		}
+	for(a3d = 0; a3d < CELLS_WIDTH; ++a3d)
+		{
+		for(a4d = 0; a4d < CELLS_HEIGHT; ++a4d)
+			{
+			v8 = GetCell(view_x + a3d, view_y + a4d);
+			if(v8->objType == (TILE_HAS_EVENT | LOCATION_MINE)) //151)
+				{
+				//if(gpGame->mines[(unsigned __int8)((unsigned __int8)(v8->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5)].guardianType == 59) //ghosts or elementals guarding mines?
+				if(false)
+					{
+					++bComboDraw[ 18 * a3d + a4d];
+					++bComboDraw[ 9 * (2 * a3d + 2) + a4d];
+					if(a3d < 15)
+						++bComboDraw[ 9 * (2 * a3d + 4) + a4d];
+					if(a3d > 0)
+						++bComboDraw[ 9 * (2 * a3d - 2) + a4d];
+					if(a4d > 0)
+						{
+						++bComboDraw[18 * a3d + a4d - 1];
+						++bComboDraw[9 * (2 * a3d + 2) + a4d - 1];
+						if(a3d < 15)
+							++bComboDraw[9 * (2 * a3d + 4) + a4d - 1];
+						if(a3d > 0)
+							++bComboDraw[9 * (2 * a3d - 2) + a4d - 1];
+						}
+					if(a4d > 1)
+						{
+						++bComboDraw[18 * a3d + a4d - 2];
+						++bComboDraw[9 * (2 * a3d + 2) + a4d - 2];
+						if(a3d < 15)
+							++bComboDraw[9 * (2 * a3d + 4) + a4d - 2];
+						if(a3d > 0)
+							++bComboDraw[9 * (2 * a3d - 2) + a4d - 2];
+						}
+					}
+				else if(a4d > 0 && bComboDraw[18 * a3d + a4d - 1])
+					{
+					++bComboDraw[ 18 * a3d + a4d];
+					}
+				}
+			}
+		}
+	if(this->field_A2 && this->sizeOfSomethingMapRelated)
+		{
+		for(a4e = 1; a4e < CELLS_HEIGHT - 1; ++a4e)
+			{
+			for(a3e = 0; a3e < CELLS_WIDTH; ++a3e)
+				{
+				if(bComboDraw[ 18 * a3e + a4e])
+					{
+					v37 = view_x + a3e;
+					v36 = view_y + a4e;
+					if(view_x + a3e >= 0)
+						{
+						if(MAP_WIDTH - 1 >= v37 && v36 >= 1 && MAP_HEIGHT - 2 >= v36)
+							{
+							if(*(_WORD *)(2 * v37 + 2 * v36 * MAP_WIDTH + this->sizeOfSomethingMapRelated))
+								++bComboDraw[18 * a3e + a4e + 1];
+							v5 = *(_WORD *)(2 * v37 + 2 * MAP_WIDTH * (v36 - 1) + this->sizeOfSomethingMapRelated);
+							if(*(_WORD *)(2 * v37 + 2 * MAP_WIDTH * (v36 - 1) + this->sizeOfSomethingMapRelated))
+								++bComboDraw[18 * a3e + a4e - 1];
+							}
+						}
+					}
+				}
+			}
+		}
+	gpMouseManager->couldBeShowMouse = 0;
+	for(a4f = 0; a4f < CELLS_HEIGHT; ++a4f)
+		{
+		for(a3f = 0; a3f < CELLS_WIDTH; ++a3f)
+			{
+			if(bComboDraw[ 18 * a3f + a4f])
+				DrawCell(view_x + a3f, view_y + a4f, a3f, a4f, 1, 0);
+			}
+		}
+	for(a4g = 0; a4g < CELLS_HEIGHT; ++a4g)
+		{
+		for(a3g = 0; a3g < CELLS_WIDTH; ++a3g)
+			{
+			if(bComboDraw[ 18 * a3g + a4g])
+				DrawCell(view_x + a3g, view_y + a4g, a3g, a4g, -128, 0);
+			}
+		}
+	for(a3h = 0; a3h < CELLS_WIDTH; ++a3h)
+		{
+		if(bComboDraw[ 18 * a3h])
+			DrawCell(view_x + a3h, view_y, a3h, 0, 2, 0);
+		}
+	for(a4h = 1; a4h < CELLS_HEIGHT; ++a4h)
+		{
+		PollSound();
+		for(a3i = 0; a3i < CELLS_WIDTH; ++a3i)
+			{
+			if(bComboDraw[18 * a3i + a4h - 1])
+				DrawCell(view_x + a3i, view_y + a4h - 1, a3i, a4h - 1, 8, 0);
+			}
+		for(a3j = 0; a3j < CELLS_WIDTH; ++a3j)
+			{
+			if(bComboDraw[18 * a3j + a4h - 1])
+				DrawCell(view_x + a3j, view_y + a4h - 1, a3j, a4h - 1, 4, 0);
+			}
+		for(a3k = 0; a3k < CELLS_WIDTH; ++a3k)
+			{
+			if(view_x + a3k != giDeferObjDrawX || view_y + a4h != giDeferObjDrawY)
+				{
+				if(view_x + a3k == giDeferObjDrawX && view_y + a4h == giDeferObjDrawY + 1)
+					DrawCell(view_x + a3k, view_y + a4h - 1, a3k, a4h - 1, 2, 0);
+				if(bComboDraw[ 18 * a3k + a4h])
+					DrawCell(view_x + a3k, view_y + a4h, a3k, a4h, 2, 0);
+				}
+			}
+		}
+	for(a3l = 0; a3l < CELLS_WIDTH; ++a3l)
+		{
+		if(bComboDraw[18 * a3l + 14])
+			DrawCell(view_x + a3l, view_y + 14, a3l, 14, 8, 0);
+		}
+	for(a3m = 0; a3m < CELLS_WIDTH; ++a3m)
+		{
+		if(bComboDraw[18 * a3m + 14])
+			DrawCell(view_x + a3m, view_y + 14, a3m, 14, 4, 0);
+		}
+	for(a4i = 0; a4i < CELLS_HEIGHT; ++a4i)
+		{
+		for(a3n = 0; a3n < CELLS_WIDTH; ++a3n)
+			{
+			if(bComboDraw[ 18 * a3n + a4i])
+				DrawCell(view_x + a3n, view_y + a4i, a3n, a4i, 64, 0);
+			}
+		}
+	for(a4j = 0; a4j < CELLS_HEIGHT; ++a4j)
+		{
+		for(a3o = 0; a3o < CELLS_WIDTH; ++a3o)
+			{
+			if(bComboDraw[ 18 * a3o + a4j])
+				DrawCell(view_x + a3o, view_y + a4j, a3o, a4j, 32, 0);
+			}
+		}
+
+	//DrawAdventureBorder(v5);
+	DrawAdventureBorder();
+	gpMouseManager->couldBeShowMouse = 1;
+	PollSound();
+	UpdBottomView(0, 1, 1);
+	giLimitUpdMinX = 15+15;// 15;
+	giLimitUpdMinY = 15;
+	giLimitUpdMaxX = 0;
+	giLimitUpdMaxY = 0;
+	v38 = 0;
+	for(a4k = 0; a4k < CELLS_HEIGHT; ++a4k)
+		{
+		for(a3p = 0; a3p < CELLS_WIDTH; ++a3p)
+			{
+			if(bComboDraw[ 18 * a3p + a4k])
+				{
+				++v38;
+				if(giLimitUpdMinX > a3p)
+					giLimitUpdMinX = a3p;
+				if(a3p > giLimitUpdMaxX)
+					giLimitUpdMaxX = a3p;
+				if(giLimitUpdMinY > a4k)
+					giLimitUpdMinY = a4k;
+				if(giLimitUpdMaxY < a4k)
+					giLimitUpdMaxY = a4k;
+				}
+			}
+		}
+	giLimitUpdMinX *= 32;
+	giLimitUpdMinY *= 32;
+	giLimitUpdMaxX = 32 * (giLimitUpdMaxX + 1) - 1;
+	giLimitUpdMaxY = 32 * (giLimitUpdMaxY + 1) - 1;
+	if(giLimitUpdMinX < 16)
+		giLimitUpdMinX = 16;
+	
+	int max_x = 463 + 160;
+	if(giLimitUpdMaxX > max_x)
+		giLimitUpdMaxX = max_x;
+	if(giLimitUpdMinY < 16)
+		giLimitUpdMinY = 16;
+	if(giLimitUpdMaxY > max_x)
+		giLimitUpdMaxY = max_x;
+	if(giLimitUpdMinX <= giLimitUpdMaxX && giLimitUpdMaxY >= giLimitUpdMinY)
+		{
+		result = 1;
+		}
+	else
+		{
+		giLimitUpdMinX = giLimitUpdMaxX - 1;
+		giLimitUpdMinY = giLimitUpdMaxY - 1;
+		result = 0;
+		}
+	return result;
 	}
 
 //
@@ -591,8 +1018,14 @@ extern "C" void __fastcall BlitBitmapToScreenVesa(bitmap* bmp, int x, int y, uns
 	static int original_width = 640;
 	original_width = 800;
 	gpWindowManager->screenBuffer->width = original_width;
+	
+	if(width >= 448 && width <= 480)
+		width += 160;
+
 	if(width == 640)
 		width = original_width;
+	if(width == 640 - 1)
+		width = original_width - 1;
 
 	const int SCREEN_WIDTH = 800;
 	const int SCREEN_HEIGHT = 480;

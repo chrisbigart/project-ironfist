@@ -3,6 +3,8 @@
 #include "game/game.h"
 #include "scripting/hook.h"
 
+extern int giDebugLevel;
+
 int advManager::ProcessDeSelect(struct tag_message *GUIMessage_evt, int *a3, class mapCell * *a4)
 	{
 	/*
@@ -31,7 +33,24 @@ int advManager::ProcessDeSelect(struct tag_message *GUIMessage_evt, int *a3, cla
 	//todo: check prefs to see if this option is enabled or not
 	if(GUIMessage_evt->yCoordOrFieldID == 4)
 		{
-		gpGame->NextPlayer();
+		//int code = 7;
+		//this->field_36 = code;
+		//*(_DWORD *)a4 = advManager::DoAdvCommand(this);
+		//*a4 = DoAdvCommand();
+
+		extern int TrigX;
+		int trigx = TrigX;
+		int trigy = *((int*)&TrigX + 1);
+		hero* hro = &gpGame->heroes[gpCurPlayer->curHeroIdx];
+		mapCell* cell = GetCell(trigx, trigy);
+		unsigned int pre_objType = cell->objType;
+		unsigned int pre_extraInfo = cell->extraInfo;
+		gpGame->RestoreCell(hro->x, hro->y, hro->occupiedObjType, hro->occupiedObjVal, 0, 99);
+		DoEvent(cell, trigx, trigy);
+		cell->objType = pre_objType;
+		cell->extraInfo = pre_extraInfo;
+		//gpGame->NextPlayer();
+
 		/* //i doubt this is needed but it can be added in if it causes an issue
 		if(if(GUIMessage_evt->yCoordOrFieldID == 4)
 		   ->fieldID >= 2000 && if(GUIMessage_evt->yCoordOrFieldID == 4)

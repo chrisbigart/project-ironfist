@@ -195,6 +195,8 @@ public:
     void ResetIronfistGameState();
     void ShareVision(int sourcePlayer, int destPlayer);
 
+	void RestoreCell(int, int, int, int, class mapCell *, int);
+
     void MakeAllWaterVisible(int player);
     void MakeAllWaterVisible_orig(int player);
 
