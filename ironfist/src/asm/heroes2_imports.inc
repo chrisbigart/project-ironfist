@@ -184,6 +184,9 @@ IMPORT_?DDInitGraphics@@YIXXZ = 1
 IMPORT_?SetGraphicsType@@YIHH@Z = 1
 ?SetGraphicsType@@YIHH@Z_clone EQU ?SetGraphicsType_orig@@YIHH@Z
 
+IMPORT_?FizzleForward@heroWindowManager@@QAEXHHHHHPAC0@Z = 1
+?FizzleForward@heroWindowManager@@QAEXHHHHHPAC0@Z_clone EQU ?FizzleForward_orig@heroWindowManager@@QAEXHHHHHPAC0@Z
+
 IMPORT_@BlitBitmapToScreenVesa@28 = 1
 @BlitBitmapToScreenVesa@28_clone EQU @BlitBitmapToScreenVesa_orig@28
 ;;IMPORT_?BlitBitmapToScreenNoMouseCheck@@YIXPAVbitmap@@HHHHHH@Z = 1

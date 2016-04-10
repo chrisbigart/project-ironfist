@@ -40,6 +40,7 @@ public:
 
   bitmap();
   bitmap(unsigned long);
+  bitmap(__int16 a2, __int16 width, __int16 height);
   ~bitmap();
 };
 

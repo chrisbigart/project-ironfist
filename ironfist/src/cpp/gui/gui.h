@@ -72,13 +72,14 @@ public:
   bitmap *fizzleSource;
   bitmap *field_4E;
   int numScreenshots;
-  int field_56;
+  int cycleColors;
   int buttonPressedCode;
   int hoveredFieldID;
 
   heroWindowManager();
 
   void UpdateScreenRegion(int, int, int, int);
+  void FizzleForward(int, int, int, int, int, signed char *, signed char *);
 
   int DoDialog(heroWindow *,int (__fastcall*)(tag_message &),int);
   int Open(int);

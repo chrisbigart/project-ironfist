@@ -270,6 +270,12 @@
     <ClCompile Include="..\src\cpp\adventure\adv_draw.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cpp\xbrz\xbrz_indexed.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\graphics\fizzle.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cpp\stdafx.h">
@@ -451,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="..\src\cpp\registry_prefs.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cpp\xbrz\xbrz_indexed.h">
+      <Filter>Source Files\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

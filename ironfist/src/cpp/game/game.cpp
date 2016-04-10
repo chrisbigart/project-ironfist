@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <map>
-#include "xbrz/xbrz.h"
+#include "xbrz/xbrz_indexed.h"
 
 extern DWORD dword_4F1CC0;
 extern int giLimitUpdMinX;
@@ -164,11 +164,11 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 			//LOGPALETTE curpal = *(LOGPALETTE*)&LogicalPalette;
 			SetStretchBltMode((HDC)hdcImage, COLORONCOLOR);
 			SetStretchBltMode(buffer_hdc, COLORONCOLOR);
-			BOOL res = BitBlt(buffer_hdc, 0, 0, 800, 480, (HDC)hdcImage, 0, 0, SRCCOPY);
+			//BOOL res = BitBlt(buffer_hdc, 0, 0, 800, 480, (HDC)hdcImage, 0, 0, SRCCOPY);
 			bitmap* screen = gpWindowManager->screenBuffer;
 
-			static uint32_t* srcbuf = new uint32_t[800 * 480];
-			static uint32_t* dstbuf = new uint32_t[1600 * 960];
+			//static uint32_t* srcbuf = new uint32_t[800 * 480];
+			//static uint32_t* dstbuf = new uint32_t[1600 * 960];
 
 			int pos = 0;
 			//if(!draw_mask_7)
@@ -192,44 +192,45 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 
 			if(!draw_mask_6)
 				{
-				pos = 0;
-				//for(int y = 0; y < 480; y++)
-				//	for(int x = 0; x < 800; x++)
-				RECT AdjustedRect;
-				AdjustedRect.left = (Rect.left * 800) / iMainWinScreenWidth;
-				AdjustedRect.right = (Rect.right * 800) / iMainWinScreenWidth;
-				AdjustedRect.top = (Rect.top * 480) / iMainWinScreenHeight;
-				AdjustedRect.bottom = (Rect.bottom * 480) / iMainWinScreenHeight;
-				for(int y = AdjustedRect.top; y < AdjustedRect.bottom; y++)
-					for(int x = AdjustedRect.left; x < AdjustedRect.right; x++)
-						{
-						//COLORREF c = GetPixel((HDC)hdcImage, x, y);
-						unsigned char palettized_color = ((unsigned char*)bm1.bmBits)[y * bm1.bmWidthBytes + x];
-						unsigned char r = colors[palettized_color * 3 + 0];
-						unsigned char g = colors[palettized_color * 3 + 1];
-						unsigned char b = colors[palettized_color * 3 + 2];
-						uint32_t c = (b << 8*2) | (g << 8) | r;
-						
-						reverse_palette[c] = palettized_color;
-						srcbuf[pos++] = c;
-						//SetPixel(buffer_hdc, x, y, c);
-						}
-				xbrz::nearestNeighborScale(srcbuf, 800, 480, dstbuf, 1600, 960);
-				//xbrz::scale(2, srcbuf, dstbuf, 800, 480);
-				//xbrz::scale(2, srcbuf, dstbuf, Rect.right - Rect.left, Rect.top - Rect.bottom);
-				
-				pos = 0;
+				xbrz::nearestNeighborScale((uint8_t*)bm1.bmBits, 800, 480, (uint8_t*)bm2.bmBits, 1600, 960);
+				//pos = 0;
+				////for(int y = 0; y < 480; y++)
+				////	for(int x = 0; x < 800; x++)
+				//RECT AdjustedRect;
+				//AdjustedRect.left = (Rect.left * 800) / iMainWinScreenWidth;
+				//AdjustedRect.right = (Rect.right * 800) / iMainWinScreenWidth;
+				//AdjustedRect.top = (Rect.top * 480) / iMainWinScreenHeight;
+				//AdjustedRect.bottom = (Rect.bottom * 480) / iMainWinScreenHeight;
+				//for(int y = AdjustedRect.top; y < AdjustedRect.bottom; y++)
+				//	for(int x = AdjustedRect.left; x < AdjustedRect.right; x++)
+				//		{
+				//		//COLORREF c = GetPixel((HDC)hdcImage, x, y);
+				//		unsigned char palettized_color = ((unsigned char*)bm1.bmBits)[y * bm1.bmWidthBytes + x];
+				//		unsigned char r = colors[palettized_color * 3 + 0];
+				//		unsigned char g = colors[palettized_color * 3 + 1];
+				//		unsigned char b = colors[palettized_color * 3 + 2];
+				//		uint32_t c = (b << 8*2) | (g << 8) | r;
+				//		
+				//		reverse_palette[c] = palettized_color;
+				//		srcbuf[pos++] = c;
+				//		//SetPixel(buffer_hdc, x, y, c);
+				//		}
+				//xbrz::nearestNeighborScale(srcbuf, 800, 480, dstbuf, 1600, 960);
+				////xbrz::scale(2, srcbuf, dstbuf, 800, 480);
+				////xbrz::scale(2, srcbuf, dstbuf, Rect.right - Rect.left, Rect.top - Rect.bottom);
+				//
+				//pos = 0;
 
-				for(int y = AdjustedRect.top*2; y < AdjustedRect.bottom*2; y++)
-					for(int x = AdjustedRect.left*2; x < AdjustedRect.right*2; x++)
-				//for(int y = 0; y < 960; y++)
-				//	for(int x = 0; x < 1600; x++)
-						{
-						uint32_t c = dstbuf[pos];
-						((unsigned char*)bm2.bmBits)[pos++] = reverse_palette[c];
-						//COLORREF c = dstbuf[pos++];
-						//SetPixel(buffer_hdc, x, y, c);
-						}
+				//for(int y = AdjustedRect.top*2; y < AdjustedRect.bottom*2; y++)
+				//	for(int x = AdjustedRect.left*2; x < AdjustedRect.right*2; x++)
+				////for(int y = 0; y < 960; y++)
+				////	for(int x = 0; x < 1600; x++)
+				//		{
+				//		uint32_t c = dstbuf[pos];
+				//		((unsigned char*)bm2.bmBits)[pos++] = reverse_palette[c];
+				//		//COLORREF c = dstbuf[pos++];
+				//		//SetPixel(buffer_hdc, x, y, c);
+				//		}
 				}
 
 			if(iMainWinScreenWidth != 800 || iMainWinScreenHeight != 600)
@@ -1114,6 +1115,10 @@ LABEL_24:
 	if(height + screenY >= 411)
 	height = 411 - screenY;
 	}*/
+	
+	//v8 = 800;
+	//height = 480;
+
 	Rect.left = screenX * iMainWinScreenWidth / SCREEN_WIDTH;
 	Rect.top = iMainWinScreenHeight * screenY / SCREEN_HEIGHT;
 	Rect.right = iMainWinScreenWidth * (v8 + screenX) / SCREEN_WIDTH - 1;
@@ -1138,6 +1143,8 @@ void __fastcall BlitBitmapToScreen(bitmap *bmp, int xOff, int yOff, int width, i
 	extern BOOL gbColorMice;
 	extern int giScrollX;
 	extern int giScrollY;
+
+	//int xOff 
 
 	x = xOff;
 	bmpa = bmp;
