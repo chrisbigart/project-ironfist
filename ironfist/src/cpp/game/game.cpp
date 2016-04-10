@@ -696,7 +696,7 @@ int advManager::ComboDraw(int view_x, int view_y, int a4)
 		{
 		for(a4e = 1; a4e < CELLS_HEIGHT - 1; ++a4e)
 			{
-			for(a3e = 0; a3e < CELLS_WIDTH; ++a3e)
+			for(a3e = 0; a3e < CELLS_WIDTH - 5; ++a3e)
 				{
 				if(bComboDraw[ 18 * a3e + a4e])
 					{
