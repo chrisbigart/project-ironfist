@@ -19,6 +19,7 @@
 
 namespace
 	{
+
 	template <uint32_t N> inline
 		unsigned char getByte(uint32_t val) { return static_cast<unsigned char>((val >> (8 * N)) & 0xff); }
 

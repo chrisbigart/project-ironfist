@@ -127,7 +127,7 @@ void __fastcall WGInitGraphics()
 		//lpInitWin = (bitmap *)dword_530418;
 		lpInitWin = (void*)*(((DWORD*)&screenImage) + 266);
 		//lpInitWin = pbuffer;
-		PatBlt((HDC)hdcImage, 0, 0, iMainWinScreenWidth, iMainWinScreenHeight, 0x42u);
+		PatBlt((HDC)hdcImage, 0, 0, iMainWinScreenWidth, iMainWinScreenHeight, 0x42u); 
 		}
 
 	}
