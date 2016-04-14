@@ -276,6 +276,9 @@
     <ClCompile Include="..\src\cpp\graphics\fizzle.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cpp\application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cpp\stdafx.h">

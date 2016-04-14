@@ -165,10 +165,11 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 			SetStretchBltMode((HDC)hdcImage, COLORONCOLOR);
 			SetStretchBltMode(buffer_hdc, COLORONCOLOR);
 			//BOOL res = BitBlt(buffer_hdc, 0, 0, 800, 480, (HDC)hdcImage, 0, 0, SRCCOPY);
+			StretchBlt(buffer_hdc, 0, 0, 1600, 960, (HDC)hdcImage, 0, 0, 800, 480, SRCCOPY);
 			bitmap* screen = gpWindowManager->screenBuffer;
 
-			//static uint32_t* srcbuf = new uint32_t[800 * 480];
-			//static uint32_t* dstbuf = new uint32_t[1600 * 960];
+			static uint32_t* srcbuf = new uint32_t[800 * 480];
+			static uint32_t* dstbuf = new uint32_t[1600 * 960];
 
 			int pos = 0;
 			//if(!draw_mask_7)
@@ -192,45 +193,51 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 
 			if(!draw_mask_6)
 				{
-				xbrz::nearestNeighborScale((uint8_t*)bm1.bmBits, 800, 480, (uint8_t*)bm2.bmBits, 1600, 960);
-				//pos = 0;
-				////for(int y = 0; y < 480; y++)
-				////	for(int x = 0; x < 800; x++)
-				//RECT AdjustedRect;
+				//xbrz::nearestNeighborScale((uint8_t*)bm1.bmBits, 800, 480, (uint8_t*)bm2.bmBits, 1600, 960);
+				pos = 0;
+				//for(int y = 0; y < 480; y++)
+				//	for(int x = 0; x < 800; x++)
+				RECT AdjustedRect;
 				//AdjustedRect.left = (Rect.left * 800) / iMainWinScreenWidth;
 				//AdjustedRect.right = (Rect.right * 800) / iMainWinScreenWidth;
 				//AdjustedRect.top = (Rect.top * 480) / iMainWinScreenHeight;
 				//AdjustedRect.bottom = (Rect.bottom * 480) / iMainWinScreenHeight;
 				//for(int y = AdjustedRect.top; y < AdjustedRect.bottom; y++)
 				//	for(int x = AdjustedRect.left; x < AdjustedRect.right; x++)
-				//		{
-				//		//COLORREF c = GetPixel((HDC)hdcImage, x, y);
-				//		unsigned char palettized_color = ((unsigned char*)bm1.bmBits)[y * bm1.bmWidthBytes + x];
-				//		unsigned char r = colors[palettized_color * 3 + 0];
-				//		unsigned char g = colors[palettized_color * 3 + 1];
-				//		unsigned char b = colors[palettized_color * 3 + 2];
-				//		uint32_t c = (b << 8*2) | (g << 8) | r;
-				//		
-				//		reverse_palette[c] = palettized_color;
-				//		srcbuf[pos++] = c;
-				//		//SetPixel(buffer_hdc, x, y, c);
-				//		}
+				for(int y = 0; y < 480 / 4; y++)
+					for(int x = 0; x < 800 / 4; x++)
+						{
+						//COLORREF c = GetPixel((HDC)hdcImage, x, y);
+						unsigned char palettized_color = ((unsigned char*)bm1.bmBits)[y * bm1.bmWidthBytes + x];
+						unsigned char r = colors[palettized_color * 3 + 0];
+						unsigned char g = colors[palettized_color * 3 + 1];
+						unsigned char b = colors[palettized_color * 3 + 2];
+						uint32_t c = (b << 8*2) | (g << 8) | r;
+						
+						reverse_palette[c] = palettized_color;
+						pos = y * 480 + x;
+						srcbuf[pos] = c;
+						//SetPixel(buffer_hdc, x, y, c);
+						}
 				//xbrz::nearestNeighborScale(srcbuf, 800, 480, dstbuf, 1600, 960);
-				////xbrz::scale(2, srcbuf, dstbuf, 800, 480);
-				////xbrz::scale(2, srcbuf, dstbuf, Rect.right - Rect.left, Rect.top - Rect.bottom);
-				//
-				//pos = 0;
+				xbrz::ScalerCfg cfg;
+				cfg.equalColorTolerance_ = 0;
+				xbrz::scale(2, srcbuf, dstbuf, 800, 480, cfg);
+				//xbrz::scale(2, srcbuf, dstbuf, Rect.right - Rect.left, Rect.top - Rect.bottom);
+				
+				pos = 0;
 
 				//for(int y = AdjustedRect.top*2; y < AdjustedRect.bottom*2; y++)
 				//	for(int x = AdjustedRect.left*2; x < AdjustedRect.right*2; x++)
-				////for(int y = 0; y < 960; y++)
-				////	for(int x = 0; x < 1600; x++)
-				//		{
-				//		uint32_t c = dstbuf[pos];
-				//		((unsigned char*)bm2.bmBits)[pos++] = reverse_palette[c];
-				//		//COLORREF c = dstbuf[pos++];
-				//		//SetPixel(buffer_hdc, x, y, c);
-				//		}
+				for(int y = 0; y < 960 / 4; y++)
+					for(int x = 0; x < 1600 / 4; x++)
+						{
+						//uint32_t c = dstbuf[pos];
+						//((unsigned char*)bm2.bmBits)[pos++] = reverse_palette[c];
+						pos = y * 960 + x;
+						COLORREF c = dstbuf[pos];
+						SetPixel(buffer_hdc, x, y, c);
+						}
 				}
 
 			if(iMainWinScreenWidth != 800 || iMainWinScreenHeight != 600)

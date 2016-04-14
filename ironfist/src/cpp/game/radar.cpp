@@ -16,7 +16,7 @@ int xarg3 = 480;
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 480;
 
- int RADAR_XOFFSET = 740;
+ int RADAR_XOFFSET = 800;
 
 void advManager::UpdateRadar(int a2, int a3)
 	{

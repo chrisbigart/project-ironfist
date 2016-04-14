@@ -210,6 +210,12 @@ IMPORT_?Open@heroWindowManager@@UAEHH@Z = 1
 IMPORT_?UpdateRadar@advManager@@QAEXHH@Z = 1
 ?UpdateRadar@advManager@@QAEXHH@Z_clone EQU ?UpdateRadar_orig@advManager@@QAEXHH@Z
 
+;;application functions
+IMPORT_?AppCommand@@YIJPAXIIJ@Z = 1
+?AppCommand@@YIJPAXIIJ@Z_clone EQU ?AppCommand_orig@@YIJPAXIIJ@Z
+IMPORT_?UpdateDfltMenu@@YIXPAX@Z = 1
+?UpdateDfltMenu@@YIXPAX@Z_clone EQU ?UpdateDfltMenu_orig@@YIXPAX@Z
+
 ;;system options
 IMPORT_?SystemOptionsHandler@@YIHAAUtag_message@@@Z = 1
 ?SystemOptionsHandler@@YIHAAUtag_message@@@Z_clone EQU ?SystemOptionsHandler_orig@@YIHAAUtag_message@@@Z
