@@ -57,6 +57,7 @@ void __fastcall WGInitGraphics()
 	//return WGInitGraphics_orig();
 
 	BITMAPINFO& screen_image = *(BITMAPINFO*)&screenImage; //?screenImage@@3U_IMAGE@@A dd ? ; DATA XREF: WGInitGraphics(void):loc_49C59Bo
+
 	
 	//DWORD dword_52FFF4;
 	//DWORD dword_52FFF8 = 0;
@@ -70,7 +71,7 @@ void __fastcall WGInitGraphics()
 							
 	//	typedef struct tagBITMAPINFOHEADER
 	//		{
-	//		DWORD      biSize;
+	//		DWORD      biSize;			=>    0x52FFF0
 	//		LONG       biWidth;			=>dword_52FFF4
 	//		LONG       biHeight;		=>dword_52FFF8
 	//		WORD       biPlanes;		=>word_52FFFC
@@ -111,7 +112,7 @@ void __fastcall WGInitGraphics()
 		else
 			{
 			screen_image.bmiHeader.biSize = 40;			//screen_image = 40;
-			screen_image.bmiHeader.biPlanes = 1;			//word_52FFFC = 1;
+			screen_image.bmiHeader.biPlanes = 1;		//word_52FFFC = 1;
 			screen_image.bmiHeader.biBitCount = 8;		//word_52FFFE = 8;
 			screen_image.bmiHeader.biCompression = 0;	//dword_530000 = 0;
 			screen_image.bmiHeader.biSizeImage = 0;		//dword_530004 = 0;
@@ -128,18 +129,29 @@ void __fastcall WGInitGraphics()
 		screen_image.bmiHeader.biWidth = SCREEN_WIDTH;	//dword_52FFF4 = 640;
 		screen_image.bmiHeader.biHeight = -SCREEN_HEIGHT; //dword_52FFF8 = -480;
 
-		//void* pbuffer = (&screenImage + 266); //not sure exactly what this does
+		int simgsz = sizeof(BITMAPINFOHEADER);
+		void* pbuffer = nullptr;
+
+		/*	HBITMAP WINAPI WinGCreateBitmap(HDC hdc, BITMAPINFO *bmi, void **bits)
+			{
+			    return CreateDIBSection(hdc, bmi, DIB_RGB_COLORS, bits, 0, 0);
+			}*/
+
 		v0 = thunk_WinGCreateBitmap((HDC)hdcImage, &screen_image, 
-									(void**)(((DWORD*)&screenImage) + 266)
-									//&pbuffer
+									//(void**)(((DWORD*)&screenImage) + 266)
+									&pbuffer
 									);
+
+		//screen_image.bmiHeader.biBitCount = 8;
 		screen_image.bmiHeader.biSizeImage = Orientation * 
 									screen_image.bmiHeader.biHeight * screen_image.bmiHeader.biWidth;
 		//sizeof(BITMAPINFO);
 		gbmOldMonoBitmap = (void*)SelectObject((HDC)hdcImage, (HGDIOBJ)v0);
 		//lpInitWin = (bitmap *)dword_530418;
-		lpInitWin = (void*)*(((DWORD*)&screenImage) + 266);
-		//lpInitWin = pbuffer;
+		//lpInitWin = (void*)*(((DWORD*)&screenImage) + 266);
+		*(void**)(((DWORD*)&screenImage) + 266) = pbuffer;  //window will remain white/blank if this is omitted
+		lpInitWin = pbuffer;
+
 		PatBlt((HDC)hdcImage, 0, 0, iMainWinScreenWidth, iMainWinScreenHeight, 0x42u); 
 		}
 

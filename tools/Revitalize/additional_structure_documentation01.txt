@@ -1,0 +1,86 @@
+heroWindow *CSPanel; // idb
+int bMouseWasVis; // weak
+int gbGenieHalf; // weak
+struct tagRECT rcTemp; // idb
+int lTemp; // weak
+int iMainWinScreenHeight; // idb
+int iTempX; // idb
+int iTempY; // idb
+HINSTANCE hInstApp; // idb
+byte bProcessMessage[1024];
+HMENU *hmnuCurrent;
+int iMainWinScreenWidth; // idb
+int iOrigHeroViewID; // weak
+int gbNoDismiss; // weak
+icon *pVWLetters; // idb
+int iVWWhatToDraw; // weak
+int iVWDrawAllObjs; // weak
+int iVWDrawAllTerrains; // weak
+icon *pVWGround; // idb
+int iVWXPixelOffset; // weak
+int iVWYPixelOffset; // weak
+icon *pVWFlags; // idb
+icon *pVWMisc; // idb
+int iVWMapOriginX; // weak
+int iVWMapOriginY; // weak
+int iVWCenterOffset; // weak
+int iVWViewableCells; // weak
+struct tagRECT Rect; // idb
+void dword_52FF80; // idb
+
+int dword_52FFA4; // for DirectDraw screen buffer
+
+						//0x52FFF0 - struct tagBITMAPINFOHEADER {
+int screenImage; 		// DWORD      biSize;			=>    0x52FFF0
+int dword_52FFF4; 		// LONG       biWidth;			=>dword_52FFF4
+int dword_52FFF8; 		// LONG       biHeight;			=>dword_52FFF8
+__int16 word_52FFFC; 	// WORD       biPlanes;			=>word_52FFFC
+__int16 word_52FFFE; 	// WORD       biBitCount;		=>word_52FFFE
+int dword_530000; 		// DWORD      biCompression;	=>dword_530000
+int dword_530004; 		// DWORD      biSizeImage;		=>dword_530004
+						//	LONG       biXPelsPerMeter;	=> (unreferenced)
+						//	LONG       biYPelsPerMeter;	=> (unreferenced)
+int dword_530010; 		// DWORD      biClrUsed;		=>dword_530010
+int dword_530014; 		// DWORD      biClrImportant;	=>dword_530014
+						//} BITMAPINFOHEADER;
+
+PALETTEENTRY redBlueSwappedGlobalPaletteEntries[246];		
+//redBlueSwappedGlobalPaletteEntries PALETTEENTRY 0F6h dup(<?>) 	0xF6 == 246 (256 - 10 - 10)
+
+//PALETTEENTRY[36];
+char byte_5303F0[]; // idb
+char byte_5303F1[]; // idb
+char byte_5303F2[]; // idb
+char byte_5303F3[]; // idb
+
+#pragma pack(push, 1)
+struct bitmap
+{
+  resourceVtable *vtable;
+  RESOURCE_TYPE resourceType;
+  __int16 referenceCount;
+  int fileID;
+  int next;
+  __int16 setInConstructor;
+  __int16 width;
+  __int16 height;
+  char *contents;
+};
+#pragma pack(pop)
+
+					// thisa->screenBuffer->contents = (signed __int8 *)lpInitWin;
+int dword_530418;	// lpInitWin = (bitmap *)dword_530418;
+ 
+				  // struct tagRECT {	
+int dword_530420; //	rc.left = dword_530420;
+int dword_530424; // 	rc.top = *(&dword_530420 + 1);
+int dword_530428; // 	rc.right = *(&dword_530420 + 2);
+int dword_53042C; // 	rc.bottom = *(&dword_530420 + 3);
+				  // } RECT;
+
+struct tagRECT rc; // idb
+int dword_530434; // weak
+int dword_530438; // weak
+int dword_53043C; // weak
+int lPaintStart; // weak
+signed int errorCode; // idb

@@ -17,6 +17,8 @@ extern int giLimitUpdMinX;
 extern class mouseManager* gpMouseManager;
 extern int gbNoCDRom;
 
+extern "C" int __stdcall thunk_WinGRecommendDIBFormat(BITMAPINFO*);
+
 int heroWindowManager::Open(int a2)
 	{
 	//int original_width = this->screenBuffer->width;
@@ -131,8 +133,16 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 				GetObject(screenbmp, sizeof(BITMAP), &bm1);
 				std::cout << bm1.bmWidth << ", " << bm1.bmWidthBytes << "\n";
 
-				buffer_hdc = CreateCompatibleDC((HDC)hdcImage);
-				buffer_bmp = CreateCompatibleBitmap((HDC)hdcImage, 1600, -960);
+				buffer_hdc = CreateCompatibleDC(0);
+				//buffer_hdc = CreateCompatibleDC((HDC)hdcImage);
+				void* bits = 0;
+				BITMAPINFO bmp_info;
+				thunk_WinGRecommendDIBFormat(&bmp_info);
+				bmp_info.bmiHeader.biBitCount = 32;
+				bmp_info.bmiHeader.biWidth = 1600;
+				bmp_info.bmiHeader.biHeight = -960;
+				buffer_bmp = CreateDIBSection(buffer_hdc, &bmp_info, DIB_RGB_COLORS, &bits, 0, 0);
+				//buffer_bmp = CreateCompatibleBitmap((HDC)hdcImage, 1600, -960);
 				SelectObject(buffer_hdc, buffer_bmp);
 				//buffer = new uint32_t[1280 * 960 * 3];
 				//int res = GetDIBits((HDC)hdcImage, )
@@ -169,7 +179,7 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 			bitmap* screen = gpWindowManager->screenBuffer;
 
 			static uint32_t* srcbuf = new uint32_t[800 * 480];
-			static uint32_t* dstbuf = new uint32_t[1600 * 960];
+			//static uint32_t* dstbuf = new uint32_t[1600 * 960];
 
 			int pos = 0;
 			//if(!draw_mask_7)
@@ -204,40 +214,40 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 				//AdjustedRect.bottom = (Rect.bottom * 480) / iMainWinScreenHeight;
 				//for(int y = AdjustedRect.top; y < AdjustedRect.bottom; y++)
 				//	for(int x = AdjustedRect.left; x < AdjustedRect.right; x++)
-				for(int y = 0; y < 480 / 4; y++)
-					for(int x = 0; x < 800 / 4; x++)
+				for(int y = 0; y < 480; y++)
+					for(int x = 0; x < 800; x++)
 						{
 						//COLORREF c = GetPixel((HDC)hdcImage, x, y);
 						unsigned char palettized_color = ((unsigned char*)bm1.bmBits)[y * bm1.bmWidthBytes + x];
 						unsigned char r = colors[palettized_color * 3 + 0];
 						unsigned char g = colors[palettized_color * 3 + 1];
 						unsigned char b = colors[palettized_color * 3 + 2];
-						uint32_t c = (b << 8*2) | (g << 8) | r;
+						uint32_t c = (r << 8*2) | (g << 8) | b;
 						
-						reverse_palette[c] = palettized_color;
-						pos = y * 480 + x;
-						srcbuf[pos] = c;
+						//reverse_palette[c] = palettized_color;
+						//pos = y * 800 + x;
+						srcbuf[pos++] = c;
 						//SetPixel(buffer_hdc, x, y, c);
 						}
 				//xbrz::nearestNeighborScale(srcbuf, 800, 480, dstbuf, 1600, 960);
-				xbrz::ScalerCfg cfg;
-				cfg.equalColorTolerance_ = 0;
-				xbrz::scale(2, srcbuf, dstbuf, 800, 480, cfg);
+				//xbrz::ScalerCfg cfg;
+				//cfg.equalColorTolerance_ = 0;
+				xbrz::scale(2, srcbuf, (uint32_t*)bm2.bmBits, 800, 480);
 				//xbrz::scale(2, srcbuf, dstbuf, Rect.right - Rect.left, Rect.top - Rect.bottom);
 				
 				pos = 0;
 
 				//for(int y = AdjustedRect.top*2; y < AdjustedRect.bottom*2; y++)
 				//	for(int x = AdjustedRect.left*2; x < AdjustedRect.right*2; x++)
-				for(int y = 0; y < 960 / 4; y++)
-					for(int x = 0; x < 1600 / 4; x++)
-						{
-						//uint32_t c = dstbuf[pos];
-						//((unsigned char*)bm2.bmBits)[pos++] = reverse_palette[c];
-						pos = y * 960 + x;
-						COLORREF c = dstbuf[pos];
-						SetPixel(buffer_hdc, x, y, c);
-						}
+				//for(int y = 0; y < 960 / 4; y++)
+				//	for(int x = 0; x < 1600 / 4; x++)
+				//		{
+				//		//uint32_t c = dstbuf[pos];
+				//		//((unsigned char*)bm2.bmBits)[pos++] = reverse_palette[c];
+				//		pos = y * 960 + x;
+				//		COLORREF c = dstbuf[pos];
+				//		SetPixel(buffer_hdc, x, y, c);
+				//		}
 				}
 
 			if(iMainWinScreenWidth != 800 || iMainWinScreenHeight != 600)
