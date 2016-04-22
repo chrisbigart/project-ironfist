@@ -271,6 +271,9 @@ IMPORT_?SetVisibility@game@@QAEXHHHH@Z = 1
 IMPORT_?MakeAllWaterVisible@game@@QAEXH@Z = 1
 ?MakeAllWaterVisible@game@@QAEXH@Z_clone EQU ?MakeAllWaterVisible_orig@game@@QAEXH@Z
 
+IMPORT_?ProcessSelect@advManager@@QAEHPAUtag_message@@PAPAVmapCell@@@Z = 1
+?ProcessSelect@advManager@@QAEHPAUtag_message@@PAPAVmapCell@@@Z_clone EQU ?ProcessSelect_orig@advManager@@QAEHPAUtag_message@@PAPAVmapCell@@@Z
+
 ;;hero movement reminder
 IMPORT_?ProcessDeSelect@advManager@@QAEHPAUtag_message@@PAHPAPAVmapCell@@@Z = 1
 ?ProcessDeSelect@advManager@@QAEHPAUtag_message@@PAHPAPAVmapCell@@@Z_clone EQU ?ProcessDeSelect_orig@advManager@@QAEHPAUtag_message@@PAHPAPAVmapCell@@@Z

@@ -2,17 +2,6 @@
 #include "game/game.h"
 #include "manager.h"
 
-
-extern inputManager* gpInputManager;
-extern BOOL bInCheckChangeCursor;
-extern BOOL bLastMouseOffscreen;
-extern BOOL bLastOnscreenMouseColor;
-
-extern "C" void __fastcall BlitBitmapToScreenVesa(bitmap* bmp, int x, int y, unsigned int width, int height, int screenX, signed int screenY);
-void __fastcall IconToBitmap(class icon * icn, class bitmap * bmp,
-							 int x, int y, int spriteIdx, int a6, int a7, int a8,
-							 int width, int height,
-							 int a11);
 //
 //bool __cdecl advManager::MouseInScrollZone()
 //	{

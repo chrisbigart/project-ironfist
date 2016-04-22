@@ -261,6 +261,7 @@ public:
 	int ComboDraw(int, int, int);
 	int ComboDraw_orig(int, int, int);
 
+	void CompleteDraw(int);
 	void CompleteDraw(int left, int top, int a6, int a5);
 	void CompleteDraw_orig(int left, int top, int a6, int a5);
 
@@ -273,6 +274,18 @@ public:
 
 	void UpdBottomView(int, int, int);
 
+	void HeroQuickView(int, int, int, int);
+	void TownQuickView(int, int, int, int);
+	void SetHeroContext(int, int);
+	void SetTownContext(int);
+	void HideRoute(int, int, int);
+
+	void DoHeroKnob(void);
+	void DoTownKnob(void);
+	void QuickInfo(int, int);
+
+	int ProcessSelect_orig(struct tag_message *, class mapCell * *);
+	int ProcessSelect(struct tag_message *, class mapCell * *);
 	int ProcessDeSelect_orig(struct tag_message *, int *, class mapCell * *);
 	int ProcessDeSelect(struct tag_message *, int *, class mapCell * *);
 

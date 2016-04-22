@@ -100,6 +100,8 @@ class inputManager : public baseManager
 		int field_866;
 
 		inputManager();
+
+		struct tag_message GetEvent(void);
 	};
 #pragma pack(pop)
 

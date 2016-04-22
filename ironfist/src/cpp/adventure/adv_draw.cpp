@@ -5,23 +5,6 @@
 #include "resource/resourceManager.h"
 #include "sound/sound.h"
 
-
-extern int giLimitUpdMinX;
-extern int giFrameCount;
-extern int giFrameStep;
-extern int glTimers;
-extern int giLimitUpdMinY;
-extern int giLimitUpdMaxX;
-extern int giLimitUpdMaxY;
-extern int giDeferObjDrawX;
-extern int giDeferObjDrawY;
-extern int giScrollX;
-extern int giScrollY;
-
-extern void __fastcall BlitBitmapToScreen(bitmap *bmp, int xOff, int yOff, int width, int height, int screenX, int screenY);
-extern long __fastcall KBTickCount();
-extern void __fastcall Process1WindowsMessage();
-
 void advManager::UpdateScreen(int a2, int a3)
 	{
 	static int update_width = 0x1C0u + 160;

@@ -7,20 +7,8 @@ void __fastcall InitGraphics()
 	InitGraphics_orig();
 	}
 
-extern void* hpalApp;
-//extern HPALETTE hpalApp;
-extern void* hdcImage;
-extern void* gbmOldMonoBitmap;
-
-extern "C" int __stdcall thunk_WinGRecommendDIBFormat(BITMAPINFO*);
-extern "C" int __stdcall thunk_WinGCreateDC(void);
-extern "C" HBITMAP __stdcall thunk_WinGCreateBitmap(HDC, BITMAPINFO*, void**);
-
-extern void __fastcall InitializePalette();
 
 extern DWORD dword_530418;
-
-extern struct _IMAGE screenImage;
 
 void __fastcall WGInitGraphics_orig();
 void __fastcall WGInitGraphics()

@@ -13,11 +13,6 @@
 #include "xbrz/xbrz_indexed.h"
 
 extern DWORD dword_4F1CC0;
-extern int giLimitUpdMinX;
-extern class mouseManager* gpMouseManager;
-extern int gbNoCDRom;
-
-extern "C" int __stdcall thunk_WinGRecommendDIBFormat(BITMAPINFO*);
 
 int heroWindowManager::Open(int a2)
 	{
@@ -89,6 +84,11 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 		SelectPalette(v2, (HPALETTE)hpalApp, 0);
 		RealizePalette(v2);
 		GetClientRect(hWnd, &Rect);
+
+
+		std::cout << "GetClientRect:\t["
+			<< Rect.left << ", " << Rect.top << ", " << Rect.bottom << ", " << Rect.right
+			<< "]\n";
 
 		v7 = Rect.right - Rect.left;
 		v5 = 0 / iMainWinScreenWidth;
@@ -476,30 +476,30 @@ int advManager::ComboDraw(int view_x, int view_y, int a4)
 	extern int giDeferObjDrawX;
 	extern int giDeferObjDrawY;
 
-	const int bcsize = 4*512; //(16 * 16)
 	//BYTE bComboDraw[bcsize]; //memset(&bComboDraw, 0, 0x100u);
 
 
+		//static const int bcsize = 4*512; //(16 * 16)
 	struct d
 		{
 		BYTE pre_padding[256];
-		BYTE data[bcsize];
+		BYTE data[4 * 512];
 		BYTE post_padding[256];
 		d()
 			{
 			memset(pre_padding, 0xaa, 256);
 			memset(post_padding, 0xbb, 256);
-			memset(data, 0, bcsize);
+			memset(data, 0, 4 * 512);
 			}
 		BYTE& operator[](const int index)
 			{
 			if(index < 0)
 				{
-				std::cerr << "negative index\n";
+				//std::cerr << "negative index\n";
 				return pre_padding[128 + index];
 				}
-			if(index > 256)
-				std::cerr << "index out of bounds\n";
+			//if(index > 256)
+			//	std::cerr << "index out of bounds\n";
 			
 			return data[index];
 			}
@@ -1140,6 +1140,10 @@ LABEL_24:
 	Rect.top = iMainWinScreenHeight * screenY / SCREEN_HEIGHT;
 	Rect.right = iMainWinScreenWidth * (v8 + screenX) / SCREEN_WIDTH - 1;
 	Rect.bottom = iMainWinScreenHeight * (height + screenY) / SCREEN_HEIGHT - 1;
+
+	std::cout << "InvalidateRect:\t[" 
+		<< Rect.left << ", " << Rect.top << ", " << Rect.bottom << ", " << Rect.right 
+		<< "]\n";
 
 	if(!InvalidateRect((HWND)hwndApp, &Rect, 0))
 		LogStr("InvalidateRect Failed");

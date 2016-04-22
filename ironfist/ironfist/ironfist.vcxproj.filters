@@ -279,6 +279,9 @@
     <ClCompile Include="..\src\cpp\application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cpp\adventure\adv_deselect.cpp">
+      <Filter>Source Files\adventure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cpp\stdafx.h">

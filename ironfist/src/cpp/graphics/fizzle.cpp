@@ -5,23 +5,6 @@
 #include "resource/resourceManager.h"
 #include "sound/sound.h"
 
-//hex-rays decompiler macros
-#define BYTEn(x, n)   (*((_BYTE*)&(x)+n))
-#define WORDn(x, n)   (*((_WORD*)&(x)+n))
-#define BYTE1(x)   BYTEn(x,  1)         // byte 1 (counting from 0)
-#define BYTE2(x)   BYTEn(x,  2)
-#define BYTE3(x)   BYTEn(x,  3)
-#define BYTE4(x)   BYTEn(x,  4)
-//
-
-
-extern void __fastcall BlitBitmapToScreen(bitmap *bmp, int xOff, int yOff, int width, int height, int screenX, int screenY);
-extern void __fastcall DelayTilMilli(long);
-extern long __fastcall KBTickCount();
-extern void __fastcall BlitBitmap(class bitmap *, int, int, int, int, class bitmap *, int, int);
-extern void __fastcall UpdatePalette(signed char *);
-
-
 void heroWindowManager::FizzleForward(int x, int y, int width, int height, int delay, signed char *a7, signed char * a8)
 	{
 	int v8; // ecx@2

@@ -35,6 +35,12 @@ extern "C" {
 	void _start_asm();
 }
 
+int main(int argc, char** argv)
+	{
+	IronfistInit();
+	_start_asm();
+	return 0;
+	}
 
 int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	IronfistInit();

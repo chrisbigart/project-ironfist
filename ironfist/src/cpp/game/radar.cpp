@@ -1,14 +1,6 @@
 #include "base.h"
 #include "game/game.h"
 
-
-extern BOOL gbInViewWorld;
-extern signed char gbThisNetHumanPlayer[];
-extern unsigned char giCurPlayerBit;
-extern int giViewWorldScale;
-extern unsigned char giGroundToTerrain[];
-
-
 int xarg1 = 640;
 int xarg2 = 640;
 int xarg3 = 480;
