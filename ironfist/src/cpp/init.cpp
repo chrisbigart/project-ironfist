@@ -40,11 +40,11 @@ public:
 	highScoreManager();
 };
 
-class searchArray {
-public:
-	char _[9496];
-	searchArray();
-};
+//class searchArray {
+//public:
+//	char _[9496];
+//	searchArray();
+//};
 
 class philAI {
 public:
@@ -58,7 +58,7 @@ extern mouseManager* gpMouseManager;
 extern resourceManager* gpResourceMAnager;
 extern highScoreManager* gpHighScoreManager;
 extern advManager* gpAdvManager;
-extern searchArray* gpSearchArray;
+//extern searchArray* gpSearchArray;
 extern philAI* gpPhilAI;
 extern armyGroup* gpMonGroup;
 

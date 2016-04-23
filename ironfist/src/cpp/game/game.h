@@ -184,6 +184,8 @@ public:
 	void SetVisibility(int,int,int,int);
     void SetVisibility_orig(int, int, int, int);
 
+	int IsMobile(int);
+
 	void ClaimTown(int,int,int);
 
 	void NextPlayer();

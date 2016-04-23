@@ -98,7 +98,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cpp\adventure\adv.cpp" />
-    <ClCompile Include="..\src\cpp\adventure\adv_deselect.cpp" />
+    <ClCompile Include="..\src\cpp\adventure\adv_process_select.cpp" />
     <ClCompile Include="..\src\cpp\adventure\adv_draw.cpp" />
     <ClCompile Include="..\src\cpp\adventure\hero.cpp" />
     <ClCompile Include="..\src\cpp\adventure\map.cpp" />
@@ -123,6 +123,9 @@
     <ClCompile Include="..\src\cpp\game\sound.cpp" />
     <ClCompile Include="..\src\cpp\graphics\fizzle.cpp" />
     <ClCompile Include="..\src\cpp\gui\dialog.cpp" />
+    <ClCompile Include="..\src\cpp\gui\icon_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\src\cpp\gui\msg.cpp" />
     <ClCompile Include="..\src\cpp\init.cpp" />
     <ClCompile Include="..\src\cpp\lib\lua\src\lapi.c" />

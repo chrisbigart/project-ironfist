@@ -22,6 +22,9 @@ public:
   __int16 width;
   __int16 height;
 
+  //widget(widget *this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int16 fieldID, __int16 a7)
+  //widget(short, short, short, short, short, short);
+
   virtual void Draw();
   virtual ~widget();
   virtual int main(tag_message&);
@@ -36,6 +39,18 @@ public:
   //textWidget(__int16 offsetX, __int16 offsetY, __int16 width, __int16 height, char *content, const char *fontName, __int16 a8, __int16 fieldID, __int16 a7, char a11);
 	textWidget(short, short, short, short, char *, char *, short, short, short, short);
 };
+
+class iconWidget : public widget
+	{
+	icon *icon;
+	__int16 imgIdx;
+	char mirror;
+	__int16 field_27;
+	int iconFileID;
+	public:
+		iconWidget(short, short, short, short, char *, short, signed char, short, short, short);
+	
+	};
 
 class heroWindow {
 public:
@@ -58,6 +73,7 @@ public:
   void DrawWindow(int);
   void DrawWindow(int updateScreen, int lowID, int highID);
   int BroadcastMessage(tag_message&);
+  void AddWidget_orig(widget *guiObj, int index);
   void AddWidget(widget *guiObj, int index);
 };
 

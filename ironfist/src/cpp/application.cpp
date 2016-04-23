@@ -7,7 +7,11 @@ enum MENU_BUTTON
 	MENU_BUTTON_800X600 = 0x9C46,
 	MENU_BUTTON_1024X768 = 0x9C47,
 	MENU_BUTTON_1280X1024 = 0x9C48,
-	MENU_BUTTON_FULLSCREEN = 0x9C49,
+	MENU_BUTTON_800X480 = 0x9C49,
+	MENU_BUTTON_2X600 = 0x9C4a,
+	MENU_BUTTON_1280X768 = 0x9C4b,
+	MENU_BUTTON_4X1024 = 0x9C4c,
+	MENU_BUTTON_FULLSCREEN = 0x9C4d,
 	MENU_BUTTON_MANUAL = 0x9C74,
 	MENU_BUTTON_ABOUT = 0x9C75,
 	MENU_BUTTON_PEASANTS = 0xA028,
@@ -195,6 +199,13 @@ long __fastcall AppCommand(void* this_ptr, unsigned int edx0, unsigned int a2, l
 			ResizeWindow(-1, -1, 0x400u, 0x300u);
 			goto LABEL_11;
 		case MENU_BUTTON_1280X1024:
+			ResizeWindow(-1, -1, 0x500u, 0x400u);
+			goto LABEL_11;
+		//widescreen:
+		case MENU_BUTTON_800X480:
+			ResizeWindow(-1, -1, 0x320u, 0x1E0u);
+			goto LABEL_11;
+		case MENU_BUTTON_1280X768:
 			ResizeWindow(-1, -1, 0x500u, 0x300u);
 			goto LABEL_11;
 		//case MENU_BUTTON_FULLSCREEN:

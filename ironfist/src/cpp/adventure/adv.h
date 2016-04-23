@@ -193,8 +193,8 @@ public:
 	int field_CE[64];
 	icon *radarIcon;
 	icon *clopIcon;
-	int viewX;
-	int viewY;
+	int viewX; //0x1D6 (470)
+	int viewY; //0x1DA (474)
 	int field_1DE;
 	int field_1E2;
 	int xOff;
@@ -284,6 +284,8 @@ public:
 	void DoTownKnob(void);
 	void QuickInfo(int, int);
 
+	void ShowRoute(int, int, int);
+
 	int ProcessSelect_orig(struct tag_message *, class mapCell * *);
 	int ProcessSelect(struct tag_message *, class mapCell * *);
 	int ProcessDeSelect_orig(struct tag_message *, int *, class mapCell * *);
@@ -322,6 +324,34 @@ extern int giHeroScreenSrcIndex;
 hero* GetCurrentHero();
 
 int __fastcall GiveArtifact(hero*, int artifact, int checkEndGame, signed char scrollSpell);
+
+#pragma pack(push, 1)
+struct PathfindingInfo
+	{
+	char field_0;
+	char field_1;
+	__int16 field_2;
+	char field_4;
+	int field_5;
+	};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+class searchArray //gpSearchArray is declared as 'class searchArray*' in asm
+	{
+	public:
+		int field_0;
+		int field_4;
+		int field_8;
+		char _1[8];
+		PathfindingInfo mainDataStructure[1024];
+		PathfindingInfo *field_2414;
+		int field_2418;
+		int field_241C[63];
+	};
+#pragma pack(pop)
+
+extern searchArray* gpSearchArray;
 
 #pragma pack(pop)
 

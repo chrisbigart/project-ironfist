@@ -1173,10 +1173,10 @@ void __fastcall BlitBitmapToScreen(bitmap *bmp, int xOff, int yOff, int width, i
 		{
 		if(giScrollX || giScrollY)
 			{
-			v7 = 448;
+			v7 = 448 + 160;
 			v8 = giScrollY + 16;
 			x = giScrollX + 16;
-			height = 448;
+			height = 448 + 160;
 			}
 		else
 			{

@@ -239,6 +239,14 @@ IMPORT_?GetRandomNumTroops@game@@QAEHH@Z = 1
 IMPORT_?NextPlayer@game@@QAEXXZ = 1
 ?NextPlayer@game@@QAEXXZ_clone EQU ?NextPlayer_orig@game@@QAEXXZ
 
+;;gui
+;;IMPORT_??0iconWidget@@QAE@FFFFPADFCFFF@Z = 1
+;;IMPORT_??_GiconWidget@@UAEPAXI@Z = 1
+;;IMPORT_??_7iconWidget@@6B@ = 1
+;;??0iconWidget@@QAE@FFFFPADFCFFF@Z_clone EQU ??0iconWidget_orig@@QAE@FFFFPADFCFFF@Z ;;this does not work
+IMPORT_?AddWidget@heroWindow@@QAEXPAVwidget@@H@Z = 1
+?AddWidget@heroWindow@@QAEXPAVwidget@@H@Z_clone EQU ?AddWidget_orig@heroWindow@@QAEXPAVwidget@@H@Z
+
 ;;hero
 IMPORT_??0hero@@QAE@XZ = 1
 IMPORT_?AddSpell@hero@@QAEXHH@Z = 1
