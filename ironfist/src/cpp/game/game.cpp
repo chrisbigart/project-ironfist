@@ -86,9 +86,9 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 		GetClientRect(hWnd, &Rect);
 
 
-		std::cout << "GetClientRect:\t["
+		/*std::cout << "GetClientRect:\t["
 			<< Rect.left << ", " << Rect.top << ", " << Rect.bottom << ", " << Rect.right
-			<< "]\n";
+			<< "]\n";*/
 
 		v7 = Rect.right - Rect.left;
 		v5 = 0 / iMainWinScreenWidth;
@@ -1020,6 +1020,7 @@ void advManager::RedrawAdvScreen(int a2, int a3)
 		widget* w = adventureScreen->firstWidget;
 		while(w)
 			{
+			std::cout << "widget(" << w->offsetX << ", " << w->offsetY << ")\n";
 			if(w->offsetX >= 480 && w->offsetX < 640)
 				w->offsetX += 160;
 			
@@ -1141,9 +1142,9 @@ LABEL_24:
 	Rect.right = iMainWinScreenWidth * (v8 + screenX) / SCREEN_WIDTH - 1;
 	Rect.bottom = iMainWinScreenHeight * (height + screenY) / SCREEN_HEIGHT - 1;
 
-	std::cout << "InvalidateRect:\t[" 
+	/*std::cout << "InvalidateRect:\t[" 
 		<< Rect.left << ", " << Rect.top << ", " << Rect.bottom << ", " << Rect.right 
-		<< "]\n";
+		<< "]\n";*/
 
 	if(!InvalidateRect((HWND)hwndApp, &Rect, 0))
 		LogStr("InvalidateRect Failed");

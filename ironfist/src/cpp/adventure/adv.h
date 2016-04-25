@@ -273,6 +273,7 @@ public:
 	void SaveAdventureBorder();
 
 	void UpdBottomView(int, int, int);
+	void UpdBottomView_orig(int, int, int);
 
 	void HeroQuickView(int, int, int, int);
 	void TownQuickView(int, int, int, int);

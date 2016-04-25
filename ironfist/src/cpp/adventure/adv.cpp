@@ -3,7 +3,23 @@
 #include "game/game.h"
 #include "scripting/hook.h"
 
-extern int giDebugLevel;
+#include <iostream>
+
+void advManager::UpdBottomView(int a1, int a2, int a3)
+	{
+	UpdBottomView_orig(a1, a2, a3);
+	//widget* w = adventureScreen->firstWidget;
+	//while(w)
+	//	{
+	//	std::cout << "widget(" << w->offsetX << ", " << w->offsetY << ")\n";
+	//	if(w->offsetX >= 480 && w->offsetX < 640)
+	//		w->offsetX += 160;
+
+	//	w->Draw();
+	//	w = w->nextInLinkedList;
+	//	}
+	//this->adventureScreen->DrawWindow(0, 2000, 2200);
+	}
 
 int advManager::ProcessDeSelect(struct tag_message *GUIMessage_evt, int *a3, class mapCell * *a4)
 	{

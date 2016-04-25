@@ -279,11 +279,14 @@
     <ClCompile Include="..\src\cpp\application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cpp\adventure\adv_process_select.cpp">
-      <Filter>Source Files\adventure</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\cpp\gui\icon_widget.cpp">
       <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\adventure\quick_view.cpp">
+      <Filter>Source Files\adventure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\adventure\process_select.cpp">
+      <Filter>Source Files\adventure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

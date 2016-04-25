@@ -9,7 +9,17 @@
 
 void heroWindow::AddWidget(widget *guiObj, int index)
 	{
-	return AddWidget_orig(guiObj, index);
+	for(int i = 0; i < 12; ++i)
+		{
+		if(guiObj == gpAdvManager->someComponents[0][i] ||
+		   guiObj == gpAdvManager->someComponents[1][i])
+			{
+			guiObj->offsetX += 160;
+			}
+		}
+	AddWidget_orig(guiObj, index);
+	if(guiObj->width == 448)
+		guiObj->width += 160;
 	}
 
 //

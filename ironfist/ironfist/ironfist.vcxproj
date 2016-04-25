@@ -98,11 +98,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cpp\adventure\adv.cpp" />
-    <ClCompile Include="..\src\cpp\adventure\adv_process_select.cpp" />
+    <ClCompile Include="..\src\cpp\adventure\process_select.cpp" />
     <ClCompile Include="..\src\cpp\adventure\adv_draw.cpp" />
     <ClCompile Include="..\src\cpp\adventure\hero.cpp" />
     <ClCompile Include="..\src\cpp\adventure\map.cpp" />
     <ClCompile Include="..\src\cpp\adventure\map_events.cpp" />
+    <ClCompile Include="..\src\cpp\adventure\quick_view.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\src\cpp\artifacts.cpp" />
     <ClCompile Include="..\src\cpp\combat\animation.cpp" />
     <ClCompile Include="..\src\cpp\combat\combat.cpp" />

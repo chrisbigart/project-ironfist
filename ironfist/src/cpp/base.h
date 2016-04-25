@@ -66,6 +66,7 @@ extern void __fastcall DelayTilMilli(long);
 extern long __fastcall KBTickCount();
 
 //variable declarations from asm
+extern int giDebugLevel;
 extern int giViewWorldScale;
 extern int giFrameCount;
 extern int giFrameStep;

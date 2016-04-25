@@ -197,11 +197,15 @@ IMPORT_?BlitBitmapToScreen@@YIXPAVbitmap@@HHHHHH@Z = 1
 
 ;;adventure screen
 IMPORT_?InMapArea@@YIHHH@Z = 1
-
 ;;IMPORT_?ProcessHover@advManager@@QAEHHH@Z = 1
 
 IMPORT_?UpdateScreen@advManager@@QAEXHH@Z = 1
 ?UpdateScreen@advManager@@QAEXHH@Z_clone EQU ?UpdateScreen_orig@advManager@@QAEXHH@Z
+IMPORT_?UpdBottomView@advManager@@QAEXHHH@Z = 1
+?UpdBottomView@advManager@@QAEXHHH@Z_clone EQU ?UpdBottomView_orig@advManager@@QAEXHHH@Z
+
+IMPORT_?QuickInfo@advManager@@QAEXHH@Z = 1
+?QuickInfo@advManager@@QAEXHH@Z_clone EQU ?QuickInfo_orig@advManager@@QAEXHH@Z
 
 IMPORT_?Open@heroWindowManager@@UAEHH@Z = 1
 ?Open@heroWindowManager@@UAEHH@Z_clone EQU ?Open_orig@heroWindowManager@@QAEHH@Z
