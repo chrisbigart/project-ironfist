@@ -163,6 +163,8 @@ void __fastcall IconToBitmap(class icon * icn, class bitmap * bmp,
 							 int width, int height,
 							 int a11)
 	{
+	if(width == 640)
+		width += 160;
 	if(width == 480)
 		width += 160;
 	IconToBitmap_orig(icn, bmp, x, y, spriteIdx, a6, a7, a8, width, height, a11);

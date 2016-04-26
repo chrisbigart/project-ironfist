@@ -55,6 +55,8 @@ void advManager::QuickInfo(int a2, int a3)
 
 	extern char* adventureMapLocations[];
 	//char* adventureMapLocations[5000];
+	//?gSecondarySkills@@3PAPADA
+	extern char* gSecondarySkills[];
 
 	
 	int WIDESCREEN_ADDITIONAL_WIDTH = 160;
@@ -429,6 +431,22 @@ void advManager::QuickInfo(int a2, int a3)
 				//		goto LABEL_145;
 				//	sprintf(gText, "Reefs");
 				//	break;
+				case LOCATION_WITCH_HUT:
+					{
+					SECONDARY_SKILL sskill_id = (SECONDARY_SKILL)(map_cell->extraInfo);
+					if(curHero)
+						{
+						sprintf(gText, "%s\n%s%s%s%s", adventureMapLocations[map_cell->objType & 0x7F],
+								"Learn {", gSecondarySkills[sskill_id], "}",
+								curHero->secondarySkillLevel[sskill_id] ? "\n(Already Known)" : "");
+						}
+					else
+						{ //no hero selected
+						sprintf(gText, "%s\n%s%s%s", adventureMapLocations[map_cell->objType & 0x7F],
+								"Learn {", gSecondarySkills[sskill_id], "}");
+						}
+					}
+					break;
 				case LOCATION_SHRINE_FIRST:
 				case LOCATION_SHRINE_SECOND_ORDER:
 				case LOCATION_SHRINE_THIRD_ORDER:

@@ -42,9 +42,22 @@ int advManager::ProcessSelect(struct tag_message * evt, class mapCell * *a3)
 	hero *v8; // [sp+68h] [bp-5Ch]@67
 	int v9; // [sp+6Ch] [bp-58h]@113
 	float v10; // [sp+88h] [bp-3Ch]@98
-	int v11; // [sp+8Ch] [bp-38h]@115 //var_38
-	int v12; // [sp+90h] [bp-34h]@122
-	int v13; // [sp+94h] [bp-30h]@126
+	
+	tag_message event;
+	/*struct tag_message
+		{
+		INPUT_EVENT_CODE eventCode;		//int v11; // [sp+8Ch] [bp-38h]@115 //var_38
+		int xCoordOrKeycode;
+		int yCoordOrFieldID;
+		int inputTypeBitmask;
+		int altXCoord;
+		int altYCoord;
+		void *payload;
+		};*/
+	//event.	
+		//int v12; // [sp+90h] [bp-34h]@122 //var_34
+				//int v13; // [sp+94h] [bp-30h]@126
+	
 	mapCell *cell; // [sp+A8h] [bp-1Ch]@31
 	int v15; // [sp+ACh] [bp-18h]@1
 	int objOrHeroIdx; // [sp+B0h] [bp-14h]@3
@@ -353,35 +366,38 @@ int advManager::ProcessSelect(struct tag_message * evt, class mapCell * *a3)
 				UpdateRadar(1, 0);
 				CompleteDraw(0);
 				UpdateScreen(0, 0);
-				v9 = 0;
-				while(v9 != 16)
+				
+				//v9 = 0;
+				struct tag_message move_event; //v11
+				memset(&event, 0, sizeof(tag_message));
+				memset(&move_event, 0, sizeof(tag_message));
+
+				while(event.eventCode != INPUT_LEFT_UP_EVENT_CODE)
 					{
 					Process1WindowsMessage();
-					struct tag_message msg1 = gpInputManager->GetEvent();
-					memcpy(&v9, &msg1, sizeof(tag_message));
-					memcpy(&v11, &v9, 0x1Cu);
-					while(v9 != 16 && v9)
+					event = gpInputManager->GetEvent();
+					while(event.eventCode != INPUT_LEFT_UP_EVENT_CODE && event.eventCode)
 						{
-						if(v9 == 4)
-							memcpy(&v11, &v9, 0x1Cu);
+						if(event.eventCode == INPUT_MOUSEMOVE_EVENT_CODE)
+							move_event = event;
+						
 						Process1WindowsMessage();
-						struct tag_message msg2 = gpInputManager->GetEvent();
-						memcpy(&v9, &msg2, sizeof(tag_message));
+						event = gpInputManager->GetEvent();
 						}
-					if(v11 == 4)
+					if(move_event.eventCode == INPUT_MOUSEMOVE_EVENT_CODE)
 						{
-						if(v12 < ADV_DRAW_TOTAL_WIDTH)
-							v12 = ADV_DRAW_TOTAL_WIDTH;
-						if(v12 >= 624)
-							v12 = 623;
-						if(v13 < 16)
-							v13 = 16;
-						if(v13 >= 160)
-							v13 = 159;
+						if(move_event.xCoordOrKeycode < ADV_DRAW_TOTAL_WIDTH)
+							move_event.xCoordOrKeycode = ADV_DRAW_TOTAL_WIDTH;
+						if(move_event.xCoordOrKeycode >= 624 + WIDESCREEN_ADDITIONAL_WIDTH)
+							move_event.xCoordOrKeycode = 623 + WIDESCREEN_ADDITIONAL_WIDTH;
+						if(move_event.yCoordOrFieldID < 16)
+							move_event.yCoordOrFieldID = 16;
+						if(move_event.yCoordOrFieldID >= 160)
+							move_event.yCoordOrFieldID = 159;
 						//(*(void(__thiscall **)(mouseManager *))(LODWORD(gpMouseManager->vtable) + 8))(gpMouseManager);
-						gpMouseManager->Main(reinterpret_cast<tag_message&>(v11));
-						quickViewX = (signed __int64)((double)(v12 - ADV_DRAW_TOTAL_WIDTH) / v10);
-						quickViewY = (signed __int64)((double)(v13 - 16) / v10);
+						gpMouseManager->Main(move_event);
+						quickViewX = (int)((move_event.xCoordOrKeycode - ADV_DRAW_TOTAL_WIDTH) / v10);
+						quickViewY = (int)((move_event.yCoordOrFieldID - 16) / v10);
 						thisa->viewX = quickViewX - 7;
 						thisa->viewY = quickViewY - 7;
 						if(thisa->viewX < -7)
@@ -395,7 +411,9 @@ int advManager::ProcessSelect(struct tag_message * evt, class mapCell * *a3)
 						UpdateRadar(1, 0);
 						CompleteDraw(0);
 						UpdateScreen(0, 0);
-						v11 = 0;
+
+						memset(&move_event, 0, sizeof(tag_message));
+						//v11 = 0;
 						}
 					}
 				}

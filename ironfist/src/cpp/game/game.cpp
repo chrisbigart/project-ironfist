@@ -86,9 +86,9 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 		GetClientRect(hWnd, &Rect);
 
 
-		/*std::cout << "GetClientRect:\t["
+		std::cout << "GetClientRect:\t["
 			<< Rect.left << ", " << Rect.top << ", " << Rect.bottom << ", " << Rect.right
-			<< "]\n";*/
+			<< "]\n";
 
 		v7 = Rect.right - Rect.left;
 		v5 = 0 / iMainWinScreenWidth;
@@ -1072,8 +1072,8 @@ extern "C" void __fastcall BlitBitmapToScreenVesa(bitmap* bmp, int x, int y, uns
 	if(width == 640 - 1)
 		width = original_width - 1;
 
-	const int SCREEN_WIDTH = 800;
-	const int SCREEN_HEIGHT = 480;
+	static int SCREEN_WIDTH = 800;
+	static int SCREEN_HEIGHT = 480;
 	//if(screenX >= 480)
 	//	screenX += 160;
 
@@ -1136,15 +1136,18 @@ LABEL_24:
 	
 	//v8 = 800;
 	//height = 480;
+	static int extral = 0;
+	static int extrat = 0;
+	static int extrar = 0;
+	static int extrab = 0;
+	Rect.left = screenX * iMainWinScreenWidth / SCREEN_WIDTH + extral;
+	Rect.top = iMainWinScreenHeight * screenY / SCREEN_HEIGHT + extrat;
+	Rect.right = iMainWinScreenWidth * (v8 + screenX) / SCREEN_WIDTH - 1 + extrar;
+	Rect.bottom = iMainWinScreenHeight * (height + screenY) / SCREEN_HEIGHT - 1 + extrab;
 
-	Rect.left = screenX * iMainWinScreenWidth / SCREEN_WIDTH;
-	Rect.top = iMainWinScreenHeight * screenY / SCREEN_HEIGHT;
-	Rect.right = iMainWinScreenWidth * (v8 + screenX) / SCREEN_WIDTH - 1;
-	Rect.bottom = iMainWinScreenHeight * (height + screenY) / SCREEN_HEIGHT - 1;
-
-	/*std::cout << "InvalidateRect:\t[" 
+	std::cout << "InvalidateRect:\t[" 
 		<< Rect.left << ", " << Rect.top << ", " << Rect.bottom << ", " << Rect.right 
-		<< "]\n";*/
+		<< "]\n";
 
 	if(!InvalidateRect((HWND)hwndApp, &Rect, 0))
 		LogStr("InvalidateRect Failed");
