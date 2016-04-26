@@ -69,7 +69,7 @@ struct bitmap
 #pragma pack(pop)
 
 					// thisa->screenBuffer->contents = (signed __int8 *)lpInitWin;
-int dword_530418;	// lpInitWin = (bitmap *)dword_530418;
+int dword_530418;	// lpInitWin = (bitmap *)dword_530418;  //lpInitWin is NOT a bitmap*, it points to an (unsigned) char array which is the .contents member of a bitmap
  
 				  // struct tagRECT {	
 int dword_530420; //	rc.left = dword_530420;
