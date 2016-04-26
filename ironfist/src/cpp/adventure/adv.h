@@ -245,12 +245,19 @@ public:
 
 	advManager();
 
+	void Reseed(int, int);
+	void SeedTo(int, int);
+
+	int GetCursorBaseFrame(int);
+
 	mapCell *GetCell(int x, int y);
 
 	void PurgeMapChangeQueue();
 	void CheckSetEvilInterface(int,int);
 	
 	void DemobilizeCurrHero();
+	void DeactivateCurrTown();
+	void DeactivateCurrHero();
 
 	void DimensionDoor();
 	void TeleportTo(hero*, int, int, int, int);
@@ -271,13 +278,18 @@ public:
 	void DrawAdventureBorder();
 	void DrawAdventureBorder_orig();
 	void SaveAdventureBorder();
+	void SaveAdventureBorder_orig();
+
+	void SetEnvironmentOrigin(int, int, int);
 
 	void UpdBottomView(int, int, int);
 	void UpdBottomView_orig(int, int, int);
 
 	void HeroQuickView(int, int, int, int);
 	void TownQuickView(int, int, int, int);
+	void SetHeroContext_orig(int, int);
 	void SetHeroContext(int, int);
+	void SetTownContext_orig(int);
 	void SetTownContext(int);
 	void HideRoute(int, int, int);
 

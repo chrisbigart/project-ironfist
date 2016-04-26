@@ -102,6 +102,7 @@ class inputManager : public baseManager
 		inputManager();
 
 		struct tag_message GetEvent(void);
+		void ForceMouseMove();
 	};
 #pragma pack(pop)
 

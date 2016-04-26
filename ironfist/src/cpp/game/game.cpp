@@ -862,50 +862,61 @@ int advManager::ComboDraw(int view_x, int view_y, int a4)
 	return result;
 	}
 
-//
-//void advManager::SaveAdventureBorder()
-//	{
-//	void *result; // eax@1
-//	int v2; // [sp+Ch] [bp-10h]@1
-//	signed int i; // [sp+10h] [bp-Ch]@2
-//	signed int j; // [sp+10h] [bp-Ch]@5
-//	signed int k; // [sp+10h] [bp-Ch]@8
-//	int v6; // [sp+14h] [bp-8h]@2
-//	signed __int8 *v7; // [sp+18h] [bp-4h]@2
-//
-//	const int SCREEN_WIDTH = 800;
-//	const int SCREEN_HEIGHT = 480;
-//
-//	v2 = this;
-//	result = (void *)this;
-//	if(!*(_DWORD *)(this + 186))
-//		{
-//		*(_DWORD *)(this + 186) = BaseAlloc(0x7400u, "F:\\h2xsrc\\Source\\ADVMGR.CPP", word_50FAE8 + 4);
-//		v6 = *(_DWORD *)(v2 + 186);
-//		result = gpWindowManager->screenBuffer->contents;
-//		v7 = gpWindowManager->screenBuffer->contents;
-//		for(i = 0; i < 16; ++i)
-//			{
-//			result = memcpy((void *)v6, v7, 0x1E0u);
-//			v7 += 640;
-//			v6 += 480;
-//			}
-//		for(j = 16; j < 464; ++j)
-//			{
-//			memcpy((void *)v6, v7, 0x10u);
-//			result = memcpy((void *)(v6 + 16), v7 + 464, 0x10u);
-//			v7 += 640;
-//			v6 += 32;
-//			}
-//		for(k = 464; k < 480; ++k)
-//			{
-//			result = memcpy((void *)v6, v7, 0x1E0u);
-//			v7 += 640;
-//			v6 += 480;
-//			}
-//		}
-//	return result;
-//	}
+
+void advManager::SaveAdventureBorder()
+	{
+	//void *result; // eax@1
+	//char* v2; // [sp+Ch] [bp-10h]@1
+	signed int i; // [sp+10h] [bp-Ch]@2
+	signed int j; // [sp+10h] [bp-Ch]@5
+	signed int k; // [sp+10h] [bp-Ch]@8
+	char* v6; // [sp+14h] [bp-8h]@2
+	signed __int8 *v7; // [sp+18h] [bp-4h]@2
+
+	const int SCREEN_WIDTH = 800;
+	const int SCREEN_HEIGHT = 480;
+
+	//v2 = this;
+	//result = (void *)this; 
+
+	//return SaveAdventureBorder_orig();
+	
+	__int8* unknown = (__int8*)field_BA;  //could be related to evil/good interface
+	if(!unknown)
+	//if(!*(_DWORD *)(this + 186))
+		{
+		//*(_DWORD *)(this + 186) = 
+		extern short word_50FAE8;
+		unknown = new char[0x7400u + 0x4200u]; //fixme
+		field_BA = (int)unknown;
+		//unknown = (char*)BaseAlloc(0x7400u + 0x4200, "F:\\h2xsrc\\Source\\ADVMGR.CPP", 8270 + 4);
+		//v6 = *(_DWORD *)(v2 + 186);
+		v6 = unknown;
+		//result = gpWindowManager->screenBuffer->contents;
+		v7 = gpWindowManager->screenBuffer->contents;
+		//return;
+		for(i = 0; i < 16; ++i) //top
+			{
+			memcpy(v6, v7, 0x1E0u + 160);
+			v7 += SCREEN_WIDTH;
+			v6 += 480 + 160;
+			}
+		for(j = 16; j < 464; ++j) //left + right
+			{
+			memcpy(v6, v7, 0x10u); //left
+			memcpy(v6 + 16, v7 + 464 + 160, 0x10u); //right
+			v7 += SCREEN_WIDTH;
+			v6 += 32;
+			}
+		for(k = 464; k < 480; ++k) //bottom
+			{
+			memcpy(v6, v7, 0x1E0u + 160);
+			v7 += SCREEN_WIDTH;
+			v6 += 480 + 160;
+			}
+		}
+	//return result;
+	}
 
 
 //draw_mask_2 (keyboard "3")
@@ -961,23 +972,24 @@ void advManager::DrawAdventureBorder()
 		for(i = 0; i < 16; ++i) //top portion of border
 			{
 			//result = 
-			memcpy(v7, (const void *)v6, 0x1E0u);
+			memcpy(v7, (const void *)v6, 0x1E0u + 160);
 			v7 += SCREEN_WIDTH;
-			v6 += 480;
+			v6 += 480 + 160;
 			}
 		for(j = 16; j < 464; ++j)
 			{
 			memcpy(v7, (const void *)v6, 0x10u); //left side
-			//result = memcpy(v7 + 464, (const void *)(v6 + 16), 0x10u); //right side
-			v7 += 640;
+			result = memcpy(v7 + 464 + 160, v6 + 16, 0x10u); //right side
+			v7 += SCREEN_WIDTH;
 			v6 += 32;
 			}
+		//return;
 		for(k = 464; k < 480; ++k) //bottom
 			{
 			//result = 
-			memcpy(v7, (const void *)v6, 0x1E0u);
+			memcpy(v7, (const void *)v6, 0x1E0u + 160);
 			v7 += SCREEN_WIDTH;
-			v6 += 480;
+			v6 += 480 + 160;
 			}
 		}
 	//return result;
@@ -991,17 +1003,17 @@ void advManager::RedrawAdvScreen(int a2, int a3)
 	const int SCREEN_HEIGHT = 480;
 	if(bShowIt)
 		{
-		/*int old_width =	gpWindowManager->screenBuffer->width;
-		gpWindowManager->screenBuffer->width = 640;
-		gpResourceManager->GetBackdrop("advbord.icn", gpWindowManager->screenBuffer, 1);
-		gpWindowManager->screenBuffer->width = old_width;
-		*/
+		//int old_width =	gpWindowManager->screenBuffer->width;
+		//gpWindowManager->screenBuffer->width = 640;
+		gpResourceManager->GetBackdrop("advbordw.icn", gpWindowManager->screenBuffer, 1);
+		//gpWindowManager->screenBuffer->width = old_width;
+		
 		if(a3)
 			{
 			//BaseFree((void *)this->field_BA, (int)"F:\\h2xsrc\\Source\\ADVMGR.CPP", word_50F7C0 + 9);
 			this->field_BA = 0;
 			}
-		//SaveAdventureBorder();
+		SaveAdventureBorder();
 		UpdateHeroLocators(0, 0);
 		UpdateTownLocators(0, 0);
 		UpdBottomView(1, 0, 0);

@@ -162,6 +162,8 @@ IMPORT_?CompleteDraw@advManager@@QAEXHHHH@Z = 1
 ?CompleteDraw@advManager@@QAEXHHHH@Z_clone EQU ?CompleteDraw_orig@advManager@@QAEXHHHH@Z
 IMPORT_?DrawAdventureBorder@advManager@@QAEXXZ = 1
 ?DrawAdventureBorder@advManager@@QAEXXZ_clone EQU ?DrawAdventureBorder_orig@advManager@@QAEXXZ
+IMPORT_?SaveAdventureBorder@advManager@@QAEXXZ = 1
+?SaveAdventureBorder@advManager@@QAEXXZ_clone EQU ?SaveAdventureBorder_orig@advManager@@QAEXXZ
 IMPORT_?DrawCell@advManager@@QAEXHHHHHH@Z = 1
 ?DrawCell@advManager@@QAEXHHHHHH@Z_clone EQU ?DrawCell_orig@advManager@@QAEXHHHHHH@Z
 IMPORT_?ComboDraw@advManager@@QAEHHHH@Z = 1
@@ -209,6 +211,11 @@ IMPORT_?QuickInfo@advManager@@QAEXHH@Z = 1
 
 IMPORT_?Open@heroWindowManager@@UAEHH@Z = 1
 ?Open@heroWindowManager@@UAEHH@Z_clone EQU ?Open_orig@heroWindowManager@@QAEHH@Z
+
+IMPORT_?SetTownContext@advManager@@QAEXH@Z = 1
+?SetTownContext@advManager@@QAEXH@Z_clone EQU ?SetTownContext_orig@advManager@@QAEXH@Z
+IMPORT_?SetHeroContext@advManager@@QAEXHH@Z = 1
+?SetHeroContext@advManager@@QAEXHH@Z_clone EQU ?SetHeroContext_orig@advManager@@QAEXHH@Z
 
 ;;adventure screen 'radar' (mini-map)
 IMPORT_?UpdateRadar@advManager@@QAEXHH@Z = 1

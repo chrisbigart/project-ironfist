@@ -2,6 +2,7 @@
 #include "adventure/map.h"
 #include "game/game.h"
 #include "scripting/hook.h"
+#include "sound/sound.h"
 
 #include <iostream>
 
@@ -95,6 +96,175 @@ int advManager::ProcessDeSelect(struct tag_message *GUIMessage_evt, int *a3, cla
 		return 1;
 		}
 	return ProcessDeSelect_orig(GUIMessage_evt, a3, a4);
+	}
+
+extern int gbHeroMoving;
+
+void advManager::SetTownContext(int a2)
+	{
+	advManager *result; // eax@12
+	int v4; // [sp+10h] [bp-Ch]@1
+	int v5; // [sp+10h] [bp-Ch]@10
+	signed int i; // [sp+14h] [bp-8h]@1
+	char *v7; // [sp+18h] [bp-4h]@1
+
+	DeactivateCurrHero();
+
+	//mov  al, byte ptr[ebp + arg_0]
+	//mov  ecx, ? gpCurPlayer@@3PAVplayerData@@A
+	//mov	[ecx + 45h], al
+	//LOBYTE(gpCurPlayer->field_45) = a2;
+	*(char*)&gpCurPlayer->field_45 = (char)(a2 & 0xff);
+	v7 = (char *)&gpGame->castles[LOBYTE(gpCurPlayer->field_45)];
+
+	int viewx_diff = 7;
+	//if(widescreen)
+	//viewx_diff = 10;
+	this->viewX = gpGame->castles[LOBYTE(gpCurPlayer->field_45)].x - viewx_diff;
+	this->viewY = (unsigned __int8)v7[5] - 7;
+	v4 = 0;
+	for(i = 0; gpCurPlayer->numCastles > i; ++i)
+		{
+		if(gpCurPlayer->castlesOwned[i] == a2)
+			v4 = i;
+		}
+	if((signed char)HIBYTE(gpCurPlayer->field_45) <= v4)
+		{
+		if(HIBYTE(gpCurPlayer->field_45) + 3 < v4)
+			//HIBYTE(gpCurPlayer->field_45) = v4 - 3;
+			gpCurPlayer->field_45 = (gpCurPlayer->field_45 & 0x00ff) & ((v4 - 3) << 8);
+		}
+	else
+		{
+		//HIBYTE(gpCurPlayer->field_45) = v4;
+		gpCurPlayer->field_45 = (gpCurPlayer->field_45 & 0x00ff) & (v4 << 8);
+		}
+	//this->viewX -= 2;
+	UpdateHeroLocators(1, 1);
+	UpdateTownLocators(1, 1);
+	HideRoute(0, 0, 1);
+	UpdBottomView(1, 1, 1);
+	UpdateRadar(1, 0);
+	CompleteDraw(this->viewX, this->viewY, 0, 1);
+	UpdateScreen(0, 0);
+	SetEnvironmentOrigin(this->viewX + 7, this->viewY + 7, 1);
+	v5 = (unsigned __int8)giGroundToTerrain[GetCell((unsigned __int8)v7[4], (unsigned __int8)v7[5])->groundIndex];
+	if(this->currentTerrain != v5)
+		{
+		this->currentTerrain = v5;
+		gpSoundManager->SwitchAmbientMusic(
+			(unsigned __int8)giTerrainToMusicTrack[this->currentTerrain]);
+		}
+	gpInputManager->ForceMouseMove();
+	result = this;
+	this->xOff = 0;
+	///return result;
+	//SetTownContext_orig(town_id);
+	//if(widescreen)
+	//viewX += 3;
+	}
+
+void advManager::SetHeroContext(int heroIdx, int a3)
+	{
+
+	//this = dword ptr - 20
+	//var_10 = dword ptr - 16
+	//heroOwnedIdx = dword ptr - 12
+	//var_8 = dword ptr - 8
+	//var_4 = dword ptr - 4
+	//heroIdx = dword ptr 8
+	//arg_4 = dword ptr 12
+
+	mapCell *v4; // [sp+10h] [bp-10h]@5
+	int heroOwnedIdx; // [sp+14h] [bp-Ch]@5
+	int heroOwnedIdxa; // [sp+14h] [bp-Ch]@18
+	signed int i; // [sp+18h] [bp-8h]@5
+	hero *hro; // [sp+1Ch] [bp-4h]@2
+
+	typedef unsigned long long QWORD;
+
+	if(heroIdx != -1)
+		{
+		DeactivateCurrTown();
+		HideRoute(0, 0, 1);
+		DeactivateCurrHero();
+		this->heroMobilized = 1;
+		gpCurPlayer->curHeroIdx = heroIdx;
+		hro = &gpGame->heroes[gpCurPlayer->curHeroIdx];
+		int viewx_diff = 7;
+		//if(widescreen)
+		//viewx_diff = 10;
+		this->viewX = gpGame->heroes[gpCurPlayer->curHeroIdx].x - viewx_diff;
+		this->viewY = hro->y - 7;
+		this->field_29A = 7;
+		this->field_292 = this->field_29A;
+		this->field_29E = -1;
+		this->field_296 = this->field_29E;
+		if(hro->flags & HERO_AT_SEA)
+			this->field_27A = 6;
+		else
+			this->field_27A = hro->factionID;
+		this->field_27E = HIBYTE(hro->field_2B);
+		this->field_282 = GetCursorBaseFrame(this->field_27E);
+		v4 = GetCell(hro->x, hro->y);
+		v4->displayFlags |= 0x40u;
+		gpGame->RestoreCell(hro->x, hro->y, hro->occupiedObjType, hro->occupiedObjVal, 0, 4);
+		heroOwnedIdx = 0;
+		for(i = 0; gpCurPlayer->numHeroes > i; ++i)
+			{
+			if(gpCurPlayer->heroesOwned[i] == heroIdx)
+				heroOwnedIdx = i;
+			}
+		if(gpCurPlayer->field_3 <= heroOwnedIdx)
+			{
+			if(gpCurPlayer->field_3 + 3 < heroOwnedIdx)
+				gpCurPlayer->field_3 = heroOwnedIdx - 3;
+			}
+		else
+			{
+			gpCurPlayer->field_3 = heroOwnedIdx;
+			}
+		//this->viewX -= 2;
+		UpdateHeroLocators(1, 1);
+		UpdateTownLocators(1, 1);
+		if(!a3 && (this->ready == 1 || gbThisNetHumanPlayer[giCurPlayer]))
+			{
+			Reseed(0, 0);
+				/*
+				mov  eax, [ebp + var_4]
+				mov  eax, [eax + 25h]
+				push  eax
+				mov  eax, [ebp + var_4]
+				mov  eax, [eax + 21h]
+				push  eax
+				mov  ecx, [ebp + this]
+				call ? SeedTo@advManager@@QAEXHH@Z
+				*/
+			SeedTo(*(DWORD *)&hro->field_21, *(DWORD *)&hro->field_25);
+			ShowRoute(0, 0, 1);
+			}
+		UpdBottomView(1, 1, 1);
+		this->field_272 = 1;
+		UpdateRadar(1, 0);
+		CompleteDraw(this->viewX, this->viewY, 0, 1);
+		UpdateScreen(0, 0);
+		SetEnvironmentOrigin(this->viewX + 7, this->viewY + 7, 1);
+		heroOwnedIdxa = (unsigned __int8)giGroundToTerrain[v4->groundIndex];
+		if(this->currentTerrain != heroOwnedIdxa)
+			{
+			this->currentTerrain = heroOwnedIdxa;
+			gpSoundManager->SwitchAmbientMusic(
+				(unsigned __int8)giTerrainToMusicTrack[this->currentTerrain]);
+			}
+		if(!gbHeroMoving)
+			{
+			gpInputManager->ForceMouseMove();
+			this->xOff = 0;
+			}
+		}
+	//SetHeroContext_orig(a1, a2);
+	//if(widescreen)
+	//viewX += 3;
 	}
 
 int advManager::Open(int idx) {
