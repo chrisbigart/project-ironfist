@@ -48,53 +48,53 @@ int advManager::ProcessDeSelect(struct tag_message *GUIMessage_evt, int *a3, cla
 		}
 	*/
 	//todo: check prefs to see if this option is enabled or not
-	if(GUIMessage_evt->yCoordOrFieldID == 4)
-		{
-		//int code = 7;
-		//this->field_36 = code;
-		//*(_DWORD *)a4 = advManager::DoAdvCommand(this);
-		//*a4 = DoAdvCommand();
+	//if(GUIMessage_evt->yCoordOrFieldID == 4)
+	//	{
+	//	//int code = 7;
+	//	//this->field_36 = code;
+	//	//*(_DWORD *)a4 = advManager::DoAdvCommand(this);
+	//	//*a4 = DoAdvCommand();
 
-		extern int TrigX;
-		int trigx = TrigX;
-		int trigy = *((int*)&TrigX + 1);
-		hero* hro = &gpGame->heroes[gpCurPlayer->curHeroIdx];
-		mapCell* cell = GetCell(trigx, trigy);
-		unsigned int pre_objType = cell->objType;
-		unsigned int pre_extraInfo = cell->extraInfo;
-		gpGame->RestoreCell(hro->x, hro->y, hro->occupiedObjType, hro->occupiedObjVal, 0, 99);
-		DoEvent(cell, trigx, trigy);
-		cell->objType = pre_objType;
-		cell->extraInfo = pre_extraInfo;
-		//gpGame->NextPlayer();
+	//	/*extern int TrigX;
+	//	int trigx = TrigX;
+	//	int trigy = *((int*)&TrigX + 1);
+	//	hero* hro = &gpGame->heroes[gpCurPlayer->curHeroIdx];
+	//	mapCell* cell = GetCell(trigx, trigy);
+	//	unsigned int pre_objType = cell->objType;
+	//	unsigned int pre_extraInfo = cell->extraInfo;
+	//	gpGame->RestoreCell(hro->x, hro->y, hro->occupiedObjType, hro->occupiedObjVal, 0, 99);
+	//	DoEvent(cell, trigx, trigy);
+	//	cell->objType = pre_objType;
+	//	cell->extraInfo = pre_extraInfo;*/
+	//	//gpGame->NextPlayer();
 
-		/* //i doubt this is needed but it can be added in if it causes an issue
-		if(if(GUIMessage_evt->yCoordOrFieldID == 4)
-		   ->fieldID >= 2000 && if(GUIMessage_evt->yCoordOrFieldID == 4)
-		   ->fieldID <= 2200)
-			{
-			if(giBottomViewOverride == 2)
-				{
-				giBottomViewOverride = 1;
-				}
-			else if(giBottomViewOverride)
-				{
-				giBottomViewOverride = 0;
-				}
-			else if(iCurBottomView == 2)
-				{
-				giBottomViewOverride = 1;
-				}
-			else
-				{
-				giBottomViewOverride = 2;
-				}
-			giBottomViewOverrideEndTime = KBTickCount() + 3000;
-			advManager::UpdBottomView(1, 1, 1);
-			}
-		*/
-		return 1;
-		}
+	//	/* //i doubt this is needed but it can be added in if it causes an issue
+	//	if(if(GUIMessage_evt->yCoordOrFieldID == 4)
+	//	   ->fieldID >= 2000 && if(GUIMessage_evt->yCoordOrFieldID == 4)
+	//	   ->fieldID <= 2200)
+	//		{
+	//		if(giBottomViewOverride == 2)
+	//			{
+	//			giBottomViewOverride = 1;
+	//			}
+	//		else if(giBottomViewOverride)
+	//			{
+	//			giBottomViewOverride = 0;
+	//			}
+	//		else if(iCurBottomView == 2)
+	//			{
+	//			giBottomViewOverride = 1;
+	//			}
+	//		else
+	//			{
+	//			giBottomViewOverride = 2;
+	//			}
+	//		giBottomViewOverrideEndTime = KBTickCount() + 3000;
+	//		advManager::UpdBottomView(1, 1, 1);
+	//		}
+	//	*/
+	//	return 1;
+	//	}
 	return ProcessDeSelect_orig(GUIMessage_evt, a3, a4);
 	}
 
