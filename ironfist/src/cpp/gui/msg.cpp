@@ -41,7 +41,7 @@ int heroWindow::BroadcastMessage(tag_message& evt)
 	v4 = 0;
 	for(guiComp = this->firstWidget; guiComp; guiComp = guiComp->nextInLinkedList)
 		{
-		v4 = guiComp->handleEvent(evt);
+		v4 = guiComp->main(evt);
 		if(v4 && v4 >= 1 && v4 <= 2)
 			return v4;
 		}

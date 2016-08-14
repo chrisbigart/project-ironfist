@@ -12,3 +12,6 @@
 *.tlog
 *.opendb
 *.db
+*.exe
+*.ilk
+*.pdb

@@ -28,10 +28,9 @@ public:
 	  cleanUp	dd ?
 	  handleEvent	dd ?
 	  widgetVtable ends*/
-  virtual void Draw();
-  //virtual int handleEvent(tag_message*);
-  virtual ~widget();
-  virtual int main(tag_message&);
+  virtual void Draw(); //aka 'paint'
+  virtual ~widget(); //aka 'cleanUp'
+  virtual int main(tag_message&); //aka 'handleEvent'
 };
 
 class textWidget : public widget {
