@@ -3,3 +3,10 @@
 ################################################################################
 
 *.tlog
+*.obj
+/ironfist/bin
+/ironfist/editor_vs/Debug
+*.suo
+*.log
+*.db
+*.opendb
