@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gui">
+      <UniqueIdentifier>{b37bf750-3e70-4f6f-96ec-673f775550c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\cpp">
+      <UniqueIdentifier>{8e3ba583-45c6-4e01-a39f-b505e7343142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\asm">
+      <UniqueIdentifier>{41ce65e9-aeb9-484f-8680-1a6733d9019d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\Assembly Interop">
+      <UniqueIdentifier>{312ca4bc-ea2e-4050-a85e-c039d425de27}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\tools\gui\README.txt">
+      <Filter>gui</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\tools\gui\src\cpp\baseManager.h">
+      <Filter>gui\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tools\gui\src\cpp\compat.h">
+      <Filter>gui\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tools\gui\src\cpp\gui.h">
+      <Filter>gui\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tools\gui\src\cpp\inspect.h">
+      <Filter>gui\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tools\gui\src\cpp\resource.h">
+      <Filter>gui\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tools\gui\src\cpp\viewer.h">
+      <Filter>gui\cpp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\tools\gui\src\cpp\compat.cpp">
+      <Filter>gui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\gui\src\cpp\export_thunk.cpp">
+      <Filter>gui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\gui\src\cpp\hook.cpp">
+      <Filter>gui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\gui\src\cpp\import_thunk.cpp">
+      <Filter>gui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\gui\src\cpp\inspect.cpp">
+      <Filter>gui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\gui\src\cpp\viewer.cpp">
+      <Filter>gui\cpp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\tools\gui\src\asm\revitalize_exports.inc">
+      <Filter>gui\asm</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\src\asm\heroes2.asm">
+      <Filter>gui\Assembly Interop</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

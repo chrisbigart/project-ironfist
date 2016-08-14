@@ -13,8 +13,10 @@
 *.exe
 *.ilk
 *.pdb
+*.idb
 /ironfist/bin/data/HEROES2.AGG
 /ironfist/bin/data/HEROES2X.AGG
 *.SMK
 *.HS
 *.DAT
+/tools/agg/bin

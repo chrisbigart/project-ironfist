@@ -141,6 +141,9 @@ IMPORT_?NextPlayer@game@@QAEXXZ = 1
 IMPORT_?BroadcastMessage@heroWindow@@QAEHAAUtag_message@@@Z = 1
 ?BroadcastMessage@heroWindow@@QAEHAAUtag_message@@@Z_clone EQU ?BroadcastMessage_orig@heroWindow@@QAEHAAUtag_message@@@Z
 
+IMPORT_?AsciiConvert@inputManager@@QAEXAAUtag_message@@@Z = 1
+?AsciiConvert@inputManager@@QAEXAAUtag_message@@@Z_clone EQU ?AsciiConvert_orig@inputManager@@QAEXAAUtag_message@@@Z
+
 ;;game loop - windows messaging (for lowering cpu usage)
 IMPORT_?Process1WindowsMessage@@YIXXZ = 1
 ?Process1WindowsMessage@@YIXXZ_clone EQU ?Process1WindowsMessage_orig@@YIXXZ
