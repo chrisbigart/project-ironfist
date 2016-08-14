@@ -5,8 +5,6 @@
 /ironfist/bin/maps
 /ironfist/bin/games
 /ironfist/bin/tracks
-/ironfist/bin/data
-/ironfist/editor_vs/Debug/editor_vs.tlog
 *.obj
 *.log
 *.tlog
@@ -15,3 +13,8 @@
 *.exe
 *.ilk
 *.pdb
+/ironfist/bin/data/HEROES2.AGG
+/ironfist/bin/data/HEROES2X.AGG
+*.SMK
+*.HS
+*.DAT
