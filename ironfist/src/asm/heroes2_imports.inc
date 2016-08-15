@@ -143,6 +143,8 @@ IMPORT_?BroadcastMessage@heroWindow@@QAEHAAUtag_message@@@Z = 1
 
 IMPORT_?AsciiConvert@inputManager@@QAEXAAUtag_message@@@Z = 1
 ?AsciiConvert@inputManager@@QAEXAAUtag_message@@@Z_clone EQU ?AsciiConvert_orig@inputManager@@QAEXAAUtag_message@@@Z
+IMPORT_?GetEvent@inputManager@@QAE?AUtag_message@@XZ = 1
+?GetEvent@inputManager@@QAE?AUtag_message@@XZ_clone EQU ?GetEvent_orig@inputManager@@QAE?AUtag_message@@XZ
 
 ;;game loop - windows messaging (for lowering cpu usage)
 IMPORT_?Process1WindowsMessage@@YIXXZ = 1
@@ -205,6 +207,9 @@ IMPORT_?SetVisibility@game@@QAEXHHHH@Z = 1
 ?SetVisibility@game@@QAEXHHHH@Z_clone EQU ?SetVisibility_orig@game@@QAEXHHHH@Z
 IMPORT_?MakeAllWaterVisible@game@@QAEXH@Z = 1
 ?MakeAllWaterVisible@game@@QAEXH@Z_clone EQU ?MakeAllWaterVisible_orig@game@@QAEXH@Z
+
+IMPORT_?PlayerMonsterInteract@advManager@@QAEXPAVmapCell@@0PAVhero@@PAHHHHHH@Z = 1
+?PlayerMonsterInteract@advManager@@QAEXPAVmapCell@@0PAVhero@@PAHHHHHH@Z_clone EQU ?PlayerMonsterInteract_orig@advManager@@QAEXPAVmapCell@@0PAVhero@@PAHHHHHH@Z
 
 ;;hero movement reminder
 IMPORT_?ProcessDeSelect@advManager@@QAEHPAUtag_message@@PAHPAPAVmapCell@@@Z = 1

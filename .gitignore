@@ -14,9 +14,11 @@
 *.ilk
 *.pdb
 *.idb
+*.suo
 /ironfist/bin/data/HEROES2.AGG
 /ironfist/bin/data/HEROES2X.AGG
 *.SMK
 *.HS
 *.DAT
 /tools/agg/bin
+*.enc

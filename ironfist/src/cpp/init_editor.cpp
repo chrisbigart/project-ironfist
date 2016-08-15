@@ -15,18 +15,18 @@ public:
 	executive();
 };
 
-class inputManager {
-public:
-	char _[2154];
-	inputManager();
-};
-
-class mouseManager {
-public:
-	char _[138];
-	mouseManager();
-	void ShowColorPointer();
-};
+//class inputManager {
+//public:
+//	char _[2154];
+//	inputManager();
+//};
+//
+//class mouseManager {
+//public:
+//	char _[138];
+//	mouseManager();
+//	void ShowColorPointer();
+//};
 
 class soundManager {
 public:

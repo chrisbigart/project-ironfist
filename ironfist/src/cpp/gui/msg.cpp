@@ -1,6 +1,7 @@
 #include "msg.h"
 #include "gui/gui.h"
 
+#include <iostream>
 
 void GUIAddFlag(heroWindow* hwnd, int f, int p) {
 	GUIBroadcastMessage(hwnd, f, GUI_MESSAGE_ADD_FLAGS, (void*)p);
@@ -31,6 +32,20 @@ void GUIBroadcastMessage(heroWindow* hwnd, int f, int c, void* p) {
 	evt.payload = p;
 	hwnd->BroadcastMessage(evt);
 }
+
+tag_message inputManager::GetEvent()
+	{
+	tag_message r = GetEvent_orig();
+	if(r.eventCode || r.xCoordOrKeycode)
+		std::cout << "eventCode: " << r.eventCode << "\txCoordOrKeycode: " << r.xCoordOrKeycode << "\n";
+	return r;
+	}
+
+void inputManager::AsciiConvert(tag_message& evt)
+	{
+	AsciiConvert_orig(evt);
+	return;
+	}
 
 int heroWindow::BroadcastMessage(tag_message& evt)
 	{

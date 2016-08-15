@@ -102,6 +102,9 @@ IMPORT_?ReadBlock@resourceManager@@QAEXPACK@Z = 1
 IMPORT_?BroadcastMessage@heroWindow@@QAEHAAUtag_message@@@Z = 1
 ?BroadcastMessage@heroWindow@@QAEHAAUtag_message@@@Z_clone EQU ?BroadcastMessage_orig@heroWindow@@QAEHAAUtag_message@@@Z
 
+IMPORT_?AsciiConvert@inputManager@@QAEXAAUtag_message@@@Z = 1
+?AsciiConvert@inputManager@@QAEXAAUtag_message@@@Z_clone EQU ?AsciiConvert_orig@inputManager@@QAEXAAUtag_message@@@Z
+
 ;;creatures
 
 IMPORT_?cArmyFrameFileNames@@3PAPADA = 1
