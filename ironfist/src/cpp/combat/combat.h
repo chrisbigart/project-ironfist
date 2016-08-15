@@ -246,6 +246,11 @@ public:
 
   int FindResurrectArmyIndex(int side, int spell, int hex);
   void Resurrect(int spell, int hex, int spellpower);
+
+  void CheckGetAIMove();
+  int AICheckRetreat();
+  int DoSpellAI(int, int);
+  void DoCompAI(int);
 };
 
 extern combatManager* gpCombatManager;

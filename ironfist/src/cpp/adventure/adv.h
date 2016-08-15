@@ -204,6 +204,8 @@ public:
 	void PlayerMonsterInteract(mapCell *, mapCell *, hero *, int *, int, int, int, int, int);
 	void PlayerMonsterInteract_orig(mapCell *, mapCell *, hero *, int *, int, int, int, int, int);
 
+	int CombatMonsterEvent(hero *, int, int, mapCell *, int, int, int, int, int, int, int, int, int, int, int);
+
 	virtual int Open(int);
 	int Open_orig(int);
 

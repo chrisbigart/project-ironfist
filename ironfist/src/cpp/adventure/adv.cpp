@@ -126,41 +126,42 @@ class philAI
 	public: int __thiscall philAI::FightValueOfStack(class armyGroup *, class hero *, int, int, int, int);
 	};
 
-class philAI* gpPhilAI;
+extern class philAI* gpPhilAI;
 
-extern DWORD gbInCampaign;
-extern DWORD xIsPlayingExpansionCampaign;
+extern int gbInCampaign;
+extern unsigned char xIsPlayingExpansionCampaign;
 
 
 class ExpCampaign
 	{
 	public: signed char __thiscall ExpCampaign::HasAward(int);
 	};
-extern class ExpCampaign* xCampaign;
+extern class ExpCampaign xCampaign;
 
-extern char ** gEventText;
+extern char* gEventText[];
+extern char* gArmyNamesPlural[];
+extern char* gArmyNames[];
 
-//heroWindow *__thiscall advManager::PlayerMonsterInteract(void *this, mapCell *cell, mapCell *a5, hero *hero, heroWindow *shouldDeleteWindow, __int64 a6, int a8, __int64 a9)
-void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, int* shouldDeleteWindow, int a6, int a7, int a8, int a9, int a10)
+//heroWindow *__thiscall advManager::PlayerMonsterInteract(void *this, mapCell *cell, mapCell *a5, hero *hero, heroWindow *armyShouldBeRemoved, __int64 a6, int a8, __int64 a9)
+void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, int* armyShouldBeRemoved, int a6, int a7, int a8, int a9, int a10)
 	{
-	heroWindow *result; // eax@20
-	void *thisa; // [sp+14h] [bp-14Ch]@1
-	char v10; // [sp+18h] [bp-148h]@69
+	char v10[300]; // [sp+18h] [bp-148h]@69
 	int quantity; // [sp+144h] [bp-1Ch]@57
 	signed int img1Arg; // [sp+148h] [bp-18h]@63
 	int willJoin; // [sp+14Ch] [bp-14h]@1
-	float v14; // [sp+150h] [bp-10h]@1
 	int creat; // [sp+154h] [bp-Ch]@1
-	heroWindow *v16; // [sp+158h] [bp-8h]@78
 	int qty; // [sp+15Ch] [bp-4h]@1
+
+	char byte_518974[] = { '\0', '\0', '\0', '\0' }; // idb
+	char byte_518AFC[] = { '\0', '\0', '\0', '\0' }; // idb
 
 	gpMouseManager->ShowColorPointer();
 	creat = cell->objectIndex;
 	willJoin = cell->extraInfo & 0x1000; //((unsigned __int8)(cell->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5) & 0;
 	qty = cell->extraInfo & 0x0fff; // (unsigned __int8)((unsigned __int8)(cell->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5);
 	
-	v14 = (double)gpPhilAI->FightValueOfStack(&hero->army, hero, 0, 0, 0, 0)
-		/ (double)(qty * gMonsterDatabase[creat].fight_value);
+	float relativeArmyStrength = (float)gpPhilAI->FightValueOfStack(&hero->army, hero, 0, 0, 0, 0)
+		/ (float)(qty * gMonsterDatabase[creat].fight_value);
 	if(gbInCampaign
 	   && (gpGame->hasDwarfAlliance && (creat == CREATURE_DWARF || creat == CREATURE_BATTLE_DWARF)
 		   || gpGame->isDwarfbane && (creat == CREATURE_OGRE || creat == CREATURE_OGRE_LORD)
@@ -201,7 +202,7 @@ void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, i
 				NormalDialog("The dwarves recognize their allies and gladly join your forces.", 1, -1, -1, -1, 0, -1, 0, -1, 0);
 				}
 			hero->army.Add(creat, qty, -1);
-			*shouldDeleteWindow = 1;
+			*armyShouldBeRemoved = 1;
 			}
 		else
 			{
@@ -246,19 +247,19 @@ void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, i
 					-1,
 					0);
 				}
-			*shouldDeleteWindow = 1;
+			*armyShouldBeRemoved = 1;
 			}
 		return;
 		}
 	if(gbInCampaign && gpGame->field_85 && (creat == CREATURE_DWARF || creat == CREATURE_BATTLE_DWARF))
 		{
 		NormalDialog("\"The Dwarfbane!!!!, run for your lives.\"", 1, -1, -1, -1, 0, -1, 0, -1, 0);
-		*shouldDeleteWindow = 1;
+		*armyShouldBeRemoved = 1;
 		return;
 		}
-	if(xIsPlayingExpansionCampaign && xCampaign->HasAward(0) && (creat == 23 || creat == 24))
+	if(xIsPlayingExpansionCampaign && xCampaign.HasAward(0) && (creat == 23 || creat == 24))
 		{
-		*shouldDeleteWindow = 1;
+		*armyShouldBeRemoved = 1;
 		if(hero->army.CanJoin(creat))
 			{
 			NormalDialog(
@@ -300,7 +301,7 @@ void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, i
 		CREATURE_WATER_ELEMENTAL = 65,
 		CREATURE_RANDMON_ANY = 66,*/
 	if(!(hero->army.CanJoin(creat))
-	   || v14 <= 2.0
+	   || relativeArmyStrength <= 2.0
 	   || hero->HasArtifact(70)
 	   || creat == CREATURE_GHOST
 	   || creat == CREATURE_EARTH_ELEMENTAL
@@ -315,7 +316,7 @@ void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, i
 		if(gpWindowManager->buttonPressedCode == 30725)
 			{
 			hero->army.Add(creat, qty, -1);
-			*shouldDeleteWindow = 1;
+			*armyShouldBeRemoved = 1;
 			return;
 			}
 		EventWindow(67, 1, byte_518974, -1, 0, -1, 0, -1);
@@ -324,7 +325,7 @@ void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, i
 	if(!hero->secondarySkillLevel[4])
 		{
 	LABEL_86:
-		if(v14 <= 5.0)
+		if(relativeArmyStrength <= 5.0)
 			goto LABEL_78;
 	LABEL_76:
 		sprintf(
@@ -334,9 +335,8 @@ void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, i
 		advManager::EventWindow(-1, 2, gText, -1, 0, -1, 0, -1);
 		if(gpWindowManager->buttonPressedCode != 30725)
 			{
-			result = shouldDeleteWindow;
-			*shouldDeleteWindow = 1;
-			return result;
+			*armyShouldBeRemoved = 1;
+			return;
 			}
 		goto LABEL_78;
 		}
@@ -370,58 +370,66 @@ void advManager::PlayerMonsterInteract(mapCell* cell, mapCell* a5, hero* hero, i
 			sprintf(gText, "The creatures are swayed by your diplomatic tongue, and make you an offer:\n\n");
 			if(qty == quantity)
 				sprintf(
-					&v10,
+					v10,
 					"All %d of the %s will join your army for the sum of %d gold.  Do you accept?",
 					qty,
 					gArmyNamesPlural[creat],
 					img1Arg);
 			else
 				sprintf(
-					&v10,
+					v10,
 					"%d of the %d %s will join your army, and the rest will leave you alone, for the sum of %d gold.  Do you accept?",
 					quantity,
 					qty,
 					gArmyNamesPlural[creat],
 					img1Arg);
-			strcat(gText, &v10);
+			strcat(gText, v10);
 			}
 		NormalDialog(gText, 2, -1, -1, 6, img1Arg, -1, 0, -1, 0);
 		if(gpWindowManager->buttonPressedCode == 30725)
 			{
-			armyGroup::Add(&hero->army, creat, quantity, -1);
-			*shouldDeleteWindow = 1;
-			result = (heroWindow *)img1Arg;
+			hero->army.Add(creat, quantity, -1);
+			*armyShouldBeRemoved = 1;
 			gpGame->players[hero->ownerIdx].resources[6] -= img1Arg;
-			return result;
+			return;
 			}
-		advManager::EventWindow(67, 1, byte_518AFC, -1, 0, -1, 0, -1);
+
+		//advManager::EventWindow(67, 1, byte_518AFC, -1, 0, -1, 0, -1); //insulted by your refusal, the monsters attack! dialog
+		sprintf(
+			gText,
+			"The %s, awed by the power of your forces, begin to scatter.  Do you wish to pursue and engage them?",
+			gArmyNamesPlural[creat]);
+		advManager::EventWindow(-1, 2, gText, -1, 0, -1, 0, -1);
+		if(gpWindowManager->buttonPressedCode != 30725)
+			{
+			*armyShouldBeRemoved = 1;
+			return;
+			}
+
 		goto LABEL_78;
 		}
-	if(v14 > 5.0)
+	if(relativeArmyStrength > 5.0)
 		goto LABEL_76;
 LABEL_78:
-	result = (heroWindow *)advManager::CombatMonsterEvent(
-		(advManager *)thisa,
+
+	int result = CombatMonsterEvent(
 		hero,
 		creat,
 		qty,
 		a5,
 		a6,
-		SHIDWORD(a6),
+		a7,
 		0,
 		a9,
-		SHIDWORD(a9),
+		a10,
 		-1,
 		0,
 		0,
 		-1,
 		0,
 		0);
-	v16 = result;
-	if(!result || v16 == (heroWindow *)-1)
-		{
-		result = shouldDeleteWindow;
-		*shouldDeleteWindow = 1;
-		}
-	return result;
+	if(result == 0 || result == -1)
+		*armyShouldBeRemoved = 1;
+
+	return;
 	}

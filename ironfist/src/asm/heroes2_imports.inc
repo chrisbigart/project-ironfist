@@ -197,6 +197,10 @@ IMPORT_?MoveAttack@army@@QAEXHH@Z = 1
 ?MoveAttack@army@@QAEXHH@Z_clone EQU ?MoveAttack_orig@army@@QAEXHH@Z
 IMPORT_?sElevationOverlay@@3PAUSElevationOverlay@@A = 1
 
+;;fix autocombat auto-retreat
+IMPORT_?CheckGetAIMove@combatManager@@QAEXXZ = 1
+?CheckGetAIMove@combatManager@@QAEXXZ_clone EQU ?CheckGetAIMove_orig@combatManager@@QAEXXZ
+
 ;;heroes
 IMPORT_?cHeroTypeInitial@@3PADA = 1
 IMPORT_?sCmbtHero@@3PAUSCmbtHero@@A = 1

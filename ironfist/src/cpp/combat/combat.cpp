@@ -4,6 +4,7 @@
 #include "game/game.h"
 #include "artifacts.h"
 #include "skills.h"
+#include "gui/dialog.h"
 
 extern int giNextAction;
 extern signed char gbCombatSurrender;
@@ -92,6 +93,45 @@ void army::MoveAttack(int targHex, int x) {
 		MoveTo(startHex);
 	}
 }
+
+extern signed char gbThisNetHumanPlayer[];
+extern int autoCombatUseSpells;
+
+void combatManager::CheckGetAIMove()
+	{
+	combatManager *thisa; // [sp+Ch] [bp-8h]@1
+	int a3; // [sp+10h] [bp-4h]@1
+
+	thisa = this;
+	a3 = AICheckRetreat();
+	bool isHumanSide = gbThisNetHumanPlayer[playerID[currentActionSide]];
+	if(*(&field_353F + currentActionSide)
+	   || playerID[currentActionSide] != -1
+	   && isHumanSide
+	   //&& !*(DWORD *)&autoCombatUseSpells //fixme (not decorated in assembly)
+	   || !DoSpellAI(currentActionSide, a3))
+		{
+		if(AICheckRetreat())
+			{ //ai has determined retreat is the best option
+			if(isHumanSide)
+				{
+				NormalDialog("Are you sure you want to retreat?", 2, -1, -1, -1, 0, -1, 0, -1, 0);
+				if(gpWindowManager->buttonPressedCode == 30725)
+					giNextAction = 4;
+				//ResetMouse();
+				}
+			else
+				{
+				giNextAction = 4;
+				}
+			}
+		else
+			{
+			DoCompAI(currentActionSide);
+			}
+		}
+	}
+
 
 
 // We don't actually change anything in sElevationOverlay, but the disasm was causing some problems
