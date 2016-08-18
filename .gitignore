@@ -22,3 +22,5 @@
 *.DAT
 /tools/agg/bin
 *.enc
+*.ipdb
+*.iobj
