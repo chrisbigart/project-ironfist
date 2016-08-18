@@ -107,9 +107,11 @@ extern int gbNoSound;
 extern void __fastcall SetFullScreenStatus(int);
 extern void __fastcall ResizeWindow(int,int,int,int);
 
+extern int __fastcall SetupCDDrive_orig();
 int __fastcall SetupCDDrive()
 	{
 	//a return value of 0 indicates the cd is in the drive
+	return SetupCDDrive_orig();
 	return 0;
 	}
 

@@ -29,45 +29,11 @@ int *t_savepos;               // "save position" flag
 QWORD *t_position;            // saved position
 float global_volume = 1.0f;
 
-bool actually_use_opera = true; //this is a hack, need a better way to implement this
+bool actually_use_opera = true;
 
 extern void __fastcall Process1WindowsMessage();
 
 void reset_town_saved_music_positions();
-
-
-//SystemOptionsHandler is called when the 'System Options' dialog is shown/interacted with
-//
-//int __fastcall SystemOptionsHandler_orig(struct tag_message &msg);
-//int __fastcall SystemOptionsHandler(struct tag_message &msg)
-//	{
-//
-//	//this is a hack to get the 'useOpera' setting to do something different
-//	//if(msg.xCoordOrKeycode == 12 && msg.yCoordOrFieldID == 13)
-//	//	{
-//	//	if(actually_use_opera == false && useOpera == true)
-//	//		useOpera = false;
-//
-//	//	DWORD use_opera_before = useOpera;
-//	//	int ret = SystemOptionsHandler_orig(msg);
-//	//	DWORD use_opera_after = useOpera;
-//
-//	//	if(use_opera_before == false && use_opera_after == true)
-//	//		actually_use_opera = true;
-//
-//	//	if(use_opera_before == true && use_opera_after == false)
-//	//		{
-//	//		actually_use_opera = false;
-//	//		useOpera = true;
-//	//		reset_town_saved_music_positions();
-//	//		}
-//
-//	//	return ret;
-//	//	}
-//
-//	int ret = SystemOptionsHandler_orig(msg);
-//	return ret;
-//	}
 
 void reset_town_saved_music_positions()
 	{
@@ -223,25 +189,20 @@ void soundManager::CDStop()
 	}
 
 int soundManager::ConvertVolume(int weight, int is_music_flag)
-	{ //this does not seem to work
-	int volume = this->volRelated;
-	if(volume < 0 || volume > 10)
-		{
-		std::cerr << "volume out of bounds";
-		return ConvertVolume_orig(weight, is_music_flag);
-		}
-
+	{
 	return ConvertVolume_orig(weight, is_music_flag);
 	}
 
 extern DWORD Data; //should really be named 'musicVolume'
-extern DWORD soundVolume;
+extern DWORD giSoundVolume;
 extern char aMusicVolume_0;
 extern char aMusicVolume_1;
 
 void soundManager::CDStartup()
 	{
+	return CDStartup_orig();
 	usingCDAudio = true;
+	giSoundVolume = 0;
 	}
 
 void soundManager::CDShutdown()
@@ -255,11 +216,6 @@ int soundManager::CDIsPlaying()
 
 void soundManager::CDSetVolume(int unknown_control_code, int unknown)
 	{
-	//int volume = this->volRelated;
-
-	//int a = soundVolume;
-	//int b = aMusicVolume_0;
-	//int c = aMusicVolume_1;
 	float volume = ((11 - Data) / 10.0f);
 	if(Data == 0)
 		{
@@ -309,23 +265,6 @@ void soundManager::CDPlay(int track_number, signed int a3, int a4, int a5)
 			bass_play_track(track_number);
 			t_savepos[track_number] = 1;
 
-			/*
-			if(*((_BYTE *)&bSaveMusicPosition + a2))
-			a3 = 1;
-			soundManager::StopAllSamples(thisa, 1);
-			soundManager::CDStop();
-			if(!a5 && a3 && *((_DWORD *)dword_4ED0B8 + a2))
-			startmsec = *((_DWORD *)dword_4ED0B8 + a2);
-			else
-			startmsec = *((_DWORD *)ptr + track_number);
-			this->redbookStatus = AIL_redbook_play(aStatusCdPositi, startmsec, *((_DWORD *)dword_4ED0B4 + a2));
-			if(thisa->redbookStatus != REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO_VERSION)
-			{
-			DelayMilli(100);
-			thisa->redbookStatus = AIL_redbook_status(aStatusCdPositi);
-			if(thisa->redbookStatus != REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO_VERSION)
-			thisa->redbookStatus = AIL_redbook_play(aStatusCdPositi, startmsec, *((_DWORD *)dword_4ED0B4 + a2));
-			}*/
 			//CDPlaying = 1;
 			Process1WindowsMessage();
 			soundManager::ServiceSound();
