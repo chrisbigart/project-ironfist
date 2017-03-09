@@ -5,7 +5,7 @@
 
 #pragma pack(push, 1)
 
-#define NUM_SPELLS 66
+#define NUM_SPELLS 65
 
 struct SSpellInfo
 {

@@ -190,6 +190,9 @@ IMPORT_?gArtifactDesc@@3PAPADA = 1
 IMPORT_?gArtifactEvents@@3PAPADA = 1
 IMPORT_?gArtifactLevel@@3PAEA = 1
 
+IMPORT_?ViewArtifact@hero@@QAEXHHH@Z = 1
+?ViewArtifact@hero@@QAEXHHH@Z_clone EQU ?ViewArtifact_orig@hero@@QAEXHHH@Z
+
 ;;combat
 IMPORT_?InitNonVisualVars@combatManager@@QAEXXZ = 1
 ?InitNonVisualVars@combatManager@@QAEXXZ_clone EQU ?InitNonVisualVars_orig@combatManager@@QAEXXZ

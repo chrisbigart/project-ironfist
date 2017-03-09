@@ -200,9 +200,9 @@ extern char aMusicVolume_1;
 
 void soundManager::CDStartup()
 	{
-	return CDStartup_orig();
+	//return CDStartup_orig();
 	usingCDAudio = true;
-	giSoundVolume = 0;
+	//giSoundVolume = 0;
 	}
 
 void soundManager::CDShutdown()

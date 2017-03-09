@@ -77,6 +77,11 @@ void hero::AddSpell(int spell, int knowledge) {
 	this->spellsLearned[spell] = 1;
 }
 
+void hero::ViewArtifact(int a, int b, int c)
+	{
+	return ViewArtifact_orig(a, b, c);
+	}
+
 int hero::HasSpell(int spell) {
 	//The game zeroes out captains at the start of battle
 	//This is workaround part 2
@@ -149,7 +154,12 @@ void hero::TakeArtifact(int art) {
 			break;
 		}
 	}
-}
+	}
+
+template<template<typename Ty_> typename T, typename Ty> class cuckhold
+	{
+
+	};
 
 hero* GetCurrentHero() {
   return &gpGame->heroes[gpCurPlayer->curHeroIdx];

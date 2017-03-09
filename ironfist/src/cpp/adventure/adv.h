@@ -138,6 +138,8 @@ public:
   int GetNthSpell(int,int);
   void UseSpell(int);
 	  
+  void ViewArtifact(int, int, int);
+  void ViewArtifact_orig(int, int, int);
   int HasArtifact(int);
   void TakeArtifact(int);
 
