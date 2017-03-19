@@ -1,6 +1,7 @@
 #include "resource/resourceManager.h"
 #include "base.h"
 #include "manager.h"
+#include "sound/sound.h"
 
 #include "editor/editor.h"
 #include "gui/gui.h"
@@ -32,18 +33,18 @@ public:
 //	void ShowColorPointer();
 //};
 
-class soundManager {
-public:
-	char _[1714];
-	soundManager();
-};
+//class soundManager {
+//public:
+//	char _[1714];
+//	soundManager();
+//};
 
 extern executive* gpExec;
 extern inputManager* gpInputManager;
 extern mouseManager* gpMouseManager;
 extern heroWindowManager* gpWindowManager;
 extern resourceManager* gpResourceMAnager;
-extern soundManager* gpSoundManager;
+//extern soundManager* gpSoundManager;
 
 #pragma pack(pop)
 

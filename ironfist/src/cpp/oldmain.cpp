@@ -21,6 +21,7 @@ extern void __fastcall RemoteMain(int);
 extern void __fastcall ComputeAdvNetControl(void);
 extern int __fastcall TransmitRemoteData(char *, int, int, signed char, signed char, signed char, signed char);
 extern void __fastcall ShutDown(char *);
+extern void __fastcall RemoteCleanup(void);
 
 extern executive* gpExec;
 extern inputManager* gpInputManager;
@@ -65,8 +66,8 @@ extern int giThisNetPos;
 extern signed char * gbGamePosToNetPos;
 extern int gbShowHighScore;
 //?cPlayerNames@@3PAY0BF@DA
-char* cPlayerNames[21];
-//extern char* cPlayerNames[];
+//char* cPlayerNames[21];
+extern char cPlayerNames[6][21];
 //extern char** cPlayerNames;
 extern int gbGameInitialized;
 extern class highScoreManager * gpHighScoreManager;
@@ -100,7 +101,7 @@ extern int giCurWatchPlayer;
 extern int gbthisaNetHumanPlayer;
 extern unsigned char giCurWatchPlayerBit;
 extern int giEndSequence;
-
+extern int bForceCheckTimeEvent;
 
 int __fastcall oldmain(void)
 	{
@@ -152,8 +153,8 @@ int __fastcall oldmain(void)
 	SetupCDRom();
 	LogStr("OM5");
 	//if((**(int(__thisacall ***)(_DWORD))gpSoundManager)(gpSoundManager))
-	//gpSoundManager->
-	//	ShutDown("Unable to initialize sound.");
+	if(gpSoundManager->Open(0xffffffff))
+		ShutDown("Unable to initialize sound.");
 
 	if(giDebugLevel < 9)
 		CheckMem();
@@ -454,16 +455,16 @@ LABEL_15:
 								{
 								while(1)
 									{
-									/*RemoteCleanup();
+									RemoteCleanup();
 									bShowIt = 1;
 									gpMouseManager->SetPointer("advmice.mse", 0, -999);
-									sprintf(
-										gcWinText,
-										"My heroes, our foes have been scattered, their castles broken and laid bare.  The great campaign is now complete, and I stand before you as the undisputed High King!\n\nOur victory was achieved in %d days!",
-										giCurTurn);
+									//sprintf(
+									//	gcWinText,
+									//	"My heroes, our foes have been scattered, their castles broken and laid bare.  The great campaign is now complete, and I stand before you as the undisputed High King!\n\nOur victory was achieved in %d days!",
+									//	giCurTurn);
 									if(giEndSequence != 1)
 										break;
-									if(gbInCampaign)
+									/*if(gbInCampaign)
 										{
 										v8 = gpGame->HandleCampaignWin();
 										if(gpGame->field_4 == 10 && gpGame->_1[12 * gpGame->field_2 + 10]
@@ -570,24 +571,24 @@ LABEL_15:
 										{
 										if(!xIsPlayingExpansionCampaign || !xCampaign->IsThisMapCompleted())
 											{
-											//gpAdvManager->AddManager(gpExec, (-1))
-											//	ShutDown("Can't add manager!");
-											//if(mainMenuButton == 101)
-											//	{
-											//	v3 = gpGame->players->NextHero(0);
-											//	gpAdvManager->SetHeroContext(v3, 0);
-											//	}
-											//if(mainMenuButton == 101 || bForceCheckTimeEvent)
-											//	{
-											//	bForceCheckTimeEvent = 0;
-											//	gpGame->CheckForTimeEvent();
-											//	}
-											//gpExec->MainLoop();
-											//gMapX = gpAdvManager->viewX;
-											//gMapY = gpAdvManager->viewY;
-											//gpExec->RemoveManager((baseManager *)gpAdvManager);
-											//gpWindowManager->FadeScreen(1, 8, gPalette);
-											//goto LABEL_177;
+											if(gpExec->AddManager(gpAdvManager, -1))
+												ShutDown("Can't add manager!");
+											if(mainMenuButton == 101)
+												{
+												v3 = gpGame->players->NextHero(0);
+												gpAdvManager->SetHeroContext(v3, 0);
+												}
+											if(mainMenuButton == 101 || bForceCheckTimeEvent)
+												{
+												bForceCheckTimeEvent = 0;
+												gpGame->CheckForTimeEvent();
+												}
+											gpExec->MainLoop();
+											gMapX = gpAdvManager->viewX;
+											gMapY = gpAdvManager->viewY;
+											gpExec->RemoveManager((baseManager *)gpAdvManager);
+											gpWindowManager->FadeScreen(1, 8, gPalette);
+											goto LABEL_177;
 											}
 										giEndSequence = 1;
 										}

@@ -78,6 +78,8 @@ public:
 
 	void Read(int);
 	void Write(int);
+
+	int NextHero(int);
 };
 
 extern int giCurPlayer;
@@ -201,6 +203,7 @@ public:
     void SetVisibility_orig(int, int, int, int);
 
 	int HandleCampaignWin(void);
+	void CheckForTimeEvent(void);
 
 	int TransmitSaveGame(int, int, int);
 
