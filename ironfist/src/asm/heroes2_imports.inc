@@ -130,6 +130,8 @@ IMPORT_?gMonsterDatabase@@3PAUtag_monsterInfo@@A = 1
 IMPORT_??0armyGroup@@QAE@XZ = 1
 
 ;;game
+IMPORT_?oldmain@@YIHXZ = 1
+?oldmain@@YIHXZ_clone EQU ?oldmain_orig@@YIHXZ
 ;;IMPORT_?MainLoop@executive@@QAEXXZ = 1
 ;;?MainLoop@executive@@QAEXXZ_clone EQU ?MainLoop_orig@executive@@QAEXXZ
 IMPORT_?Process1WindowsMessage@@YIXXZ = 1
@@ -196,6 +198,9 @@ IMPORT_@BlitBitmapToScreenVesa@28 = 1
 IMPORT_?BlitBitmapToScreen@@YIXPAVbitmap@@HHHHHH@Z = 1
 ?BlitBitmapToScreen@@YIXPAVbitmap@@HHHHHH@Z_clone EQU ?BlitBitmapToScreen_orig@@YIXPAVbitmap@@HHHHHH@Z
 
+;;fix for tickcount bug
+IMPORT_?KBTickCount@@YIJXZ = 1
+?KBTickCount@@YIJXZ_clone EQU ?KBTickCount_orig@@YIJXZ
 
 ;;adventure screen
 IMPORT_?InMapArea@@YIHHH@Z = 1

@@ -9,18 +9,23 @@
 #include "resource/resources.h"
 #include "town/town.h"
 #include "sound/sound.h"
+//#include "registry_prefs.h"
 
+#include <Windows.h>
+#include <string>
 
 #pragma pack(push,1)
-
-class executive {
-public:
-	char _[16];
-	executive();
-	void MainLoop_orig();
-	void MainLoop();
-};
-
+//
+//class executive {
+//public:
+//	char _[16];
+//	executive();
+//	void MainLoop_orig();
+//	void MainLoop();
+//	int InitSystem(void);
+//};
+//
+//extern executive* gpExec;
 //class inputManager {
 //public:
 //	char _[2154];
@@ -52,7 +57,6 @@ public:
 	philAI();
 };
 
-extern executive* gpExec;
 extern inputManager* gpInputManager;
 extern mouseManager* gpMouseManager;
 extern resourceManager* gpResourceMAnager;
@@ -109,6 +113,10 @@ extern int gbNoSound;
 extern void __fastcall SetFullScreenStatus(int);
 extern void __fastcall ResizeWindow(int,int,int,int);
 
+
+
+template<typename T> T read_registry_pref(const std::string& pref_key);
+
 void __fastcall SetupCDRom() {
 	
 	/*
@@ -125,11 +133,17 @@ void __fastcall SetupCDRom() {
 	 * down the stack.
 	 */
 
-	//This was part of the workaround; leaving in,
-	//because not yet tested that it can be removed
-	ResizeWindow(0,0,640,480);
+	DWORD old_x = read_registry_pref<DWORD>("Main Game X");
+	DWORD old_y = read_registry_pref<DWORD>("Main Game Y");
+	DWORD old_width = read_registry_pref<DWORD>("Main Game Width");
+	DWORD old_height = read_registry_pref<DWORD>("Main Game Height");
+	ResizeWindow(old_x == (DWORD)(-1) ? 0 : old_x,
+				 old_y == (DWORD)(-1) ? 0 : old_y,
+				 old_width == (DWORD)(-1) ? 640 : old_width,
+				 old_height == (DWORD)(-1) ? 480 : old_height);
 
-	if(iCDRomErr == 1 || iCDRomErr == 2) {
+	if(iCDRomErr == 1 || iCDRomErr == 2)
+		{
 		//Setting to no-CD mode, but not showing message forbidding play
 		SetPalette(gPalette->contents, 1);
 		gpMouseManager->ShowColorPointer();
@@ -137,16 +151,20 @@ void __fastcall SetupCDRom() {
 		int oldNoSound = gbNoSound;
 		gbNoSound = 1;
 		H2MessageBox("Welcome to no-CD mode. Video, opera, and the campaign menus will not work, "
-						"but otherwise, have fun!");
+					 "but otherwise, have fun!");
 		gbNoSound = oldNoSound;
-	} else if(iCDRomErr == 3) {
+		}
+	else if(iCDRomErr == 3)
+		{
 		EarlyShutdown("Startup Error", "Unable to change to the Heroes II directory."
-						"  Please run the installation program.");
+					  "  Please run the installation program.");
 		exit(0);
-	} else if(iCDRomErr == 4) {
+		}
+	else if(iCDRomErr == 4)
+		{
 		EarlyShutdown("Startup Error", "Unable to find the Heroes II data files.  "
-										"Please run the installation program.");
+					  "Please run the installation program.");
 		exit(0);
-	}
+		}
 
 }

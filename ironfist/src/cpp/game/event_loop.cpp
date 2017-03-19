@@ -2,6 +2,13 @@
 #include "game/game.h"
 #include "registry_prefs.h"
 
+extern long __fastcall KBTickCount_orig();
+long __fastcall KBTickCount()
+	{
+	return KBTickCount_orig() & 0x7fffffff;
+	}
+
+
 //adding a call to Sleep() during event processing will reduce excessive cpu usage
 //on my machine, 10ms seems to reduce cpu load to <1% while not having any effect
 //on the speed/responsiveness of the game

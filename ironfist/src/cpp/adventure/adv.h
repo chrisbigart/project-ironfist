@@ -296,6 +296,7 @@ public:
 	void DoHeroKnob(void);
 	void DoTownKnob(void);
 	void QuickInfo(int, int);
+	void QuickInfo_orig(int, int);
 
 	void ShowRoute(int, int, int);
 

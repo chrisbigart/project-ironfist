@@ -70,6 +70,7 @@ class mouseManager : public baseManager
 
 		void ShowColorPointer();
 		void SetPointer(int);
+		void SetPointer(char *, int, int);
 		void SetColorMice(int);
 
 		void RestoreUnderlying();

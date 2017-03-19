@@ -51,6 +51,7 @@ public:
 	soundManager();
 
 	void SwitchAmbientMusic(int track);
+	void PlayAmbientMusic(int, long, int);
 	void CDPlay(int track_number, signed int a3, int a4, int a5);
 	void CDStop();
 	void CDSetVolume(int, int);
@@ -58,6 +59,7 @@ public:
 	int ConvertVolume(int, int);
 	int ConvertVolume_orig(int, int);
 	void ServiceSound();
+	void StopAllSamples(int);
 };
 
 extern soundManager *gpSoundManager;

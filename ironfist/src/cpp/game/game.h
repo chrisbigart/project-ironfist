@@ -36,6 +36,20 @@ class executive
 		void MainLoop_orig();
 	};*/
 
+class executive
+	{
+	public:
+		char _[16];
+		//unsigned long field_C;
+		executive();
+		void MainLoop_orig();
+		void MainLoop();
+		int InitSystem(void);
+		int AddManager(class baseManager *, int);
+		void RemoveManager(class baseManager *);
+	};
+
+extern executive* gpExec;
 
 class playerData {
 public:
@@ -163,10 +177,12 @@ public:
     // New state
     bool sharePlayerVision[NUM_PLAYERS][NUM_PLAYERS];
 
-
+	int NewGame(void);
 	int SetupGame();
 	int SetupGame_orig();
 	void SetupTowns();
+	void InitEntireCampaign(int);
+	void InitCampaignMap(void);
 
 	void RandomizeHeroPool();
 	void SetRandomHeroArmies(int,int);
@@ -184,8 +200,14 @@ public:
 	void SetVisibility(int,int,int,int);
     void SetVisibility_orig(int, int, int, int);
 
-	int IsMobile(int);
+	int HandleCampaignWin(void);
 
+	int TransmitSaveGame(int, int, int);
+
+	int IsMobile(int);
+	
+	int PickLoadGame(void);
+	
 	void ClaimTown(int,int,int);
 
 	void NextPlayer();

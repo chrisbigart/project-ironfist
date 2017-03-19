@@ -63,6 +63,8 @@ void advManager::QuickInfo(int a2, int a3)
 	int ADV_DRAW_WIDTH = 448 + WIDESCREEN_ADDITIONAL_WIDTH;
 	int ADV_DRAW_TOTAL_WIDTH = 480 + WIDESCREEN_ADDITIONAL_WIDTH;
 
+	return QuickInfo_orig(a2, a3);
+
 	v9 = this;
 	map_cell = 0;
 	curHero = 0;
