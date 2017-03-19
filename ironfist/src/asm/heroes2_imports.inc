@@ -179,6 +179,8 @@ IMPORT_?IconToBitmap@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z = 1
 IMPORT_?WGAppPaint@@YIHPAX0@Z = 1
 ?WGAppPaint@@YIHPAX0@Z_clone EQU ?WGAppPaint_orig@@YIHPAX0@Z
 
+IMPORT_?UpdateScreenRegion@heroWindowManager@@QAEXHHHH@Z = 1
+?UpdateScreenRegion@heroWindowManager@@QAEXHHHH@Z_clone EQU ?UpdateScreenRegion_orig@heroWindowManager@@QAEXHHHH@Z
 IMPORT_?InitGraphics@@YIXXZ = 1
 ?InitGraphics@@YIXXZ_clone EQU ?InitGraphics_orig@@YIXXZ
 IMPORT_?WGInitGraphics@@YIXXZ = 1
@@ -279,6 +281,8 @@ IMPORT_?gArtifactLevel@@3PAEA = 1
 ;;combat
 IMPORT_?InitNonVisualVars@combatManager@@QAEXXZ = 1
 ?InitNonVisualVars@combatManager@@QAEXXZ_clone EQU ?InitNonVisualVars_orig@combatManager@@QAEXXZ
+IMPORT_?DrawFrame@combatManager@@QAEXHHHHHHH@Z = 1
+?DrawFrame@combatManager@@QAEXHHHHHHH@Z_clone EQU ?DrawFrame_orig@combatManager@@QAEXHHHHHHH@Z
 IMPORT_?MoveAttack@army@@QAEXHH@Z = 1
 ?MoveAttack@army@@QAEXHH@Z_clone EQU ?MoveAttack_orig@army@@QAEXHH@Z
 IMPORT_?sElevationOverlay@@3PAUSElevationOverlay@@A = 1

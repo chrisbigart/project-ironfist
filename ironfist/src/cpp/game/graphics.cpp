@@ -1,6 +1,17 @@
 #include "base.h"
 #include "game/game.h"
 
+
+void __thiscall heroWindowManager::UpdateScreenRegion(int offsetX, int offsetY, int width, int height)
+	{
+	gpMouseManager->couldBeShowMouse = 0;
+	PollSound();
+	//BlitBitmapToScreen(screenBuffer, offsetX, offsetY, width + 160, height, offsetX, offsetY);
+	gpMouseManager->couldBeShowMouse = 1;
+	PollSound();
+	}
+
+
 void __fastcall InitGraphics_orig();
 void __fastcall InitGraphics()
 	{

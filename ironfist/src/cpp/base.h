@@ -63,6 +63,7 @@ void __fastcall IconToBitmap(class icon * icn, class bitmap * bmp,
 
 extern void __fastcall Process1WindowsMessage();
 extern void __fastcall DelayTilMilli(long);
+extern void __fastcall DelayTil(int *);
 extern long __fastcall KBTickCount();
 
 //variable declarations from asm

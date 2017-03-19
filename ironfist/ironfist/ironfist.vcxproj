@@ -112,6 +112,7 @@
     <ClCompile Include="..\src\cpp\combat\combat_spells.cpp" />
     <ClCompile Include="..\src\cpp\combat\creatures.cpp" />
     <ClCompile Include="..\src\cpp\combat\creatures_xml.cxx" />
+    <ClCompile Include="..\src\cpp\combat\draw_frame.cpp" />
     <ClCompile Include="..\src\cpp\compat.cpp" />
     <ClCompile Include="..\src\cpp\driver.cpp" />
     <ClCompile Include="..\src\cpp\game\event_loop.cpp" />

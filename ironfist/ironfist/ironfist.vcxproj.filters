@@ -291,6 +291,9 @@
     <ClCompile Include="..\src\cpp\oldmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cpp\combat\draw_frame.cpp">
+      <Filter>Source Files\combat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cpp\stdafx.h">

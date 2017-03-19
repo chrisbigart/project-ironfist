@@ -34,6 +34,11 @@ public:
   char field_41;
   H2RECT drawingBounds;
   char field_52[16];
+
+  void DrawObstacle(void);
+  void DrawLowerDeadOccupants(void);
+  void DrawUpperDeadOccupant(void);
+  void DrawOccupant(int, int);
 };
 
 
@@ -107,6 +112,8 @@ public:
   int ValidFlight(int hex, int);
   int WalkTo(int hex);
   void MoveTo(int hex);
+
+  void DrawToBuffer(int, int, int);
   
   void MoveAttack(int,int);
   void MoveAttack_orig(int,int);
@@ -151,15 +158,14 @@ public:
   int heroSpellpowers[2];
   armyGroup *armies[2];
   int shadedHex;
-  char field_339D[2];
-  char field_339F[2];
-  char field_33A1;
-  char field_33A2;
+  char shouldDoHeroFidget1[2];
+  char shouldDoHeroFidget2[2];
+  char field_33A1[2];
   char field_33A3[2];
-  int heroIconIdxRelated[2];
-  int countRelatedToSpellAnimation[2];
+  int heroAnimationType[2];
+  int heroAnimationFrameCount[2];
   int heroType[2];
-  int field_33BD[2];
+  int lastHeroAnimationCompleteTime[2];
   icon *heroIcon[2];
   icon *heroFlagIcon[2];
   int heroFlagIconIdx[2];
@@ -212,9 +218,8 @@ public:
   int field_F36F;
   int field_F373;
   int field_F377[2];
-  signed int stuffHappenedToCreature[2][20];
-  int field_F41F;
-  int field_F423;
+  signed int limitCreature[2][20];
+  int field_F41F[2];
   int field_F427[2];
   int field_F42F;
   char _14[160];
@@ -240,6 +245,8 @@ public:
 
   void UpdateCombatArea();
   void DrawFrame(int redrawAll,int,int,int,int,int,int);
+  void DrawBackground();
+  void DrawSmallView(int, int);
 
   void HandlePandoraBox(int side);
   void AddArmy(int side, int creat, int qty, int hex, int attrs, int fizzle);
