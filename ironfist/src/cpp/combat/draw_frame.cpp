@@ -150,7 +150,7 @@ void __thiscall combatManager::DrawFrame(int redrawAll, int a3, int a4, int a5, 
 		if(giMinExtentY < 0)
 			giMinExtentY = 0;
 		if(giMaxExtentX > 639)
-			giMaxExtentX = 639;
+			giMaxExtentX = 639 + 160;
 		if(giMaxExtentY > 442)
 			giMaxExtentY = 442;
 		}
@@ -168,7 +168,7 @@ void __thiscall combatManager::DrawFrame(int redrawAll, int a3, int a4, int a5, 
 					giMaxExtentX - giMinExtentX + 1,
 					giMaxExtentY - giMinExtentY + 1);
 			else
-				probablyBitmapForCombatScreen->CopyTo(gpWindowManager->screenBuffer, 0, 0, 0, 0, 640u, 443);
+				probablyBitmapForCombatScreen->CopyTo(gpWindowManager->screenBuffer, 0, 0, 0, 0, 640u + 160, 443);
 			}
 		else
 			{

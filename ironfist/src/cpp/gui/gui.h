@@ -101,7 +101,8 @@ public:
   void AddWindow(class heroWindow *, int, int);
   void RemoveWindow(class heroWindow *);
 
-  int DoDialog(heroWindow *,int (__fastcall*)(tag_message &),int);
+  int DoDialog(heroWindow *, int(__fastcall*)(tag_message &), int);
+  int DoDialog_orig(heroWindow *,int (__fastcall*)(tag_message &),int);
   int Open(int);
   int Open_orig(int);
 };

@@ -1,6 +1,7 @@
 #ifndef SOUND_H
 #define SOUND_H
 
+#pragma pack(push, 1)
 //typedef void * 	H3DPOBJECT;
 //typedef void * 	H3DSAMPLE;
 typedef void * 	HDIGDRIVER;
@@ -8,20 +9,22 @@ typedef void * 	HDIGDRIVER;
 //typedef void * 	HSAMPLE;
 //typedef void * 	HSTREAM;
 
-class soundManager {
+class soundManager : public baseManager
+	{
 public:
 	//managerVtable *vtable;
 
-	virtual int Open(int);
-	virtual void Close();
-	virtual int Main(tag_message&);
-
+	//virtual int Open(int);
+	//virtual void Close();
+	//virtual int Main(tag_message&);
+/*
 	baseManager *next;
-	baseManager *prev;
-	int type;
-	int idx;
-	char name[30];
-	int ready;
+	baseManager *prev;*/
+	//int type;
+	//int idx;
+	//char name[30];
+	//int ready;
+
 	int redbookStatus;
 	HDIGDRIVER hdidriver;
 	int field_3E;
@@ -56,12 +59,15 @@ public:
 	void CDStop();
 	void CDSetVolume(int, int);
 	void CDSetVolume_orig(int, int);
+	void CDStartup(void);
+	void CDStartup_orig(void);
 	int ConvertVolume(int, int);
 	int ConvertVolume_orig(int, int);
 	void ServiceSound();
 	void StopAllSamples(int);
 };
 
+#pragma pack(pop)
 extern soundManager *gpSoundManager;
 
 extern unsigned char giTerrainToMusicTrack[];

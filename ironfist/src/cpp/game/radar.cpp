@@ -42,6 +42,9 @@ void advManager::UpdateRadar(int a2, int a3)
 	signed __int8 *v30; // [sp+BCh] [bp-4h]@13
 
 
+	unsigned int tile_extra_info;
+	unsigned int original_value;
+
 	extern int iVWMapOriginX;
 	extern int iVWMapOriginY;
 /*
@@ -63,7 +66,7 @@ void advManager::UpdateRadar(int a2, int a3)
 		db  30h; 0
 		db  62h; b
 		db 0A0h;
-	db  7Eh; ~
+		db  7Eh; ~
 		db  4Ah; J
 		db  6Eh; n
 		db 0B3h; ³
@@ -85,8 +88,22 @@ void advManager::UpdateRadar(int a2, int a3)
 		ELSE
 		aIRK            db 'i¾rÍŠ', 0Ah, 0
 		ENDIF*/
-	static char byte_4F0A48[32] = "i¾rÍŠ"; //byte_4F0A48	db 49h	; DATA XREF : advManager__UpdateRadar(int, int) + 43C
-	static char minimap_terrain_colors[32] = { 0x49, 'b', 0x0D, 'h', ' ', 'v', '6', 'Î' }; //byte_4F0A28	db 4Dh	; DATA XREF: advManager__UpdateRadar(int,int)+61Cr
+	
+	//byte_4F0A28	db 4Dh	; DATA XREF: advManager__UpdateRadar(int,int)+61Cr
+	static unsigned char minimap_terrain_colors[32] = 
+		{
+		0x4d, 0x62, 0x0d, 0x68, 0x20, 0x76, 0x36, 0xce, 
+		0x29, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+		0x10, 0x30, 0x62, 0xa0, 0x7e, 0x4a, 0x6e, 0xb3,
+		0x64, 0xda, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c
+		};
+	
+	//byte_4F0A48	db 49h	; DATA XREF : advManager__UpdateRadar(int, int) + 43C
+	static unsigned char minimap_player_colors[8] = 
+		{
+		0x49, 0x69, 0xbe, 0x72, 0xcd, 0x8a, 0x0a, 0x00
+		};
+
 	v3 = this;
 	v27 = 36;
 	if(a3)
@@ -143,10 +160,12 @@ void advManager::UpdateRadar(int a2, int a3)
 			switch(MAP_HEIGHT)
 				{
 				case 36:
-					v30 += 2560;
+					//v30 += 2560;
+					v30 += SCREEN_WIDTH * 4;
 					break;
 				case 72:
-					v30 += 1280;
+					//v30 += 1280;
+					v30 += SCREEN_WIDTH * 2;
 					break;
 				case 108:
 					++v29;
@@ -168,15 +187,18 @@ void advManager::UpdateRadar(int a2, int a3)
 				if(!gbAllBlack && (unsigned __int8)(*(&mapRevealed[j] + MAP_WIDTH * i) & giCurPlayerBit))
 					{
 					v13 = (int)(&v3->map->tiles[i * v3->map->width] + j);
+					tile_extra_info = v3->map->tiles[i * v3->map->width + j].extraInfo;
+					original_value = (unsigned __int8)((*(WORD *)(v13 + 4) >> 3)) & 0x1FFF;
 					if(*(BYTE *)(v13 + 8) & 0x40 && v3->viewX + 7 == j && v3->viewY + 7 == i)
 						{
-						v27 = byte_4F0A48[gpGame->players[giCurPlayer].color];
+						v27 = minimap_player_colors[gpGame->players[giCurPlayer].color];
 						}
 					else if((*(BYTE *)(v13 + 9) & 0x7F) == 42)
 						{
 						v9 = gpGame->relatedToHeroForHireStatus[
 							//(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)
-							(unsigned __int8)((*(WORD *)(v13 + 4) >> 3)) & 0x1FFF
+							//(unsigned __int8)((*(WORD *)(v13 + 4) >> 3)) & 0x1FFF
+							original_value
 							];
 						if(giCurPlayer == v9)
 							{
@@ -184,7 +206,7 @@ void advManager::UpdateRadar(int a2, int a3)
 								v7 = 6;
 							else
 								v7 = gpGame->players[v9].color;
-							v27 = byte_4F0A48[v7];
+							v27 = minimap_player_colors[v7];
 							}
 						}
 					else
@@ -213,14 +235,14 @@ void advManager::UpdateRadar(int a2, int a3)
 								{
 								case 35:
 								case 36:
-									v10 = gpGame->field_2773[(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)];
-									v21 = gpGame->castles[(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)].x;
-									v16 = gpGame->castles[(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)].y;
+									v10 = gpGame->field_2773[original_value];//(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)];
+									v21 = gpGame->castles[original_value].x;// (unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)].x;
+									v16 = gpGame->castles[original_value].y;// (unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)].y;
 									if(v10 < 0)
 										v6 = 6;
 									else
 										v6 = gpGame->players[v10].color;
-									v27 = byte_4F0A48[v6];
+									v27 = minimap_player_colors[v6];
 									if(v16 - 2 > i || i > v16 || v21 - 2 > j || v21 + 2 < j)
 										goto LABEL_88;
 									break;
@@ -246,12 +268,12 @@ void advManager::UpdateRadar(int a2, int a3)
 										case 0x81:
 										case 0x97:
 										case 0x9D:
-											v11 = gpGame->field_60A6[(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)];
+											v11 = gpGame->field_60A6[original_value];// (unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)];
 											if(v11 < 0)
 												v5 = 6;
 											else
 												v5 = gpGame->players[v11].color;
-											v27 = byte_4F0A48[v5];
+											v27 = minimap_player_colors[v5];
 											break;
 										default:
 											v27 = minimap_terrain_colors[(unsigned __int8)giGroundToTerrain[*(WORD *)v13]] + 3;
@@ -268,12 +290,12 @@ void advManager::UpdateRadar(int a2, int a3)
 											case 0x81:
 											case 0x97:
 											case 0x9D:
-												v12 = gpGame->field_60A6[(unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)];
+												v12 = gpGame->field_60A6[original_value];// (unsigned __int8)((unsigned __int8)(*(WORD *)(v13 + 4) >> 8) >> -5)];
 												if(v12 < 0)
 													v4 = 6;
 												else
 													v4 = gpGame->players[v12].color;
-												v27 = byte_4F0A48[v4];
+												v27 = minimap_player_colors[v4];
 												break;
 											default:
 												v27 = minimap_terrain_colors[(unsigned __int8)giGroundToTerrain[*(WORD *)v13]];
@@ -363,7 +385,7 @@ void advManager::UpdateRadar(int a2, int a3)
 						v17 = 1;
 					break;
 				case 108:
-					v15 = 1.33;
+					v15 = 1.33f;
 					if(giViewWorldScale > 4)
 						{
 						if(giViewWorldScale == 6)
@@ -407,7 +429,7 @@ void advManager::UpdateRadar(int a2, int a3)
 					break;
 				case 108:
 					a4 = 2;
-					v15 = 1.33;
+					v15 = 1.33f;
 					break;
 				default:
 					a4 = 1;

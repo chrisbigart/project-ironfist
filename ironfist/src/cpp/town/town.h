@@ -16,6 +16,77 @@ extern char cHeroTypeInitial[];
 
 #define NUM_DWELLINGS 12
 
+
+struct widgetVtable;
+
+#pragma pack(push, 1)
+struct border
+	{
+	widgetVtable *vtable;
+	heroWindow *parentWindow;
+	widget *nextInLinkedList;
+	int prevInLinkedList;
+	__int16 fieldID;
+	__int16 field_12;
+	__int16 backgroundType;
+	__int16 flagsRelatedToShouldDisplayAndPerhapsMouseCode;
+	__int16 offsetX;
+	__int16 offsetY;
+	__int16 width;
+	__int16 height;
+	bitmap *bitmap;
+	icon *icon;
+	__int16 color;
+	};
+#pragma pack(pop)
+
+
+#pragma pack(push, 1)
+struct BuildingDisplay
+	{
+	int animationLength;
+	int animationIdx;
+	int built;
+	int buildingCode;
+	icon *icon;
+	border *guiElement;
+	};
+#pragma pack(pop)
+
+class playerData;
+
+#pragma pack(push, 1)
+struct bankBox
+	{
+	playerData *player;
+	__int16 x;
+	__int16 y;
+	heroWindow *window;
+	};
+#pragma pack(pop)
+
+
+#pragma pack(push, 1)
+struct strip
+	{
+	heroWindow *window;
+	char _1[24];
+	int x;
+	int y;
+	int field_24;
+	int drawBorder;
+	void *field_2C[6];
+	icon *stripIcon;
+	icon *creaturePortraits[5];
+	int creatureTypes[5];
+	icon *portraitIcon;
+	icon *portraitFlagIcon;
+	int portraitIconIdx;
+	int field_7C;
+	armyGroup *army;
+	};
+#pragma pack(pop)
+
 enum FACTION
 {
 	FACTION_KNIGHT = 0,
@@ -104,7 +175,38 @@ public:
 class townManager : public baseManager {
 public:
 	town* castle;
-	char _[378-sizeof(baseManager)-sizeof(town*)];
+	//char _[378-sizeof(baseManager)-sizeof(town*)];
+	icon *couldBeBackground;
+	BuildingDisplay *buildingDisplays[32];
+	int curBuilding;
+	int factionID;
+	int field_C6;
+	heroWindow *townScreen;
+	strip *garrisonDisplay;
+	strip *visitingArmyDisplay;
+	strip *field_D6;
+	int field_DA;
+	strip *field_DE;
+	int field_E2;
+	strip *field_E6;
+	int field_EA;
+	bankBox *bankbox;
+	char infoMessage[80];
+	int field_142;
+	int field_146;
+	int field_14A;
+	int field_14E;
+	int field_152;
+	int field_156;
+	int field_15A;
+	int field_15E;
+	heroWindow *curScreen;
+	heroWindow *dialog;
+	int field_16A;
+	int field_16E;
+	int recruitHeroConfirmed;
+	hero *heroBeingRecruited;
+
 	townManager();
 
 	void BuildObj(signed int);
@@ -112,6 +214,9 @@ public:
 	virtual int Open(int);
 	int Open_orig(int);
 	void SetupMage(heroWindow*);
+
+	void SetupExtraStuff();
+	void SetupTown();
 
 	int RecruitHero(int,int);
 	int RecruitHero_orig(int,int);

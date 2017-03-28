@@ -49,8 +49,8 @@ extern int giTCPHostStatus;
 //extern DWORD gbthisaNetHumanPlayer;
 extern int gGameCommand;
 //extern signed char * gbThisNetHumanPlayer;
-extern int gbTCPFirstTime;
-extern int giMenuCommand;
+	extern int gbTCPFirstTime;
+	extern int giMenuCommand;
 extern class heroWindow * gpInitWin;
 extern int gbInSetupDialog;
 extern int gbWaitForRemoteReceive;
@@ -198,7 +198,8 @@ LABEL_15:
 						if(gGameCommand != 105)
 							{
 							gpResourceManager->GetBackdrop("heroes.icn", gpWindowManager->screenBuffer, 1);
-							gpWindowManager->UpdateScreenRegion(0, 0, 0x280u, 480);
+							//gpWindowManager->UpdateScreenRegion(0, 0, 0x280u, 480);
+							gpWindowManager->UpdateScreenRegion(0, 0, 0x280u + 160, 480);
 							if(v24)
 								SetPalette(gPalette->contents, 1);
 							else

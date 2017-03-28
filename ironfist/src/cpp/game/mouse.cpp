@@ -97,6 +97,12 @@ struct CursorDimension
 	};
 #pragma pack(pop)
 
+
+//? IMHotSpots@@3PAY03GA
+//extern unsigned short* (IMHotSpots[4]);
+extern unsigned short (*IMHotSpots)[4];
+//extern __int16 IMHotSpots[];
+
 void mouseManager::SaveAndDraw()
 	{
 	int v1; // edx@1
@@ -115,6 +121,8 @@ void mouseManager::SaveAndDraw()
 	CursorDimension* iMouseSize = (CursorDimension*)(iMouseSize_asm);
 
 	const int SCREEN_WIDTH = 640;
+
+	auto spots = IMHotSpots;
 
 	v1 = this->field_66;
 	thisa = this;

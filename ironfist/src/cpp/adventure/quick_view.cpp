@@ -99,6 +99,7 @@ void advManager::QuickInfo(int a2, int a3)
 			{
 			switch(map_cell->objType & 0x7F)
 				{
+				//int ((map_cell->extraInfo >> 3) & 0x1F);
 				//case LOCATION_ARTIFACT:
 				//	sprintf(gText, "%s", "Artifact");
 				//	break;

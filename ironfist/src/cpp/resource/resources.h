@@ -37,6 +37,7 @@ public:
   signed __int8 *contents;
 
   void CopyTo(class bitmap *, int, int, int, int, int, int);
+  void CopyTo_orig(class bitmap *, int, int, int, int, int, int);
   void CopyToCareful(bitmap *target, int targX, int targY, int offX, int offY, int width, int height);
 
   bitmap();
@@ -66,6 +67,7 @@ public:
   void DrawToBuffer(int,int,int,int);
   void ClipFillToBuffer(int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10);
   int CombatClipDrawToBuffer(int, int, int, struct SLimitData *, int, int, unsigned char *, signed char *);
+  int CombatClipDrawToBuffer_orig(int, int, int, struct SLimitData *, int, int, unsigned char *, signed char *);
 };
 
 

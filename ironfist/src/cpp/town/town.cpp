@@ -10,6 +10,7 @@
 #include "scripting/hook.h"
 #include "spell/spells.h"
 #include "town/town.h"
+#include "sound/sound.h"
 
 int BuildingBuilt(town* twn, int building) {
 	return (twn->buildingsBuiltFlags & (1 << building)) ? 1 : 0;
@@ -200,10 +201,55 @@ void town::SelectSpells() {
 	}
 }
 
+extern signed char * townTheme;
+
+extern void __fastcall KBChangeMenu(void *);
+extern void * hmnuTown;
+
 int townManager::Open(int idx) {
-	int res = this->Open_orig(idx);
+	//int res = this->Open_orig(idx);
+	////////////////////
+	townManager *thisa; // [sp+Ch] [bp-8h]@1
+	heroWindow *window; // [sp+10h] [bp-4h]@4
+
+	gpGame->CheckHeroConsistency();
+	//if(*(_DWORD *)&useOpera || !*(_DWORD *)&useCDMusic)
+		gpSoundManager->SwitchAmbientMusic(townTheme[thisa->castle->factionID]);
+	PollSound();
+
+	townScreen = new heroWindow(0 + 80, 0, "townwind.bin");
+	if(!townScreen)
+		MemError();
+
+	glTimers = KBTickCount() + 150;
+	factionID = -2;
+	field_15A = 0;
+	field_14E = 0;
+	field_142 = -1;
+	field_146 = 0;
+	curBuilding = 0;
+	field_C6 = 0;
+	garrisonDisplay = 0;
+	visitingArmyDisplay = 0;
+	field_D6 = 0;
+	field_DE = 0;
+	field_E6 = 0;
+	bankbox = 0;
+	couldBeBackground = 0;
+	SetupExtraStuff();
+	SetupTown();
+	KBChangeMenu(hmnuTown);
+	gpMouseManager->SetPointer("advmice.mse", 0, -999);
+	thisa->type = 2048;
+	thisa->idx = idx;
+	thisa->ready = 1;
+	strcpy(thisa->name, "townManager");
+	gpWindowManager->FadeScreen(0, 8, 0);
+
+	///////////////////////////////////////
 	ScriptSignal(SCRIPT_EVT_TOWN_LOADED, this->castle->name);
-	return res;
+	//return res;
+	return 0;
 }
 
 void town::SetNumSpellsOfLevel(int l, int n) {

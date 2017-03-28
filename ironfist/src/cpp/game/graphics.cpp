@@ -1,15 +1,16 @@
 #include "base.h"
 #include "game/game.h"
-
+#include "combat/combat.h"
 
 void __thiscall heroWindowManager::UpdateScreenRegion(int offsetX, int offsetY, int width, int height)
 	{
 	gpMouseManager->couldBeShowMouse = 0;
 	PollSound();
-	//BlitBitmapToScreen(screenBuffer, offsetX, offsetY, width + 160, height, offsetX, offsetY);
+	BlitBitmapToScreen(screenBuffer, offsetX, offsetY, width + 160, height, offsetX, offsetY);
 	gpMouseManager->couldBeShowMouse = 1;
 	PollSound();
 	}
+
 
 
 void __fastcall InitGraphics_orig();
@@ -18,6 +19,56 @@ void __fastcall InitGraphics()
 	InitGraphics_orig();
 	}
 
+
+void bitmap::CopyTo(bitmap *buf, int xTarg, int yTarg, int xFrom, int yFrom, int width, int height)
+	{
+	int v8; // ebx@2
+	int v9; // ebp@3
+	int v10; // eax@3
+	const void *v11; // esi@4
+	bitmap *thisa; // [sp+10h] [bp-4h]@1
+
+	int SCREEN_WIDTH = 800;
+	if(width > 640)
+		width = 640;
+
+	thisa = this;
+	//return;
+	PollSound();
+	/*if(width == SCREEN_WIDTH)
+		{
+		memcpy(&buf->contents[SCREEN_WIDTH * yTarg] + xTarg, &thisa->contents[thisa->width * yFrom] + xFrom, SCREEN_WIDTH * height);
+		for(int y = yFrom; y < height; y++)
+			for(int x = xFrom; x < width;)
+				{
+
+				}
+		}
+	else*/
+		{
+		v8 = height;
+		if(height > 0)
+			{
+			v9 = thisa->width * yFrom;
+			v10 = buf->width * yTarg;
+			do
+				{
+				v11 = &thisa->contents[xFrom] + v9;
+				v9 += thisa->width;
+				memcpy(&buf->contents[xTarg] + v10, v11, width);
+				v10 += buf->width;
+				--v8;
+				} while(v8);
+			}
+		}
+	PollSound();
+	}
+
+int icon::CombatClipDrawToBuffer(int a, int b, int c, struct SLimitData *d, int e, int f, unsigned char *g, signed char *h)
+	{
+	//return 0;
+	return CombatClipDrawToBuffer_orig(a, b, c, d, e, f, g, h);
+	}
 
 extern DWORD dword_530418;
 

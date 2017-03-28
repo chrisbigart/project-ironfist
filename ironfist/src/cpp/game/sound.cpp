@@ -36,6 +36,23 @@ bool actually_use_opera = true;
 
 extern void __fastcall Process1WindowsMessage();
 
+int __fastcall SetupCDDrive(void)
+	{
+	//gpSoundManager->field_6A6 = 0;
+	return 0;
+	}
+
+void soundManager::CDStartup()
+	{
+	CDStartup_orig();
+	//useCDMusic = 1;
+	//this->useCDMusic
+	//field_6A6 = 1;
+	//field_69E = 1; //cd audio enabled (?)
+	///someTick = KBTickCount() + 5000;
+	}
+
+
 void reset_town_saved_music_positions();
 
 int __fastcall SystemOptionsHandler_orig(struct tag_message &msg);

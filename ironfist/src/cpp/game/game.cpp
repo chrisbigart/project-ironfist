@@ -14,6 +14,14 @@
 
 extern DWORD dword_4F1CC0;
 
+bool draw_mask_0 = true;
+bool draw_mask_1 = true;
+bool draw_mask_2 = true;
+bool draw_mask_3 = true;
+bool draw_mask_4 = true;
+bool draw_mask_5 = true;
+bool draw_mask_6 = true;
+
 int heroWindowManager::Open(int a2)
 	{
 	//int original_width = this->screenBuffer->width;
@@ -1081,7 +1089,7 @@ extern "C" void __fastcall BlitBitmapToScreenVesa(bitmap* bmp, int x, int y, uns
 
 
 	if(draw_mask_3)
-		return BlitBitmapToScreenVesa_orig(bmp, x, y, width, height, screenX, screenY);
+		return BlitBitmapToScreenVesa_orig(bmp, x, y, width + 160, height, screenX, screenY);
 		
 
 	static int original_width = 640;
@@ -1104,9 +1112,18 @@ extern "C" void __fastcall BlitBitmapToScreenVesa(bitmap* bmp, int x, int y, uns
 	if(!bmp)
 		return;
 
+	v7 = 0;
 	if(gpWindowManager->screenBuffer == bmp || (v7 = 0, height <= 0))
 		{
 		v8 = width;
+		////v8 = width;
+		//v9 = original_width * screenY;
+		//do
+		//	{
+		//	v10 = v7++ + y;
+		//	memcpy(&gpWindowManager->screenBuffer->contents[screenX] + v9, &bmp->contents[bmp->width * v10] + x, width);
+		//	v9 += original_width;
+		//	} while(v7 < height);
 		}
 	else
 		{
@@ -1204,7 +1221,7 @@ void __fastcall BlitBitmapToScreen(bitmap *bmp, int xOff, int yOff, int width, i
 			v7 = 448 + 160;
 			v8 = giScrollY + 16;
 			x = giScrollX + 16;
-			height = 448 + 160;
+			height = 448;
 			}
 		else
 			{
@@ -1238,7 +1255,8 @@ void __fastcall BlitBitmapToScreen(bitmap *bmp, int xOff, int yOff, int width, i
 			}
 		else
 			{
-			BlitBitmapToScreenVesa(bmpa, x, v8, v7, height, screenX, screenY);
+			BlitBitmapToScreenVesa(bmpa, x, v8, v7 + 160, height, screenX, screenY);
+			std::cout << "BlitBitmapToScreenVesa(" << bmpa << ", " << x << ", " << v8 << ", " << v7 << ", " << height << ", " << screenX << ", " << screenY << ")\n";
 			}
 		}
 	else

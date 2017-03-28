@@ -45,7 +45,8 @@ public:
   void Close();
   int Main(tag_message&);
 
-  void GetBackdrop(char*,bitmap*,int);
+  void GetBackdrop(char*, bitmap*, int);
+  void GetBackdrop_orig(char*,bitmap*,int);
   palette* GetPalette(char*);
   bitmap* GetBitmap(char*);
   icon* GetIcon(char*);

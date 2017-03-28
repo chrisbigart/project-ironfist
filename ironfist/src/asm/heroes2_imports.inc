@@ -81,9 +81,14 @@ IMPORT_?InitMainClasses@@YIXXZ = 1
 IMPORT_?DeleteMainClasses@@YIXXZ = 1
 
 ;;allowing play without CD
+IMPORT_?SetupCDDrive@@YIHXZ = 1
+?SetupCDDrive@@YIHXZ_clone EQU ?SetupCDDrive_orig@@YIHXZ
 IMPORT_?SetupCDRom@@YIXXZ = 1
 IMPORT_?SetupGame@game@@QAEHXZ = 1
 ?SetupGame@game@@QAEHXZ_clone EQU ?SetupGame_orig@game@@QAEHXZ
+
+IMPORT_?CDStartup@soundManager@@QAEXXZ = 1
+?CDStartup@soundManager@@QAEXXZ_clone EQU ?CDStartup_orig@soundManager@@QAEXXZ
 
 ;;;resourceManager
 
@@ -116,6 +121,9 @@ IMPORT_?ReadLong@resourceManager@@QAEJXZ = 1
 IMPORT_?MakeId@resourceManager@@QAEKPADH@Z = 1
 IMPORT_?Read13@resourceManager@@QAEXPAC@Z = 1
 IMPORT_?ReadBlock@resourceManager@@QAEXPACK@Z = 1
+
+IMPORT_?GetBackdrop@resourceManager@@QAEXPADPAVbitmap@@H@Z = 1
+?GetBackdrop@resourceManager@@QAEXPADPAVbitmap@@H@Z_clone EQU ?GetBackdrop_orig@resourceManager@@QAEXPADPAVbitmap@@H@Z
 
 ;;creatures
 
@@ -172,6 +180,8 @@ IMPORT_?ComboDraw@advManager@@QAEHHHH@Z = 1
 ?ComboDraw@advManager@@QAEHHHH@Z_clone EQU ?ComboDraw_orig@advManager@@QAEHHHH@Z
 IMPORT_?RedrawAdvScreen@advManager@@QAEXHH@Z = 1
 ?RedrawAdvScreen@advManager@@QAEXHH@Z_clone EQU ?RedrawAdvScreen_orig@advManager@@QAEXHH@Z
+IMPORT_?CopyTo@bitmap@@QAEXPAV1@HHHHHH@Z = 1
+?CopyTo@bitmap@@QAEXPAV1@HHHHHH@Z_clone EQU ?CopyTo_orig@bitmap@@QAEXPAV1@HHHHHH@Z
 
 
 IMPORT_?IconToBitmap@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z = 1
@@ -234,6 +244,13 @@ IMPORT_?AppCommand@@YIJPAXIIJ@Z = 1
 IMPORT_?UpdateDfltMenu@@YIXPAX@Z = 1
 ?UpdateDfltMenu@@YIXPAX@Z_clone EQU ?UpdateDfltMenu_orig@@YIXPAX@Z
 
+;;main menu
+IMPORT_?InitMenuHandler@@YIHAAUtag_message@@@Z = 1
+?InitMenuHandler@@YIHAAUtag_message@@@Z_clone EQU ?InitMenuHandler_orig@@YIHAAUtag_message@@@Z
+IMPORT_?CheckShingleUpdate@@YIXXZ = 1
+?CheckShingleUpdate@@YIXXZ_clone EQU ?CheckShingleUpdate_clone@@YIXXZ
+
+
 ;;system options
 IMPORT_?SystemOptionsHandler@@YIHAAUtag_message@@@Z = 1
 ?SystemOptionsHandler@@YIHAAUtag_message@@@Z_clone EQU ?SystemOptionsHandler_orig@@YIHAAUtag_message@@@Z
@@ -279,6 +296,8 @@ IMPORT_?gArtifactEvents@@3PAPADA = 1
 IMPORT_?gArtifactLevel@@3PAEA = 1
 
 ;;combat
+IMPORT_?CombatClipDrawToBuffer@icon@@QAEHHHHPAUSLimitData@@HHPAEPAC@Z = 1
+?CombatClipDrawToBuffer@icon@@QAEHHHHPAUSLimitData@@HHPAEPAC@Z_clone EQU ?CombatClipDrawToBuffer_orig@icon@@QAEHHHHPAUSLimitData@@HHPAEPAC@Z
 IMPORT_?InitNonVisualVars@combatManager@@QAEXXZ = 1
 ?InitNonVisualVars@combatManager@@QAEXXZ_clone EQU ?InitNonVisualVars_orig@combatManager@@QAEXXZ
 IMPORT_?DrawFrame@combatManager@@QAEXHHHHHHH@Z = 1
@@ -286,6 +305,8 @@ IMPORT_?DrawFrame@combatManager@@QAEXHHHHHHH@Z = 1
 IMPORT_?MoveAttack@army@@QAEXHH@Z = 1
 ?MoveAttack@army@@QAEXHH@Z_clone EQU ?MoveAttack_orig@army@@QAEXHH@Z
 IMPORT_?sElevationOverlay@@3PAUSElevationOverlay@@A = 1
+IMPORT_?DrawFrame@combatManager@@QAEXHHHHHHH@Z = 1
+?DrawFrame@combatManager@@QAEXHHHHHHH@Z_clone EQU ?DrawFrame_orig@combatManager@@QAEXHHHHHHH@Z
 
 ;;heroes
 IMPORT_?cHeroTypeInitial@@3PADA = 1

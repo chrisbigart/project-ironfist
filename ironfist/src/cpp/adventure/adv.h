@@ -12,13 +12,13 @@
 
 #define MAX_TOTAL_HEROES 48
 
-static bool draw_mask_0 = true;
-static bool draw_mask_1 = true;
-static bool draw_mask_2 = true;
-static bool draw_mask_3 = true;
-static bool draw_mask_4 = true;
-static bool draw_mask_5 = true;
-static bool draw_mask_6 = true;
+extern bool draw_mask_0;
+extern bool draw_mask_1;
+extern bool draw_mask_2;
+extern bool draw_mask_3;
+extern bool draw_mask_4;
+extern bool draw_mask_5;
+extern bool draw_mask_6;
 
 enum PRIMARY_SKILL
 {

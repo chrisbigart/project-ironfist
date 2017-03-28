@@ -8,6 +8,8 @@
 
 struct tag_message;
 
+#pragma pack(push, 1)
+
 struct managerVtable
 {
   int (__thiscall *Open)(baseManager *, int);
@@ -150,6 +152,7 @@ struct MainWindow
   unsigned int colorMouseCursor;
 };
 
+#pragma pack(pop)
 
 extern void __fastcall SetPalette(signed char *a1, int a2);
 

@@ -244,7 +244,8 @@ public:
   void CombatMessage(char *msg, int, int, int);
 
   void UpdateCombatArea();
-  void DrawFrame(int redrawAll,int,int,int,int,int,int);
+  void DrawFrame(int redrawAll, int, int, int, int, int, int);
+  void DrawFrame_orig(int redrawAll,int,int,int,int,int,int);
   void DrawBackground();
   void DrawSmallView(int, int);
 

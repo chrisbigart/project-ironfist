@@ -189,6 +189,7 @@ public:
 	void RandomizeHeroPool();
 	void SetRandomHeroArmies(int,int);
 
+	void CheckHeroConsistency();
 	int GetRandomNumTroops(int);
 	void GiveTroopsToNeutralTown(int);
 	void LoadGame(char*, int, int);
