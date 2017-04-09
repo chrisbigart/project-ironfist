@@ -233,7 +233,7 @@ int l_setguildspell(lua_State *L) {
 int l_sharevision(lua_State *L) {
     int sourcePlayer = (int)luaL_checknumber(L, 1);
     int destPlayer = (int)luaL_checknumber(L, 2);
-    gpGame->ShareVision(sourcePlayer, destPlayer);
+    //gpGame->ShareVision(sourcePlayer, destPlayer);
     return 0;
 }
 

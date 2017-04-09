@@ -182,6 +182,8 @@ IMPORT_?RedrawAdvScreen@advManager@@QAEXHH@Z = 1
 ?RedrawAdvScreen@advManager@@QAEXHH@Z_clone EQU ?RedrawAdvScreen_orig@advManager@@QAEXHH@Z
 IMPORT_?CopyTo@bitmap@@QAEXPAV1@HHHHHH@Z = 1
 ?CopyTo@bitmap@@QAEXPAV1@HHHHHH@Z_clone EQU ?CopyTo_orig@bitmap@@QAEXPAV1@HHHHHH@Z
+IMPORT_?RedrawHeroScreen@@YIXXZ = 1
+?RedrawHeroScreen@@YIXXZ_clone EQU ?RedrawHeroScreen_orig@@YIXXZ
 
 
 IMPORT_?IconToBitmap@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z = 1
@@ -202,6 +204,9 @@ IMPORT_?SetGraphicsType@@YIHH@Z = 1
 
 IMPORT_?FizzleForward@heroWindowManager@@QAEXHHHHHPAC0@Z = 1
 ?FizzleForward@heroWindowManager@@QAEXHHHHHPAC0@Z_clone EQU ?FizzleForward_orig@heroWindowManager@@QAEXHHHHHPAC0@Z
+
+IMPORT_??0heroWindow@@QAE@HHHHH@Z = 1
+;;??0heroWindow@@QAE@HHHHH@Z_clone EQU ??0heroWindow@@QAE@HHHHH@Z
 
 IMPORT_@BlitBitmapToScreenVesa@28 = 1
 @BlitBitmapToScreenVesa@28_clone EQU @BlitBitmapToScreenVesa_orig@28
@@ -233,6 +238,10 @@ IMPORT_?SetTownContext@advManager@@QAEXH@Z = 1
 ?SetTownContext@advManager@@QAEXH@Z_clone EQU ?SetTownContext_orig@advManager@@QAEXH@Z
 IMPORT_?SetHeroContext@advManager@@QAEXHH@Z = 1
 ?SetHeroContext@advManager@@QAEXHH@Z_clone EQU ?SetHeroContext_orig@advManager@@QAEXHH@Z
+
+IMPORT_?SetEnvironmentOrigin@advManager@@QAEXHHH@Z = 1
+?SetEnvironmentOrigin@advManager@@QAEXHHH@Z_clone EQU ?SetEnvironmentOrigin_orig@advManager@@QAEXHHH@Z
+
 
 ;;adventure screen 'radar' (mini-map)
 IMPORT_?UpdateRadar@advManager@@QAEXHH@Z = 1
@@ -268,6 +277,8 @@ IMPORT_?RestoreUnderlying@mouseManager@@QAEXXZ = 1
 ?RestoreUnderlying@mouseManager@@QAEXXZ_clone EQU ?RestoreUnderlying_orig@mouseManager@@QAEXXZ
 IMPORT_?CheckChangeCursor@@YIXHHH@Z= 1
 ?CheckChangeCursor@@YIXHHH@Z_clone EQU ?CheckChangeCursor_orig@@YIXHHH@Z
+IMPORT_?ReallyShowPointer@mouseManager@@QAEXXZ = 1
+?ReallyShowPointer@mouseManager@@QAEXXZ_clone EQU ?ReallyShowPointer_orig@mouseManager@@QAEXXZ
 
 
 IMPORT_?GetRandomNumTroops@game@@QAEHH@Z = 1

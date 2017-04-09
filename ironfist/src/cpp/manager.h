@@ -65,6 +65,9 @@ class mouseManager : public baseManager
 		void MouseCoords(int &, int &);
 		void MouseCoords_orig(int &, int &);
 
+		void ReallyShowPointer();
+		void ReallyShowPointer_orig();
+
 		void NewUpdate(int);
 		void NewUpdate_orig(int);
 

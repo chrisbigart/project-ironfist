@@ -16,6 +16,25 @@ int BuildingBuilt(town* twn, int building) {
 	return (twn->buildingsBuiltFlags & (1 << building)) ? 1 : 0;
 }
 
+
+heroWindow::heroWindow(int x, int y, int width, int height, int flags)
+	{
+	strcpy(this->filename, "Dynamic Construct");
+	prevWindow = 0;
+	nextWindow = prevWindow;
+	idx = -1;
+	xOffset = x;
+	yOffset = y;
+	width = width;
+	height = height;
+	flags1 = flags;
+	flags2 = 0;
+	firstWidget = 0;
+	lastWidget = firstWidget;
+	bitmap = 0;
+	}
+
+
 void game::SetupTowns() {
 
 	for(int castleIdx = 0; castleIdx < MAX_TOWNS; castleIdx++) {
@@ -200,8 +219,8 @@ void town::SelectSpells() {
 		}
 	}
 }
-
-extern signed char * townTheme;
+extern signed char townTheme[];
+//extern signed char townThemea[];
 
 extern void __fastcall KBChangeMenu(void *);
 extern void * hmnuTown;
@@ -209,14 +228,12 @@ extern void * hmnuTown;
 int townManager::Open(int idx) {
 	//int res = this->Open_orig(idx);
 	////////////////////
-	townManager *thisa; // [sp+Ch] [bp-8h]@1
-	heroWindow *window; // [sp+10h] [bp-4h]@4
 
 	gpGame->CheckHeroConsistency();
 	//if(*(_DWORD *)&useOpera || !*(_DWORD *)&useCDMusic)
-		gpSoundManager->SwitchAmbientMusic(townTheme[thisa->castle->factionID]);
-	PollSound();
+		gpSoundManager->SwitchAmbientMusic(townTheme[castle->factionID]);
 
+	PollSound();
 	townScreen = new heroWindow(0 + 80, 0, "townwind.bin");
 	if(!townScreen)
 		MemError();
@@ -240,10 +257,10 @@ int townManager::Open(int idx) {
 	SetupTown();
 	KBChangeMenu(hmnuTown);
 	gpMouseManager->SetPointer("advmice.mse", 0, -999);
-	thisa->type = 2048;
-	thisa->idx = idx;
-	thisa->ready = 1;
-	strcpy(thisa->name, "townManager");
+	type = 2048;
+	idx = idx;
+	ready = 1;
+	strcpy(name, "townManager");
 	gpWindowManager->FadeScreen(0, 8, 0);
 
 	///////////////////////////////////////

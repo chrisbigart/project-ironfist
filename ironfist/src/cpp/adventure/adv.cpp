@@ -119,7 +119,7 @@ void advManager::SetTownContext(int a2)
 
 	int viewx_diff = 7;
 	//if(widescreen)
-	//viewx_diff = 10;
+	viewx_diff = 10;
 	this->viewX = gpGame->castles[LOBYTE(gpCurPlayer->field_45)].x - viewx_diff;
 	this->viewY = (unsigned __int8)v7[5] - 7;
 	v4 = 0;
@@ -147,7 +147,7 @@ void advManager::SetTownContext(int a2)
 	UpdateRadar(1, 0);
 	CompleteDraw(this->viewX, this->viewY, 0, 1);
 	UpdateScreen(0, 0);
-	SetEnvironmentOrigin(this->viewX + 7, this->viewY + 7, 1);
+	SetEnvironmentOrigin(this->viewX + 10, this->viewY + 7, 1);
 	v5 = (unsigned __int8)giGroundToTerrain[GetCell((unsigned __int8)v7[4], (unsigned __int8)v7[5])->groundIndex];
 	if(this->currentTerrain != v5)
 		{
@@ -193,7 +193,8 @@ void advManager::SetHeroContext(int heroIdx, int a3)
 		hro = &gpGame->heroes[gpCurPlayer->curHeroIdx];
 		int viewx_diff = 7;
 		//if(widescreen)
-		//viewx_diff = 10;
+		//	viewx_diff = 10;
+
 		this->viewX = gpGame->heroes[gpCurPlayer->curHeroIdx].x - viewx_diff;
 		this->viewY = hro->y - 7;
 		this->field_29A = 7;
@@ -246,7 +247,7 @@ void advManager::SetHeroContext(int heroIdx, int a3)
 		UpdBottomView(1, 1, 1);
 		this->field_272 = 1;
 		UpdateRadar(1, 0);
-		CompleteDraw(this->viewX, this->viewY, 0, 1);
+		CompleteDraw(this->viewX - 3, this->viewY, 0, 1);
 		UpdateScreen(0, 0);
 		SetEnvironmentOrigin(this->viewX + 7, this->viewY + 7, 1);
 		heroOwnedIdxa = (unsigned __int8)giGroundToTerrain[v4->groundIndex];
@@ -281,46 +282,46 @@ int advManager::Open(int idx) {
 	}
 	return res;
 }
-
-void game::ShareVision(int sourcePlayer, int destPlayer) {
-    this->sharePlayerVision[sourcePlayer][destPlayer] = 1;
-    this->PropagateVision();
-}
-
-void game::PropagateVision() {
-    for (int p1 = 0; p1 < NUM_PLAYERS; p1++) {
-        for (int p2 = 0; p2 < NUM_PLAYERS; p2++) {
-            if (this->sharePlayerVision[p1][p2]) {
-                for (int i = 0; i < MAP_HEIGHT; i++) {
-                    for (int j = 0; j < MAP_WIDTH; j++) {
-                        if (MapCellVisible(j, i, p1)) {
-                            RevealMapCell(j, i, p2);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//
+//void game::ShareVision(int sourcePlayer, int destPlayer) {
+//    this->sharePlayerVision[sourcePlayer][destPlayer] = 1;
+//    this->PropagateVision();
+//}
+//
+//void game::PropagateVision() {
+//    for (int p1 = 0; p1 < NUM_PLAYERS; p1++) {
+//        for (int p2 = 0; p2 < NUM_PLAYERS; p2++) {
+//            if (this->sharePlayerVision[p1][p2]) {
+//                for (int i = 0; i < MAP_HEIGHT; i++) {
+//                    for (int j = 0; j < MAP_WIDTH; j++) {
+//                        if (MapCellVisible(j, i, p1)) {
+//                            RevealMapCell(j, i, p2);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 void game::SetVisibility(int x, int y, int player, int radius) {
     this->SetVisibility_orig(x, y, player, radius);
 
-    for (int i = 0; i < NUM_PLAYERS; i++) {
-        if (this->sharePlayerVision[player][i]) {
-            // Would take more work to be transitive without infinite recursion
-            this->SetVisibility_orig(x, y, i, radius);
-        }
-    }
+    //for (int i = 0; i < NUM_PLAYERS; i++) {
+    //    if (this->sharePlayerVision[player][i]) {
+    //        // Would take more work to be transitive without infinite recursion
+    //        this->SetVisibility_orig(x, y, i, radius);
+    //    }
+    //}
 }
 
 void game::MakeAllWaterVisible(int player) {
     this->MakeAllWaterVisible_orig(player);
 
-    for (int i = 0; i < NUM_PLAYERS; i++) {
-        if (this->sharePlayerVision[player][i]) {
-            // Would take more work to be transitive without infinite recursion
-            this->MakeAllWaterVisible_orig(i);
-        }
-    }
+    //for (int i = 0; i < NUM_PLAYERS; i++) {
+    //    if (this->sharePlayerVision[player][i]) {
+    //        // Would take more work to be transitive without infinite recursion
+    //        this->MakeAllWaterVisible_orig(i);
+    //    }
+    //}
 }

@@ -29,9 +29,9 @@ void mouseManager::MouseCoords(int& x, int& y)
 	y = 480 * retrieveVirtualCursorCoordinates_lppoint.y / iMainWinScreenHeight;
 	}
 
-
 extern BOOL gbPutzingWithMouseCtr;
 extern BOOL gbColorMice;
+
 void __fastcall CheckChangeCursor(signed int a1, signed int a2, int a3)
 	{
 	int result; // eax@1
@@ -84,6 +84,51 @@ void __fastcall CheckChangeCursor(signed int a1, signed int a2, int a3)
 	//return result;
 	}
 
+
+
+void mouseManager::ReallyShowPointer()
+	{
+	int result; // eax@2
+	__int32 v3; // eax@5
+	__int32 v4; // edx@5
+
+	const int SCREEN_WIDTH = 800;
+	const int SCREEN_HEIGHT = 480;
+	POINT Point;
+
+	if (gbColorMice)
+		{
+		result = this->cursorDisabled;
+		if (result > 0)
+			{
+			--result;
+			this->cursorDisabled = result;
+			if (!result)
+				{
+				++gbPutzingWithMouseCtr;
+				if (gbColorMice)
+					{
+					GetCursorPos(&Point);
+					ScreenToClient((HWND)hwndApp, &Point);
+					v3 = SCREEN_WIDTH * Point.x / iMainWinScreenWidth;
+					field_56 = v3;
+					v4 = SCREEN_HEIGHT * Point.y / iMainWinScreenHeight;
+					field_5A = v4;
+					CheckChangeCursor(v3, v4, 0);
+					}
+				NewUpdate(1);
+				result = gbPutzingWithMouseCtr-- - 1;
+				}
+			}
+		}
+	else
+		{
+		result = ShowCursor(1);
+		}
+	//return result;
+	}
+
+
 #pragma pack(push, 1)
 struct CursorHotspot
 	{
@@ -120,7 +165,7 @@ void mouseManager::SaveAndDraw()
 	CursorHotspot* iHotSpot = (CursorHotspot*)(iHotSpot_asm);
 	CursorDimension* iMouseSize = (CursorDimension*)(iMouseSize_asm);
 
-	const int SCREEN_WIDTH = 640;
+	const int SCREEN_WIDTH = 800;
 
 	auto spots = IMHotSpots;
 

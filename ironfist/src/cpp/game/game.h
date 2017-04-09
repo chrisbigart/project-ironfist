@@ -177,7 +177,7 @@ public:
 	char field_660E;
 
     // New state
-    bool sharePlayerVision[NUM_PLAYERS][NUM_PLAYERS];
+    //bool sharePlayerVision[NUM_PLAYERS][NUM_PLAYERS];
 
 	int NewGame(void);
 	int SetupGame();

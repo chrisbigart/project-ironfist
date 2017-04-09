@@ -1,6 +1,7 @@
 #include "base.h"
 #include "game/game.h"
 #include "combat/combat.h"
+#include "resource/resourceManager.h"
 
 void __thiscall heroWindowManager::UpdateScreenRegion(int offsetX, int offsetY, int width, int height)
 	{
@@ -11,7 +12,13 @@ void __thiscall heroWindowManager::UpdateScreenRegion(int offsetX, int offsetY, 
 	PollSound();
 	}
 
-
+extern class heroWindow * heroWin;
+void __fastcall RedrawHeroScreen(void)
+	{
+	gpResourceManager->GetBackdrop("herobkg.icn", gpWindowManager->screenBuffer, 1);
+	heroWin->DrawWindow();
+	gpWindowManager->UpdateScreenRegion(0, 0, 640u + 160, 480);
+	}
 
 void __fastcall InitGraphics_orig();
 void __fastcall InitGraphics()

@@ -14,6 +14,8 @@
 #include <Windows.h>
 #include <string>
 
+extern void check_game_structure_sizes();
+
 #pragma pack(push,1)
 //
 //class executive {
@@ -86,6 +88,8 @@ void __fastcall InitMainClasses()
 	gpPhilAI = new philAI;
 	gpMonGroup = new armyGroup;
 	gpBufferPalette = new palette;
+
+	check_game_structure_sizes();
 }
 
 void __fastcall DeleteMainClasses() {

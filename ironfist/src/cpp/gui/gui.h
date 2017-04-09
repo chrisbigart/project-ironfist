@@ -69,7 +69,11 @@ public:
   bitmap *bitmap;
 
   heroWindow(int, int, char*);
-  
+  heroWindow(int, int, int, int, int);
+
+  //heroWindow_orig(int, int, char*);
+
+  void DrawWindow();
   void DrawWindow(int);
   void DrawWindow(int updateScreen, int lowID, int highID);
   int BroadcastMessage(tag_message&);

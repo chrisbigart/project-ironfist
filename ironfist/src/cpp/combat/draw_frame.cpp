@@ -29,7 +29,7 @@ extern int giCombatSpeed;
 extern int gbFullCombatScreenDrawn;
 extern float gfCombatSpeedMod[3];
 extern unsigned char * moatCell;
-extern struct SCmbtHero * sCmbtHero;
+extern struct SCmbtHero sCmbtHero[];
 
 #pragma pack(push, 1)
 struct Point16
@@ -98,15 +98,15 @@ void __thiscall combatManager::DrawFrame(int redrawAll, int a3, int a4, int a5, 
 				gbComputeExtent = 1;
 				gbSaveBiggestExtent = 1;
 				gbReturnAfterComputeExtent = 1;
-				//heroIcon[l]->CombatClipDrawToBuffer(
-				//	(unsigned int)l < 1 ? 30 : 610,
-				//	(unsigned int)l < 1 ? 183 : 148,
-				//	sCmbtHero[heroType[l]].frameIndex[heroAnimationType[l]][heroAnimationFrameCount[l]],
-				//	(SLimitData*)&(heroBounds[l]),
-				//	1,
-				//	0,
-				//	0,
-				//	0);
+				heroIcon[l]->CombatClipDrawToBuffer(
+					(unsigned int)l < 1 ? 30 : 610,
+					(unsigned int)l < 1 ? 183 : 148,
+					sCmbtHero[heroType[l]].frameIndex[heroAnimationType[l]][heroAnimationFrameCount[l]],
+					(SLimitData*)&(heroBounds[l]),
+					1,
+					0,
+					0,
+					0);
 				gbReturnAfterComputeExtent = 0;
 				gbComputeExtent = 0;
 				gbSaveBiggestExtent = 0;
@@ -125,7 +125,7 @@ void __thiscall combatManager::DrawFrame(int redrawAll, int a3, int a4, int a5, 
 					offsetX = (unsigned int)heroes[l]->isCaptain < 1 ? 610 : 103;
 				else
 					offsetX = 30;
-					/*heroFlagIcon[l]->CombatClipDrawToBuffer(
+					heroFlagIcon[l]->CombatClipDrawToBuffer(
 						offsetX,
 						offsetY,
 						heroFlagIconIdx[l],
@@ -133,7 +133,7 @@ void __thiscall combatManager::DrawFrame(int redrawAll, int a3, int a4, int a5, 
 						1,
 						0,
 						0,
-						0);*/
+						0);
 				gbReturnAfterComputeExtent = 0;
 				gbComputeExtent = 0;
 				gbSaveBiggestExtent = 0;
@@ -184,48 +184,47 @@ void __thiscall combatManager::DrawFrame(int redrawAll, int a3, int a4, int a5, 
 		{
 		if(j == 1 && heroes[1])
 			{
-				//heroIcon[1]->CombatClipDrawToBuffer(
-				//	(unsigned int)heroes[1]->isCaptain < 1 ? 610 : 103,
-				//	(unsigned int)heroes[1]->isCaptain < 1 ? 148 : 0x87u,
-				//	sCmbtHero[heroType[1]].frameIndex[heroAnimationType[1]][heroAnimationFrameCount[1]],
-				//	(SLimitData*)&(heroBounds[1]),
-				//	1,
-				//	0,
-				//	0,
-				//	0);
-				//heroFlagIcon[1]->CombatClipDrawToBuffer(
-				//	610,
-				//	148,
-				//	heroFlagIconIdx[1],
-				//	(SLimitData*)&(heroFlagBounds[1]),
-				//	1,
-				//	0,
-				//	0,
-				//	0);
+				heroIcon[1]->CombatClipDrawToBuffer(
+					(unsigned int)heroes[1]->isCaptain < 1 ? 610 : 103,
+					(unsigned int)heroes[1]->isCaptain < 1 ? 148 : 0x87u,
+					sCmbtHero[heroType[1]].frameIndex[heroAnimationType[1]][heroAnimationFrameCount[1]],
+					(SLimitData*)&(heroBounds[1]),
+					1,
+					0,
+					0,
+					0);
+				heroFlagIcon[1]->CombatClipDrawToBuffer(
+					610,
+					148,
+					heroFlagIconIdx[1],
+					(SLimitData*)&(heroFlagBounds[1]),
+					1,
+					0,
+					0,
+					0);
 			}
 		if(j == 2 && heroes[0])
 			{
-			//int third_arg = sCmbtHero[heroType[0]].frameIndex[heroAnimationType[0]][heroAnimationFrameCount[0]];
-			//heroIcon[0]->CombatClipDrawToBuffer(
-			//	30,
-			//	183,
-			//	third_arg,
-			//	//(SLimitData*)(&heroBounds[0]),
-			//	//(SLimitData*)&heroBounds,
-			//	nullptr,
-			//	0,
-			//	0,
-			//	0,
-			//	0);
-			//heroFlagIcon[0]->CombatClipDrawToBuffer(
-			//	30,
-			//	183,
-			//	heroFlagIconIdx[0],
-			//	(SLimitData*)(&heroFlagBounds[0]),
-			//	0,
-			//	0,
-			//	0,
-			//	0);
+			int third_arg = sCmbtHero[heroType[0]].frameIndex[heroAnimationType[0]][heroAnimationFrameCount[0]];
+			heroIcon[0]->CombatClipDrawToBuffer(
+				30,
+				183,
+				third_arg,
+				(SLimitData*)(&heroBounds[0]),
+				//(SLimitData*)&heroBounds,
+				0,
+				0,
+				0,
+				0);
+			heroFlagIcon[0]->CombatClipDrawToBuffer(
+				30,
+				183,
+				heroFlagIconIdx[0],
+				(SLimitData*)(&heroFlagBounds[0]),
+				0,
+				0,
+				0,
+				0);
 			}
 		colStart = 1;
 		colBound = 12;

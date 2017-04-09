@@ -1004,6 +1004,15 @@ void advManager::DrawAdventureBorder()
 	return;
 	}
 
+void advManager::SetEnvironmentOrigin(int x, int y, int a3)
+	{
+	return;
+	if(x == viewX + 7)
+		x += 3;
+
+	SetEnvironmentOrigin_orig(x, y, a3);
+	}
+
 
 void advManager::RedrawAdvScreen(int a2, int a3)
 	{
@@ -1017,15 +1026,15 @@ void advManager::RedrawAdvScreen(int a2, int a3)
 		
 		//if(widescreen)
 		//char evilbit = gpGame->players[giCurPlayer]._4_1; //this is set in newmap()
-		//FACTION faction = (FACTION)gpGame->castles[gpGame->players[giCurPlayer].castlesOwned[0]].factionID;
+		FACTION faction = (FACTION)gpGame->castles[gpGame->players[giCurPlayer].castlesOwned[0]].factionID;
 		////if(gbUseEvilInterface)
-		////warning: below is a hack //todo fixme
-		//if(faction == FACTION_KNIGHT || faction == FACTION_SORCERESS) //good
-		//	gpResourceManager->GetBackdrop("advbordw.icn", gpWindowManager->screenBuffer, 1);
-		//else if(faction == FACTION_BARBARIAN || faction == FACTION_WIZARD || faction == FACTION_MULTIPLE) //neutral
-		//	gpResourceManager->GetBackdrop("advbordwn.icn", gpWindowManager->screenBuffer, 1);
-		//else if(faction == FACTION_WARLOCK || faction == FACTION_NECROMANCER) //evil
-		//	gpResourceManager->GetBackdrop("advbordwe.icn", gpWindowManager->screenBuffer, 1);
+		//warning: below is a hack //todo fixme
+		if(faction == FACTION_KNIGHT || faction == FACTION_SORCERESS) //good
+			gpResourceManager->GetBackdrop("advbordw.icn", gpWindowManager->screenBuffer, 1);
+		else if(faction == FACTION_BARBARIAN || faction == FACTION_WIZARD || faction == FACTION_MULTIPLE) //neutral
+			gpResourceManager->GetBackdrop("advbordwn.icn", gpWindowManager->screenBuffer, 1);
+		else if(faction == FACTION_WARLOCK || faction == FACTION_NECROMANCER) //evil
+			gpResourceManager->GetBackdrop("advbordwe.icn", gpWindowManager->screenBuffer, 1);
 		//gpWindowManager->screenBuffer->width = old_width;
 		
 		if(a3)
@@ -1033,7 +1042,7 @@ void advManager::RedrawAdvScreen(int a2, int a3)
 			//BaseFree((void *)this->field_BA, (int)"F:\\h2xsrc\\Source\\ADVMGR.CPP", word_50F7C0 + 9);
 			this->field_BA = 0;
 			}
-		//SaveAdventureBorder();
+		SaveAdventureBorder();
 		UpdateHeroLocators(0, 0);
 		UpdateTownLocators(0, 0);
 		UpdBottomView(1, 0, 0);
@@ -1255,7 +1264,9 @@ void __fastcall BlitBitmapToScreen(bitmap *bmp, int xOff, int yOff, int width, i
 			}
 		else
 			{
-			BlitBitmapToScreenVesa(bmpa, x, v8, v7 + 160, height, screenX, screenY);
+			if(x != 481)
+				BlitBitmapToScreenVesa(bmpa, x, v8, v7 + 160, height, screenX, screenY);
+			//Sleep(750);
 			std::cout << "BlitBitmapToScreenVesa(" << bmpa << ", " << x << ", " << v8 << ", " << v7 << ", " << height << ", " << screenX << ", " << screenY << ")\n";
 			}
 		}
@@ -1394,9 +1405,9 @@ void game::PerDay() {
 }
 
 void game::ResetIronfistGameState() {
-    for (int i = 0; i < NUM_PLAYERS; i++) {
+  /*  for (int i = 0; i < NUM_PLAYERS; i++) {
         for (int j = 0; j < NUM_PLAYERS; j++) {
             this->sharePlayerVision[i][j] = 0;
         }
-    }
+    }*/
 }

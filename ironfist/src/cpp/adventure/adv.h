@@ -281,6 +281,8 @@ public:
 	void SaveAdventureBorder_orig();
 
 	void SetEnvironmentOrigin(int, int, int);
+	void SetEnvironmentOrigin_orig(int, int, int);
+
 
 	void UpdBottomView(int, int, int);
 	void UpdBottomView_orig(int, int, int);

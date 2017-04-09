@@ -73,6 +73,8 @@ int advManager::ProcessSelect(struct tag_message * evt, class mapCell * *a3)
 	int ADV_DRAW_WIDTH = 448 + WIDESCREEN_ADDITIONAL_WIDTH;
 	int ADV_DRAW_TOTAL_WIDTH = 480 + WIDESCREEN_ADDITIONAL_WIDTH;
 
+	const int HALF_MAP_WIDTH_TILES = 10;
+
 	thisa = (advManager *)this;
 	v15 = 1;
 	quickViewX = evt->altXCoord;
@@ -351,9 +353,11 @@ int advManager::ProcessSelect(struct tag_message * evt, class mapCell * *a3)
 						v10 = 1.0;
 						break;
 					}
+				auto xoff = quickViewX % 640;
+				giScrollX = xoff % 32;
 				quickViewX = (signed __int64)((double)(quickViewX - ADV_DRAW_TOTAL_WIDTH) / v10);
 				quickViewY = (signed __int64)((double)(quickViewY - 16) / v10);
-				thisa->viewX = quickViewX - 7;
+				thisa->viewX = quickViewX - HALF_MAP_WIDTH_TILES;//7;
 				thisa->viewY = quickViewY - 7;
 				if(thisa->viewX < -7)
 					thisa->viewX = -7;
@@ -398,10 +402,10 @@ int advManager::ProcessSelect(struct tag_message * evt, class mapCell * *a3)
 						gpMouseManager->Main(move_event);
 						quickViewX = (int)((move_event.xCoordOrKeycode - ADV_DRAW_TOTAL_WIDTH) / v10);
 						quickViewY = (int)((move_event.yCoordOrFieldID - 16) / v10);
-						thisa->viewX = quickViewX - 7;
+						thisa->viewX = quickViewX - HALF_MAP_WIDTH_TILES;//7;
 						thisa->viewY = quickViewY - 7;
-						if(thisa->viewX < -7)
-							thisa->viewX = -7;
+						if(thisa->viewX < -HALF_MAP_WIDTH_TILES)
+							thisa->viewX = -HALF_MAP_WIDTH_TILES;
 						if(thisa->viewY < -7)
 							thisa->viewY = -7;
 						if(MAP_WIDTH - 8 < thisa->viewX)

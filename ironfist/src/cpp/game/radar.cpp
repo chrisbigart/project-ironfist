@@ -104,6 +104,7 @@ void advManager::UpdateRadar(int a2, int a3)
 		0x49, 0x69, 0xbe, 0x72, 0xcd, 0x8a, 0x0a, 0x00
 		};
 
+	//return;
 	v3 = this;
 	v27 = 36;
 	if(a3)
@@ -466,11 +467,12 @@ void advManager::UpdateRadar(int a2, int a3)
 		if(a2)
 			{
 			if(a3)
-				gpWindowManager->UpdateScreenRegion(
-					(signed __int64)((double)v24 * v15 + xarg2),
-					(signed __int64)((double)v19 * v15 + 16.0),
-					(signed __int64)((double)(v25 - v24 + 1) * v15),
-					(signed __int64)((double)(v20 - v19 + 1) * v15));
+				;
+				//gpWindowManager->UpdateScreenRegion(
+				//	(signed __int64)((double)v24 * v15 + xarg2),
+				//	(signed __int64)((double)v19 * v15 + 16.0),
+				//	(signed __int64)((double)(v25 - v24 + 1) * v15),
+				//	(signed __int64)((double)(v20 - v19 + 1) * v15));
 			else
 				gpWindowManager->UpdateScreenRegion(xarg3, 16, 0x90u, 144);
 			}

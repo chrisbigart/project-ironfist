@@ -63,7 +63,7 @@ void advManager::QuickInfo(int a2, int a3)
 	int ADV_DRAW_WIDTH = 448 + WIDESCREEN_ADDITIONAL_WIDTH;
 	int ADV_DRAW_TOTAL_WIDTH = 480 + WIDESCREEN_ADDITIONAL_WIDTH;
 
-	return QuickInfo_orig(a2, a3);
+	//return QuickInfo_orig(a2, a3);
 
 	v9 = this;
 	map_cell = 0;
@@ -95,102 +95,99 @@ void advManager::QuickInfo(int a2, int a3)
 	if(a2 + v9->viewX >= 0 && a2 + v9->viewX < MAP_WIDTH && a3 + v9->viewY >= 0 && a3 + v9->viewY < MAP_HEIGHT)
 		{
 		map_cell = GetCell(a2 + v9->viewX, a3 + v9->viewY);
+		int object_type = map_cell->objType & 0x7F;
+
 		if((unsigned __int8)*(&mapRevealed[a2] + v9->viewX + MAP_WIDTH * (a3 + v9->viewY)) & (unsigned __int8)giCurPlayerBit)
 			{
-			switch(map_cell->objType & 0x7F)
+			//bool visited = ((map_cell->extraInfo >> 3) & 0x1F);
+			int extra_info = map_cell->extraInfo;
+			int visited_flag = 1 << (map_cell->extraInfo & 0x1f);
+
+			switch(object_type)
 				{
-				//int ((map_cell->extraInfo >> 3) & 0x1F);
-				//case LOCATION_ARTIFACT:
-				//	sprintf(gText, "%s", "Artifact");
-				//	break;
-				//case LOCATION_OBELISK:
-				//	if(!(map_cell->objType & 0x80))
-				//		goto LABEL_145;
-				//	sprintf(
-				//		gText,
-				//		"%s\n\n%s",
-				//		(&adventureMapLocations)[4 * (map_cell->objType & 0x7F)],
-				//		&aAlreadyVisit_0[("(not visited)" - "(already visited)") & (((gpGame->boatBuilt[
-				//			//(unsigned __int8)((unsigned __int8)(map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5)
-				//			map_cell->field_4_1
-				//																	  + 47] & (1 << giCurPlayer)) != 0)
-				//																	- 1)]);
-				//	break;
-				//case LOCATION_GAZEBO:
-				//	if(!curHero || !(map_cell->objType & 0x80))
-				//		goto LABEL_145;
-				//	sprintf(
-				//		gText,
-				//		"%s\n\n%s",
-				//		(&adventureMapLocations)[4 * (map_cell->objType & 0x7F)],
-				//		&aAlreadyVisit_1[("(not visited)" - "(already visited)") & (((
-				//			(1 <<
-				//			 //((map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3) & 0x1F)
-				//			 map_cell->extraInfo
-				//				) 
-				//																	  & curHero->gazeboesVisited) != 0)
-				//																	- 1)]);
-				//	break;
-				//case LOCATION_FORT:
-				//	if(!curHero || !(map_cell->objType & 0x80))
-				//		goto LABEL_145;
-				//	sprintf(
-				//		gText,
-				//		"%s\n\n%s",
-				//		(&adventureMapLocations)[4 * (map_cell->objType & 0x7F)],
-				//		&aAlreadyVisit_2[("(not visited)" - "(already visited)") & ((((1 << ((map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3) & 0x1F)) & curHero->fortsVisited) != 0)
-				//																	- 1)]);
-				//	break;
-				//case LOCATION_WITCH_DOCTORS_HUT:
-				//	if(!curHero || !(map_cell->objType & 0x80))
-				//		goto LABEL_145;
-				//	sprintf(
-				//		gText,
-				//		"%s\n\n%s",
-				//		(&adventureMapLocations)[4 * (map_cell->objType & 0x7F)],
-				//		&aAlreadyVisit_3[("(not visited)" - "(already visited)") & ((((1 << ((map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3) & 0x1F)) & curHero->witchDoctorHutsVisited) != 0)
-				//																	- 1)]);
-				//	break;
-				//case LOCATION_MERCENARY_CAMP:
-				//	if(!curHero || !(map_cell->objType & 0x80))
-				//		goto LABEL_145;
-				//	sprintf(
-				//		gText,
-				//		"%s\n\n%s",
-				//		(&adventureMapLocations)[4 * (map_cell->objType & 0x7F)],
-				//		&aAlreadyVisit_4[("(not visited)" - "(already visited)") & ((((1 << ((map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3) & 0x1F)) & curHero->mercenaryCampsVisited) != 0)
-				//																	- 1)]);
-				//	break;
-				//case LOCATION_STANDING_STONES:
-				//	if(!curHero || !(map_cell->objType & 0x80))
-				//		goto LABEL_145;
-				//	sprintf(
-				//		gText,
-				//		"%s\n\n%s",
-				//		(&adventureMapLocations)[4 * (map_cell->objType & 0x7F)],
-				//		&aAlreadyVisit_5[("(not visited)" - "(already visited)") & ((((1 << ((map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3) & 0x1F)) & curHero->standingStonesVisited) != 0)
-				//																	- 1)]);
-				//	break;
-				//case LOCATION_TREE_OF_KNOWLEDGE:
-				//	if(!curHero || !(map_cell->objType & 0x80))
-				//		goto LABEL_145;
-				//	sprintf(
-				//		gText,
-				//		"%s\n\n%s",
-				//		(&adventureMapLocations)[4 * (map_cell->objType & 0x7F)],
-				//		&aAlreadyVisit_6[("(not visited)" - "(already visited)") & ((((1 << ((map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3) & 0x1F)) & curHero->treesOfKnowledgeVisited) != 0)
-				//																	- 1)]);
-				//	break;
-				//case LOCATION_XANADU:
-				//	if(!curHero || !(map_cell->objType & 0x80))
-				//		goto LABEL_145;
-				//	sprintf(
-				//		gText,
-				//		"%s\n\n%s",
-				//		(&adventureMapLocations)[4 * (map_cell->objType & 0x7F)],
-				//		&aAlreadyVisit_7[("(not visited)" - "(already visited)") & ((((1 << ((map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3) & 0x1F)) & curHero->xanadusVisited) != 0)
-				//																	- 1)]);
-				//	break;
+				case LOCATION_ARTIFACT:
+					sprintf(gText, "%s", "Artifact");
+					break;
+				case LOCATION_OBELISK:
+					if(!(map_cell->objType & 0x80))
+						goto LABEL_145;
+					sprintf(
+						gText,
+						"%s\n\n%s",
+						adventureMapLocations[object_type],						
+						((gpGame->obeliskVisitedMasks[extra_info - 1] & (1 << giCurPlayer)) ? "(already visited)" : "(not visited)")
+						);
+					break;
+				case LOCATION_GAZEBO:
+					if(!curHero || !(map_cell->objType & 0x80))
+						goto LABEL_145;
+					sprintf(
+						gText,
+						"%s\n\n%s",
+						adventureMapLocations[object_type],
+						((visited_flag & curHero->gazeboesVisited) ? "(already visited)" : "(not visited)")
+						);
+					break;
+				case LOCATION_FORT:
+					if(!curHero || !(map_cell->objType & 0x80))
+						goto LABEL_145;
+					sprintf(
+						gText,
+						"%s\n\n%s",
+						adventureMapLocations[object_type],
+						((visited_flag & curHero->fortsVisited) ? "(already visited)" : "(not visited)")
+						);
+					break;
+				case LOCATION_WITCH_DOCTORS_HUT:
+					if(!curHero || !(map_cell->objType & 0x80))
+						goto LABEL_145;
+					sprintf(
+						gText,
+						"%s\n\n%s",
+						adventureMapLocations[object_type],
+						((visited_flag & curHero->witchDoctorHutsVisited) ? "(already visited)" : "(not visited)")
+						);
+					break;
+				case LOCATION_MERCENARY_CAMP:
+					if(!curHero || !(map_cell->objType & 0x80))
+						goto LABEL_145;
+					sprintf(
+						gText,
+						"%s\n\n%s",
+						adventureMapLocations[object_type],
+						((visited_flag & curHero->mercenaryCampsVisited) ? "(already visited)" : "(not visited)")
+						);
+					break;
+				case LOCATION_STANDING_STONES:
+					if(!curHero || !(map_cell->objType & 0x80))
+						goto LABEL_145;
+					sprintf(
+						gText,
+						"%s\n\n%s",
+						adventureMapLocations[object_type],
+						((visited_flag & curHero->standingStonesVisited) ? "(already visited)" : "(not visited)")
+						);
+					break;
+				case LOCATION_TREE_OF_KNOWLEDGE:
+					if(!curHero || !(map_cell->objType & 0x80))
+						goto LABEL_145;
+					sprintf(
+						gText,
+						"%s\n\n%s",
+						adventureMapLocations[object_type],
+						((visited_flag & curHero->treesOfKnowledgeVisited) ? "(already visited)" : "(not visited)")
+						);
+					break;
+				case LOCATION_XANADU:
+					if(!curHero || !(map_cell->objType & 0x80))
+						goto LABEL_145;
+					sprintf(
+						gText,
+						"%s\n\n%s",
+						adventureMapLocations[object_type],
+						((visited_flag & curHero->xanadusVisited) ? "(already visited)" : "(not visited)")
+						);
+					break;
 				case LOCATION_BUOY:
 					v23 = 2;
 					goto LABEL_145;
@@ -230,7 +227,7 @@ void advManager::QuickInfo(int a2, int a3)
 				//		&aNoDigging[("(digging ok)" - "(no digging)") & ((v11 != 0) - 1)]);
 				//	break;
 				//case LOCATION_ABANDONED_MINE:
-				//	sprintf(gText, "%s", (&adventureMapLocations)[4 * (map_cell->objType & 0x7F)]);
+				//	sprintf(gText, "%s", adventureMapLocations[object_type]);
 				//	goto LABEL_74;
 				//case LOCATION_MINE:
 				//	if(gpGame->mines[(unsigned __int8)((unsigned __int8)(map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5)].guardianType == -1)
@@ -283,7 +280,7 @@ void advManager::QuickInfo(int a2, int a3)
 				//	if(map_cell->objType & 0x80)
 				//		{
 				//		v7 = map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3;
-				//		sprintf(gText, (&adventureMapLocations)[4 * (map_cell->objType & 0x7F)], xBarrierColor[v7 & 7]);
+				//		sprintf(gText, adventureMapLocations[object_type], xBarrierColor[v7 & 7]);
 				//		gText[0] = toupper(gText[0]);
 				//		}
 				//	else

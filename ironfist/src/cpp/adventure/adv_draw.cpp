@@ -12,7 +12,7 @@ void advManager::UpdateScreen(int a2, int a3)
 	if(a3 || bShowIt)
 		{
 		PollSound();
-		giScrollX = this->field_1F6;
+		//giScrollX = this->field_1F6;
 		giScrollY = this->field_1FA;
 		if(giLimitUpdMinX == -1)
 			BlitBitmapToScreen(gpWindowManager->screenBuffer, 16, 16, update_width, update_height, 16, 16);
@@ -25,7 +25,7 @@ void advManager::UpdateScreen(int a2, int a3)
 				giLimitUpdMaxY - giLimitUpdMinY,
 				giLimitUpdMinX,
 				giLimitUpdMinY);
-		giScrollY = 0;
+//		giScrollY = 0;
 		giScrollX = 0;
 		PollSound();
 		if(KBTickCount() > glTimers)
