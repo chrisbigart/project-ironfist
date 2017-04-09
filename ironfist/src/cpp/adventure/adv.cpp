@@ -247,7 +247,7 @@ void advManager::SetHeroContext(int heroIdx, int a3)
 		UpdBottomView(1, 1, 1);
 		this->field_272 = 1;
 		UpdateRadar(1, 0);
-		CompleteDraw(this->viewX - 3, this->viewY, 0, 1);
+		CompleteDraw(this->viewX, this->viewY, 0, 1);
 		UpdateScreen(0, 0);
 		SetEnvironmentOrigin(this->viewX + 7, this->viewY + 7, 1);
 		heroOwnedIdxa = (unsigned __int8)giGroundToTerrain[v4->groundIndex];

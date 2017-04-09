@@ -203,6 +203,9 @@ public:
 	void SetVisibility(int,int,int,int);
     void SetVisibility_orig(int, int, int, int);
 
+	void ShowHeroesLogo();
+	void ShowHeroesLogo_orig();
+
 	int HandleCampaignWin(void);
 	void CheckForTimeEvent(void);
 

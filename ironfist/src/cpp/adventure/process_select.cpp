@@ -91,7 +91,7 @@ int advManager::ProcessSelect(struct tag_message * evt, class mapCell * *a3)
 				objOrHeroIdx = *(&gpCurPlayer->heroesOwned[v20] + gpCurPlayer->field_3);
 				if(BYTE1(evt->inputTypeBitmask) & 2)
 					{
-					HeroQuickView(objOrHeroIdx, v20, -1, -1);
+					HeroQuickView(objOrHeroIdx, v20, 288 + 160, (30 * v20 + 97));//-1, -1);
 					}
 				else if(gpCurPlayer->curHeroIdx == objOrHeroIdx)
 					{
@@ -112,7 +112,7 @@ int advManager::ProcessSelect(struct tag_message * evt, class mapCell * *a3)
 			objOrHeroIdx = *(&gpCurPlayer->_3[evt->yCoordOrFieldID + 36] + HIBYTE(gpCurPlayer->field_45));
 			if(BYTE1(evt->inputTypeBitmask) & 2)
 				{
-				TownQuickView(objOrHeroIdx, evt->yCoordOrFieldID - 16, -1, -1);
+				TownQuickView(objOrHeroIdx, evt->yCoordOrFieldID - 16, 328 + 160, 176);
 				}
 			else
 				{

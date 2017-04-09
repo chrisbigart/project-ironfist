@@ -5,6 +5,20 @@
 #include "resource/resourceManager.h"
 #include "sound/sound.h"
 
+void game::ShowHeroesLogo()
+	{
+	icon *v0; // ST34_4@2
+
+	if (!gpAdvManager->field_37A)
+		{
+		gpAdvManager->field_37A = 1;
+		v0 = gpResourceManager->GetIcon("herologo.icn");
+		IconToBitmap(v0, gpWindowManager->screenBuffer, 480 + 160, 16, 0, 0, 0, 0, 0x280u, 480, 0);
+		gpWindowManager->UpdateScreenRegion(480 + 160, 16, 0x90u, 144);
+		gpResourceManager->Dispose((resource *)v0);
+		}
+	}
+
 void advManager::UpdateScreen(int a2, int a3)
 	{
 	static int update_width = 0x1C0u + 160;

@@ -201,6 +201,8 @@ IMPORT_?DDInitGraphics@@YIXXZ = 1
 ?DDInitGraphics@@YIXXZ_clone EQU ?DDInitGraphics_orig@@YIXXZ
 IMPORT_?SetGraphicsType@@YIHH@Z = 1
 ?SetGraphicsType@@YIHH@Z_clone EQU ?SetGraphicsType_orig@@YIHH@Z
+IMPORT_?ShowHeroesLogo@game@@QAEXXZ = 1
+?ShowHeroesLogo@game@@QAEXXZ_clone EQU ?ShowHeroesLogo_orig@game@@QAEXXZ
 
 IMPORT_?FizzleForward@heroWindowManager@@QAEXHHHHHPAC0@Z = 1
 ?FizzleForward@heroWindowManager@@QAEXHHHHHPAC0@Z_clone EQU ?FizzleForward_orig@heroWindowManager@@QAEXHHHHHPAC0@Z
