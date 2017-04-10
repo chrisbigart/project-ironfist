@@ -184,7 +184,10 @@ IMPORT_?CopyTo@bitmap@@QAEXPAV1@HHHHHH@Z = 1
 ?CopyTo@bitmap@@QAEXPAV1@HHHHHH@Z_clone EQU ?CopyTo_orig@bitmap@@QAEXPAV1@HHHHHH@Z
 IMPORT_?RedrawHeroScreen@@YIXXZ = 1
 ?RedrawHeroScreen@@YIXXZ_clone EQU ?RedrawHeroScreen_orig@@YIXXZ
-
+IMPORT_?FizzleCenter@advManager@@QAEXH@Z = 1
+?FizzleCenter@advManager@@QAEXH@Z_clone EQU ?FizzleCenter_orig@advManager@@QAEXH@Z
+IMPORT_?SaveFizzleSource@heroWindowManager@@QAEXHHHH@Z = 1
+?SaveFizzleSource@heroWindowManager@@QAEXHHHH@Z_clone EQU ?SaveFizzleSource_orig@heroWindowManager@@QAEXHHHH@Z
 
 IMPORT_?IconToBitmap@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z = 1
 ?IconToBitmap@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z_clone EQU ?IconToBitmap_orig@@YIXPAVicon@@PAVbitmap@@HHHHHHHHH@Z

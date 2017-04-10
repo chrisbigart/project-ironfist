@@ -5,6 +5,41 @@
 #include "resource/resourceManager.h"
 #include "sound/sound.h"
 
+void heroWindowManager::SaveFizzleSource(int a1, int a2, int a3, int a4)
+	{
+	return SaveFizzleSource_orig(a1, a2, a3, a4);
+	}
+
+void advManager::FizzleCenter(int a2)
+	{
+	int v2; // eax@4
+	//__int64 v3; // ST3C_8@8
+	SAMPLE2 sound_sample;
+
+	if (bShowIt)
+		{
+		if (a2)
+			{
+			if (a2 != 1)
+				return;
+			v2 = Random(1, 7);
+			sprintf(gText, "pickup%02d.82M", v2);
+			}
+		else
+			{
+			sprintf(gText, "killfade.82M");
+			}
+		sound_sample = LoadPlaySample(gText);
+		gpMouseManager->HideColorPointer();
+		gpWindowManager->SaveFizzleSource(168, 160, 132, 132);
+		CompleteDraw(0);
+		gpWindowManager->FizzleForward(168, 160, 132, 132, 65, 0, 0);
+		gpMouseManager->ShowColorPointer();
+		WaitEndSample(sound_sample, -1);
+		}
+	}
+
+
 void heroWindowManager::FizzleForward(int x, int y, int width, int height, int delay, signed char *a7, signed char * a8)
 	{
 	int v8; // ecx@2

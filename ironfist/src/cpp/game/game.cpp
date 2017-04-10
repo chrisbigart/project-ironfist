@@ -62,6 +62,18 @@ int heroWindowManager::Open(int a2)
 
 //draw_mask_4 (keyboard "5")
 int __fastcall WGAppPaint_orig(void *, void *);
+
+
+extern void* hpalApp;
+//extern HPALETTE hpalApp;
+extern void* hdcImage;
+extern int giScrollX;
+extern int giScrollY;
+
+extern "C" void __stdcall thunk_WinGStretchBlt(int, int, int, int, int, int, int, int, int, int);
+extern "C" void __stdcall thunk_WinGBitBlt(int, int, int, int, int, int, int, int);
+int __fastcall WGAppPaint_new(void* thisptr, void* ptr2);
+
 int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 	{
 	HDC v2; // [sp+Ch] [bp-78h]@2
@@ -72,12 +84,69 @@ int __fastcall WGAppPaint(void* thisptr, void* ptr2)
 	int v7; // [sp+68h] [bp-1Ch]@2
 	char v8; // [sp+70h] [bp-14h]@1
 	struct tagRECT Rect; // [sp+74h] [bp-10h]@2
-	
-	extern void* hpalApp;
-	//extern HPALETTE hpalApp;
-	extern void* hdcImage;
-	extern int giScrollX;
-	extern int giScrollY;
+
+	if (!draw_mask_6)
+		return WGAppPaint_new(thisptr, ptr2);
+
+	hWnd = (HWND)thisptr;
+	v8 = 0;
+	if (lpInitWin)
+		{
+		v2 = BeginPaint(hWnd, &Paint);
+		SelectPalette(v2, (HPALETTE)hpalApp, 0);
+		RealizePalette(v2);
+		GetClientRect(hWnd, &Rect);
+		v7 = Rect.right - Rect.left;
+		v5 = 0 / iMainWinScreenWidth;
+		v6 = 0 / iMainWinScreenHeight;
+		if (giScrollX)
+			v5 += giScrollX;
+		if (giScrollY)
+			v6 += giScrollY;
+		//++frame_count?;
+		if (iMainWinScreenWidth != 640 || iMainWinScreenHeight != 480)
+			{
+			thunk_WinGStretchBlt(
+				(int)v2,
+				0,
+				0,
+				v7,
+				Rect.bottom - Rect.top,
+				(int)hdcImage,
+				v5,
+				v6,
+				800 * v7 / iMainWinScreenWidth,
+				480 * (Rect.bottom - Rect.top) / iMainWinScreenHeight);
+			}
+		else
+			{
+			v7 = Paint.rcPaint.right - (unsigned __int16)(Paint.rcPaint.left & 0xFFFC) + 1;
+			thunk_WinGBitBlt(
+				(int)v2,
+				Paint.rcPaint.left & 0xFFFC,
+				Paint.rcPaint.top,
+				v7,
+				Paint.rcPaint.bottom - Paint.rcPaint.top + 1,
+				(int)hdcImage,
+				giScrollX + (unsigned __int16)(Paint.rcPaint.left & 0xFFFC),
+				giScrollY + Paint.rcPaint.top);
+			}
+		EndPaint(hWnd, &Paint);
+		}
+	return 1;
+	}
+
+int __fastcall WGAppPaint_new(void* thisptr, void* ptr2)
+	{
+	HDC v2; // [sp+Ch] [bp-78h]@2
+	HWND hWnd; // [sp+10h] [bp-74h]@1
+	struct tagPAINTSTRUCT Paint; // [sp+20h] [bp-64h]@2
+	int v5; // [sp+60h] [bp-24h]@2
+	int v6; // [sp+64h] [bp-20h]@2
+	int v7; // [sp+68h] [bp-1Ch]@2
+	char v8; // [sp+70h] [bp-14h]@1
+	struct tagRECT Rect; // [sp+74h] [bp-10h]@2
+
 	hWnd = (HWND)thisptr;
 	v8 = 0;
 	if(draw_mask_4)
@@ -941,28 +1010,44 @@ void advManager::DrawAdventureBorder()
 
 	const int SCREEN_WIDTH = 800;
 	const int SCREEN_HEIGHT = 480;
-	static widget* day_display_widget = nullptr;
-	if(!day_display_widget)
-		{
-		char* content = new char[128];
-		memset(content, 0, 128);
-		sprintf(content, "%s: %d  %s: %d  %s: %d",
-				"Month", gpGame->month, "Week", gpGame->week, "Day", gpGame->day);
-		day_display_widget = new textWidget(
-				160 + 479,
-				//424,
-				2,
-				160,
-				12,
-				content,
-				"smalfont.fnt",
-				1,
-				2100,
-				512,
-				1);
-		
-		this->adventureScreen->AddWidget(day_display_widget, -1);
-		}
+	//static widget* day_display_widget = nullptr;
+	//if(!day_display_widget)
+	//	{
+	//	char* content = new char[128]; //callee handles free(apparently?)
+	//	memset(content, 0, 128);
+	//	sprintf(content, "%s: %d  %s: %d  %s: %d",
+	//			"Month", gpGame->month, "Week", gpGame->week, "Day", gpGame->day);
+	//	day_display_widget = new textWidget(
+	//			160 + 479 - 9,
+	//			//424,
+	//			2 + 2,
+	//			160,
+	//			12,
+	//			content,
+	//			"smalfont.fnt",
+	//			1,
+	//			2100,
+	//			512,
+	//			1);
+	//	
+	//	this->adventureScreen->AddWidget(day_display_widget, -1);
+
+	//	//auto day_display_widget2 = new textWidget(
+	//	//	160 + 479 - 9 + 1,
+	//	//	//424,
+	//	//	2 + 2 + 1,
+	//	//	160,
+	//	//	12,
+	//	//	content,
+	//	//	"smalfont.fnt",
+	//	//	3,
+	//	//	2100,
+	//	//	512,
+	//	//	1);
+
+	//	//this->adventureScreen->AddWidget(day_display_widget2, -1);
+
+	//	}
 
 	if(draw_mask_2)
 		return advManager::DrawAdventureBorder_orig();
@@ -1264,8 +1349,8 @@ void __fastcall BlitBitmapToScreen(bitmap *bmp, int xOff, int yOff, int width, i
 			}
 		else
 			{
-			if(x != 481)
-				BlitBitmapToScreenVesa(bmpa, x, v8, v7 + 160, height, screenX, screenY);
+			//if(x != 481)
+			BlitBitmapToScreenVesa(bmpa, x, v8, v7, height, screenX, screenY);
 			//Sleep(750);
 			std::cout << "BlitBitmapToScreenVesa(" << bmpa << ", " << x << ", " << v8 << ", " << v7 << ", " << height << ", " << screenX << ", " << screenY << ")\n";
 			}

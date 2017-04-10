@@ -7,7 +7,7 @@ void __thiscall heroWindowManager::UpdateScreenRegion(int offsetX, int offsetY, 
 	{
 	gpMouseManager->couldBeShowMouse = 0;
 	PollSound();
-	BlitBitmapToScreen(screenBuffer, offsetX, offsetY, width + 160, height, offsetX, offsetY);
+	BlitBitmapToScreen(screenBuffer, offsetX, offsetY, width, height, offsetX, offsetY);
 	gpMouseManager->couldBeShowMouse = 1;
 	PollSound();
 	}
@@ -143,7 +143,7 @@ void __fastcall WGInitGraphics()
 	
 
 	const int SCREEN_WIDTH = 800;
-	const int SCREEN_HEIGHT = 480;
+	const int SCREEN_HEIGHT = 480;// + 32;
 
 	HDC hDC; // [sp+Ch] [bp-4h]@1
 

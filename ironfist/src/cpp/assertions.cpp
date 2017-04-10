@@ -33,7 +33,8 @@ void check_game_structure_sizes()
 
 void check_game_structure_field_offsets()
 	{
-	static_assert(offsetof(game, field_6395) == 0x6395, "field_6395 not at offset 0x6395");
+	static_assert(offsetof(game, field_6395) == 0x6395, "game->field_6395 not at offset 0x6395");
+	static_assert(offsetof(advManager, field_37A) == 0x37A, "advManager->field_37A not at offset 0x37A");
 
 	}
 

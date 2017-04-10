@@ -100,6 +100,8 @@ public:
 
   void UpdateScreenRegion(int, int, int, int);
   void FizzleForward(int, int, int, int, int, signed char *, signed char *);
+  void SaveFizzleSource(int, int, int, int);
+  void SaveFizzleSource_orig(int, int, int, int);
   void FadeScreen(int, int, class palette *);
 
   void AddWindow(class heroWindow *, int, int);

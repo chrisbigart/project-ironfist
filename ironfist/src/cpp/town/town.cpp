@@ -234,7 +234,7 @@ int townManager::Open(int idx) {
 		gpSoundManager->SwitchAmbientMusic(townTheme[castle->factionID]);
 
 	PollSound();
-	townScreen = new heroWindow(0 + 80, 0, "townwind.bin");
+	townScreen = new heroWindow(0, 0, "townwind.bin");
 	if(!townScreen)
 		MemError();
 

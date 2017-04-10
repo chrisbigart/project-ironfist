@@ -8,7 +8,7 @@ int xarg3 = 480;
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 480;
 
- int RADAR_XOFFSET = 800;
+ int RADAR_XOFFSET = 640;
 
 void advManager::UpdateRadar(int a2, int a3)
 	{
@@ -105,6 +105,7 @@ void advManager::UpdateRadar(int a2, int a3)
 		};
 
 	//return;
+	//return UpdateRadar_orig(a2, a3);
 	v3 = this;
 	v27 = 36;
 	if(a3)
@@ -134,14 +135,17 @@ void advManager::UpdateRadar(int a2, int a3)
 		gpAdvManager->field_37A = 0;
 		v29 = 0;
 		v28 = 0;
+		auto radar_buffer_start = gpWindowManager->screenBuffer->contents + (SCREEN_WIDTH * 16) + RADAR_XOFFSET;
 		switch(MAP_HEIGHT)
 			{
 			case 36:
-				v30 = &gpWindowManager->screenBuffer->contents[128 * (20 * v19 + 80) + RADAR_XOFFSET];
+				//v30 = &gpWindowManager->screenBuffer->contents[128 * (20 * v19 + 80) + RADAR_XOFFSET];
+				v30 = radar_buffer_start + (SCREEN_WIDTH * 2 * v19);
 				v14 = 4 * v24;
 				break;
 			case 72:
 				v30 = &gpWindowManager->screenBuffer->contents[128 * (10 * v19 + 80) + RADAR_XOFFSET];
+				v30 = radar_buffer_start + (SCREEN_WIDTH * v19 * 2);
 				v14 = 2 * v24;
 				break;
 			case 108:
@@ -151,7 +155,8 @@ void advManager::UpdateRadar(int a2, int a3)
 				v29 = v19 % 3;
 				break;
 			default:
-				v30 = &gpWindowManager->screenBuffer->contents[128 * (5 * v19 + 80) + RADAR_XOFFSET];
+				//v30 = &gpWindowManager->screenBuffer->contents[128 * (5 * v19 + 80) + RADAR_XOFFSET];
+				v30 = radar_buffer_start + (SCREEN_WIDTH / 2 * v19);
 				v14 = v24;
 				break;
 			}
@@ -438,12 +443,12 @@ void advManager::UpdateRadar(int a2, int a3)
 					break;
 				}
 			}
-		//if(!v17)
-		if(false)
+		if(!v17)
+		//if(false)
 			{
-			if(gbInViewWorld)
+			if (gbInViewWorld)
 				v3->radarIcon->ClipFillToBuffer(
-					(signed __int64)((double)iVWMapOriginX * v15 + xarg1),
+				(signed __int64)((double)iVWMapOriginX * v15 + xarg1),
 					(signed __int64)((double)iVWMapOriginY * v15 + 16.0),
 					a4,
 					-75,
@@ -454,7 +459,7 @@ void advManager::UpdateRadar(int a2, int a3)
 					144);
 			else
 				v3->radarIcon->ClipFillToBuffer(
-					(signed __int64)((double)v3->viewX * v15 + xarg1),
+					(signed __int64)((double)v3->viewX * v15 + 640),
 					(signed __int64)((double)v3->viewY * v15 + 16.0),
 					a4,
 					-75,
@@ -466,13 +471,14 @@ void advManager::UpdateRadar(int a2, int a3)
 			}
 		if(a2)
 			{
+			//gpWindowManager->UpdateScreenRegion(640, 16, 0x90u, 144);
+
 			if(a3)
-				;
-				//gpWindowManager->UpdateScreenRegion(
-				//	(signed __int64)((double)v24 * v15 + xarg2),
-				//	(signed __int64)((double)v19 * v15 + 16.0),
-				//	(signed __int64)((double)(v25 - v24 + 1) * v15),
-				//	(signed __int64)((double)(v20 - v19 + 1) * v15));
+				gpWindowManager->UpdateScreenRegion(
+					(signed __int64)((double)v24 * v15 + xarg2),
+					(signed __int64)((double)v19 * v15 + 16.0),
+					(signed __int64)((double)(v25 - v24 + 1) * v15),
+					(signed __int64)((double)(v20 - v19 + 1) * v15));
 			else
 				gpWindowManager->UpdateScreenRegion(xarg3, 16, 0x90u, 144);
 			}

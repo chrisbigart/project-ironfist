@@ -265,6 +265,9 @@ public:
 	void CastSpell(int);
 	void CastSpell_orig(int);
 
+	void FizzleCenter(int);
+	void FizzleCenter_orig(int);
+
 	int ComboDraw(int, int, int);
 	int ComboDraw_orig(int, int, int);
 
