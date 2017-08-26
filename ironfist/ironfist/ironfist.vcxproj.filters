@@ -76,6 +76,9 @@
     <Filter Include="Header Files\sound">
       <UniqueIdentifier>{628f1e93-a2a7-481b-b913-eeeb9d5f8499}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\network">
+      <UniqueIdentifier>{6619042f-f73b-4ffd-af35-7cbeab27d2b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cpp\init.cpp">
@@ -299,6 +302,15 @@
     </ClCompile>
     <ClCompile Include="..\src\cpp\assertions.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\game\puzzle.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\network\winsock_init.cpp">
+      <Filter>Source Files\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\combat\special_attack.cpp">
+      <Filter>Source Files\combat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

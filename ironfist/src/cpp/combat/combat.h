@@ -108,15 +108,32 @@ public:
   icon *missileIcon;
   sample *combatSounds[7];
   
+  void WaitSample(int);
+
   int FlyTo(int hex);
   int ValidFlight(int hex, int);
   int WalkTo(int hex);
   void MoveTo(int hex);
+  
+  void ProcessDeath(int);
+  void DamageEnemy(class army *, int *, int *, int, int);
 
   void DrawToBuffer(int, int, int);
   
   void MoveAttack(int,int);
   void MoveAttack_orig(int,int);
+
+  void SpecialAttack(void);
+  void SpecialAttack_orig(void);
+  int SpellCastWorks(int);
+  void CancelSpellType(int);
+
+  void PowEffect(int animIdx, int a3, int a4, int a5);
+  void PowEffect_orig(int animIdx, int a3, int a4, int a5);
+
+  void CheckLuck(void);
+  
+  int GetAdjacentCellIndex(int, int);
 
   int MidX();
   int MidY();
@@ -248,12 +265,22 @@ public:
   void DrawFrame_orig(int redrawAll,int,int,int,int,int,int);
   void DrawBackground();
   void DrawSmallView(int, int);
+  void CastSpell(int, int, int, int);
+  void ClearEffects(void);
+
+  void DoBolt(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int);
+  void DoBolt(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int);
 
   void HandlePandoraBox(int side);
   void AddArmy(int side, int creat, int qty, int hex, int attrs, int fizzle);
 
+  void ResetLimitCreature(void);
+
   int FindResurrectArmyIndex(int side, int spell, int hex);
   void Resurrect(int spell, int hex, int spellpower);
+  
+  void MakeCreaturesVanish(void);
+
 };
 
 extern combatManager* gpCombatManager;

@@ -46,7 +46,7 @@ int advManager::BarrierEvent(mapCell *cell, hero *hero) {
         H2MessageBox(gText);
         return 1;
     } else {
-        H2MessageBox("You try guessing in vein, but nothing happens.");
+        H2MessageBox("You try guessing in vain, but nothing happens.");
         return 0;
     }
 }

@@ -136,9 +136,7 @@ struct tag_monsterInfo
 						}
 };
 
-tag_monsterInfo gMonsterDatabase[];
-
-int gMonRandBound[][2];
+extern struct tag_monsterInfo gMonsterDatabase[];
 
 int CreatureHasAttribute(int id, const char* name);
 char* GetCreatureName(int id);

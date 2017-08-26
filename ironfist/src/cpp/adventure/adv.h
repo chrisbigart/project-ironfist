@@ -273,10 +273,16 @@ public:
 
 	void CompleteDraw(int);
 	void CompleteDraw(int left, int top, int a6, int a5);
+	void CompleteDraw(int left, int top, int a6, int a5, int width, int height);
 	void CompleteDraw_orig(int left, int top, int a6, int a5);
 
 	void DrawCell(int, int, int, int, int, int);
 	void DrawCell_orig(int, int, int, int, int, int);
+
+	void ViewPuzzle();
+	void ViewPuzzle_orig();
+	void PuzzleDraw(int a2, int a3, int a4, int a5);
+	void PuzzleDraw_orig(int a2, int a3, int a4, int a5);
 
 	void DrawAdventureBorder();
 	void DrawAdventureBorder_orig();
@@ -286,6 +292,7 @@ public:
 	void SetEnvironmentOrigin(int, int, int);
 	void SetEnvironmentOrigin_orig(int, int, int);
 
+	int IsCrystalBallInEffect(int, int, int);
 
 	void UpdBottomView(int, int, int);
 	void UpdBottomView_orig(int, int, int);
@@ -320,6 +327,7 @@ public:
 	void UpdateHeroLocators(int, int);
 	void UpdateTownLocators(int, int);
 
+	char* GetArmySizeName(int, int);
 	int GetCloudLookup(int, int);
 	mapCell* DoAdvCommand();
 	void DoEvent(mapCell *loc, int locX, int locY);

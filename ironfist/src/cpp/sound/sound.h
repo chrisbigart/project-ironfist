@@ -65,6 +65,7 @@ public:
 	int ConvertVolume_orig(int, int);
 	void ServiceSound();
 	void StopAllSamples(int);
+	struct _SAMPLE * MemorySample(class sample *);
 };
 
 #pragma pack(pop)

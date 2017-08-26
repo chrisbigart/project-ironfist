@@ -235,11 +235,11 @@ void advManager::CastSpell(int spell) {
         this->UpdateHeroLocator(-1, 1, 1);
         this->DimensionDoor();
         break;
-	case SPELL_AWARENESS:
-		gpGame->SetVisibility(hro->x, hro->y, giCurPlayer, 15);
-		hro->UseSpell(spell);
-		RedrawAdvScreen(1,0);
-		break;
+	//case SPELL_AWARENESS:
+	//	gpGame->SetVisibility(hro->x, hro->y, giCurPlayer, 15);
+	//	hro->UseSpell(spell);
+	//	RedrawAdvScreen(1,0);
+	//	break;
 	default:
 		this->CastSpell_orig(spell);
 		break;

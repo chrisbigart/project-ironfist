@@ -2,7 +2,7 @@
 #include "game/game.h"
 
 int xarg1 = 640;
-int xarg2 = 640;
+int xarg2 = 800;
 int xarg3 = 480;
 
 int SCREEN_WIDTH = 800;
@@ -150,6 +150,7 @@ void advManager::UpdateRadar(int a2, int a3)
 				break;
 			case 108:
 				v30 = &gpWindowManager->screenBuffer->contents[128 * (5 * ((v19 + 2) / 3 + v19) + 80) + RADAR_XOFFSET];
+				v30 = radar_buffer_start + (SCREEN_WIDTH * v19 * 2 / 3);
 				v14 = (v24 + 2) / 3 + v24;
 				v28 = v24 % 3;
 				v29 = v19 % 3;
@@ -473,14 +474,14 @@ void advManager::UpdateRadar(int a2, int a3)
 			{
 			//gpWindowManager->UpdateScreenRegion(640, 16, 0x90u, 144);
 
-			if(a3)
-				gpWindowManager->UpdateScreenRegion(
+			if (a3)
+				 gpWindowManager->UpdateScreenRegion(
 					(signed __int64)((double)v24 * v15 + xarg2),
 					(signed __int64)((double)v19 * v15 + 16.0),
 					(signed __int64)((double)(v25 - v24 + 1) * v15),
 					(signed __int64)((double)(v20 - v19 + 1) * v15));
 			else
-				gpWindowManager->UpdateScreenRegion(xarg3, 16, 0x90u, 144);
+				gpWindowManager->UpdateScreenRegion(RADAR_XOFFSET, 16, 0x90u, 144);
 			}
 		}
 	}

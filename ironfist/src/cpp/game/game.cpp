@@ -385,9 +385,13 @@ int __fastcall WGAppPaint_new(void* thisptr, void* ptr2)
 	return 1;
 	}
 
+void advManager::CompleteDraw(int left, int top, int a6, int a5)
+	{
+	CompleteDraw(left, top, a6, a5, 20, 15);
+	}
 
 //draw_mask_0 (keyboard "1")
-void advManager::CompleteDraw(int left, int top, int a6, int a5)
+void advManager::CompleteDraw(int left, int top, int a6, int a5, int width, int height)
 	{
 	if(draw_mask_0)
 		return this->CompleteDraw_orig(left, top, a6, a5);
@@ -412,8 +416,8 @@ void advManager::CompleteDraw(int left, int top, int a6, int a5)
 	int a3k; // [sp+14h] [bp-4h]@54
 
 
-	const int width = 20;
-	const int height = 15;
+	//int width = 20;
+	//int height = 15;
 
 	PollSound();
 	if(a6 || bShowIt)

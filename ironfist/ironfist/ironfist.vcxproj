@@ -161,6 +161,7 @@
     <ClCompile Include="..\src\cpp\combat\creatures.cpp" />
     <ClCompile Include="..\src\cpp\combat\creatures_xml.cxx" />
     <ClCompile Include="..\src\cpp\combat\draw_frame.cpp" />
+    <ClCompile Include="..\src\cpp\combat\special_attack.cpp" />
     <ClCompile Include="..\src\cpp\compat.cpp" />
     <ClCompile Include="..\src\cpp\driver.cpp" />
     <ClCompile Include="..\src\cpp\game\event_loop.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="..\src\cpp\game\main_menu.cpp" />
     <ClCompile Include="..\src\cpp\game\map_xml.cxx" />
     <ClCompile Include="..\src\cpp\game\mouse.cpp" />
+    <ClCompile Include="..\src\cpp\game\puzzle.cpp" />
     <ClCompile Include="..\src\cpp\game\radar.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (P2)|Win32'">false</ExcludedFromBuild>
@@ -215,6 +217,9 @@
     <ClCompile Include="..\src\cpp\lib\lua\src\lundump.c" />
     <ClCompile Include="..\src\cpp\lib\lua\src\lvm.c" />
     <ClCompile Include="..\src\cpp\lib\lua\src\lzio.c" />
+    <ClCompile Include="..\src\cpp\network\winsock_init.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\src\cpp\oldmain.cpp" />
     <ClCompile Include="..\src\cpp\resource\resourceManager.cpp" />
     <ClCompile Include="..\src\cpp\scripting\lua_utils.cpp" />

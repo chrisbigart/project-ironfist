@@ -66,6 +66,8 @@ __NLG_Notify1 EQU __NLG_Notify1_asm
 ;; Preventing the startup routines' names from clashing
 _WinMainCRTStartup EQU _start_asm
 _WinMain@16 EQU  _WinMain_asm@16
+IMPORT__WinMain@16 = 1
+_WinMain@16_clone EQU _WinMain_orig@16
 
 ;; Hooking app exit
 IMPORT_?AppExit@@YIXXZ = 1
@@ -220,6 +222,12 @@ IMPORT_@BlitBitmapToScreenVesa@28 = 1
 IMPORT_?BlitBitmapToScreen@@YIXPAVbitmap@@HHHHHH@Z = 1
 ?BlitBitmapToScreen@@YIXPAVbitmap@@HHHHHH@Z_clone EQU ?BlitBitmapToScreen_orig@@YIXPAVbitmap@@HHHHHH@Z
 
+;;puzzle
+IMPORT_?PuzzleDraw@advManager@@QAEXHHHH@Z = 1
+?PuzzleDraw@advManager@@QAEXHHHH@Z_clone EQU ?PuzzleDraw_orig@advManager@@QAEXHHHH@Z
+IMPORT_?ViewPuzzle@advManager@@QAEXXZ = 1
+IMPORT_?ViewPuzzle@advManager@@QAEXXZ_clone EQU IMPORT_?ViewPuzzle_orig@advManager@@QAEXXZ
+
 ;;fix for tickcount bug
 IMPORT_?KBTickCount@@YIJXZ = 1
 ?KBTickCount@@YIJXZ_clone EQU ?KBTickCount_orig@@YIJXZ
@@ -323,6 +331,11 @@ IMPORT_?MoveAttack@army@@QAEXHH@Z = 1
 IMPORT_?sElevationOverlay@@3PAUSElevationOverlay@@A = 1
 IMPORT_?DrawFrame@combatManager@@QAEXHHHHHHH@Z = 1
 ?DrawFrame@combatManager@@QAEXHHHHHHH@Z_clone EQU ?DrawFrame_orig@combatManager@@QAEXHHHHHHH@Z
+;;lich death cloud attack effect
+IMPORT_?PowEffect@army@@QAEXHHHH@Z = 1
+?PowEffect@army@@QAEXHHHH@Z_clone EQU ?PowEffect_orig@army@@QAEXHHHH@Z
+IMPORT_?SpecialAttack@army@@QAEXXZ = 1
+?SpecialAttack@army@@QAEXXZ_clone EQU ?SpecialAttack_orig@army@@QAEXXZ
 
 ;;heroes
 IMPORT_?cHeroTypeInitial@@3PADA = 1

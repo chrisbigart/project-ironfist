@@ -63,8 +63,13 @@ void __fastcall IconToBitmap(class icon * icn, class bitmap * bmp,
 
 extern void __fastcall Process1WindowsMessage();
 extern void __fastcall DelayTilMilli(long);
+extern void __fastcall DelayMilli(long);
 extern void __fastcall DelayTil(int *);
 extern long __fastcall KBTickCount();
+
+const int MAX_CREATURES = 256;
+const int RAND_DEFAULT = 3;
+const int CREATURE_TOOK_TURN_EVENT_CODE = 1;
 
 //variable declarations from asm
 extern int giDebugLevel;
@@ -100,7 +105,51 @@ extern class inputManager* gpInputManager;
 extern int bInCheckChangeCursor; //BOOL
 extern int bLastMouseOffscreen; //BOOL
 extern int bLastOnscreenMouseColor; //BOOL
+extern int giMinExtentX;
+extern int giMinExtentY;
+extern int giMaxExtentX;
+extern int giMaxExtentY;
+extern int gbComputeExtent;
+extern int gbSaveBiggestExtent;
+extern int gbReturnAfterComputeExtent;
+extern int gbLimitToExtent;
+extern int giWalkingTo;
+extern int giWalkingTo2;
+extern int giWalkingFrom;
+extern int giWalkingFrom2;
+extern int giWalkingYMod;
+extern int giWalkingXMod;
+extern int giCombatSpeed;
+extern int gbFullCombatScreenDrawn;
+extern float gfCombatSpeedMod[3];
+extern unsigned char * moatCell;
+extern struct SCmbtHero sCmbtHero[];
 
+extern char* gCombatFxNames[];
+extern int gCurLoadedSpellEffect;
+extern class icon * gCurLoadedSpellIcon;
+extern unsigned char giNumPowFrames[];
+
+extern int giMinExtentX;
+extern int giMinExtentY;
+extern int giMaxExtentX;
+extern int giMaxExtentY;
+extern int giCombatSpeed;
+extern int gbFullCombatScreenDrawn;
+extern float gfCombatSpeedMod[3];
+extern int bSecondAttack;
+
+extern int giNumCreatures;
+extern char *cMonFilename[MAX_CREATURES];
+extern char *cArmyFrameFileNames[MAX_CREATURES];
+extern char *gArmyNames[MAX_CREATURES];
+extern char *gArmyNamesPlural[MAX_CREATURES];
+extern int gMonRandBound[MAX_CREATURES][2];
+
+extern char* gResourceNames[];
+extern char* xBarrierColor[];
+
+extern int gCurSpellEffectFrame;
 extern struct _IMAGE screenImage;
 //
 

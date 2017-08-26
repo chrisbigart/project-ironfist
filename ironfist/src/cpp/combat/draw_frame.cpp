@@ -11,25 +11,7 @@
 #include "base.h"
 
 
-extern int giMinExtentX;
-extern int giMinExtentY;
-extern int giMaxExtentX;
-extern int giMaxExtentY;
-extern int gbComputeExtent;
-extern int gbSaveBiggestExtent;
-extern int gbReturnAfterComputeExtent;
-extern int gbLimitToExtent;
-extern int giWalkingTo;
-extern int giWalkingTo2;
-extern int giWalkingFrom;
-extern int giWalkingFrom2;
-extern int giWalkingYMod;
-extern int giWalkingXMod;
-extern int giCombatSpeed;
-extern int gbFullCombatScreenDrawn;
-extern float gfCombatSpeedMod[3];
-extern unsigned char * moatCell;
-extern struct SCmbtHero sCmbtHero[];
+
 
 #pragma pack(push, 1)
 struct Point16

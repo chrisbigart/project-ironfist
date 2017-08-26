@@ -5,7 +5,7 @@
 
 #pragma pack(push, 1)
 
-#define NUM_SPELLS 66
+#define NUM_SPELLS 65
 
 struct SSpellInfo
 {
@@ -90,12 +90,9 @@ enum Spell : int
   SPELL_SET_AIR_GUARDIAN = 62,
   SPELL_SET_FIRE_GUARDIAN = 63,
   SPELL_SET_WATER_GUARDIAN = 64,
-
   SPELL_MEDUSA_PETRIFY = 101,
   SPELL_ARCHMAGI_DISPEL = 102,
   SPELL_NONE = -1,
-
-  SPELL_AWARENESS = 65,
 };
 
 

@@ -9,7 +9,7 @@
 #ifndef COMPAT_H
 #define COMPAT_H
 
-#include<Windows.h>
+#include <Windows.h>
 
 #include "driver.h"
 
@@ -47,5 +47,56 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInstance, LPSTR lpCmdLine,
 	_start_asm();
 	return 0;
 }
+
+extern void* hInstApp;
+extern void* gEventHandle;
+extern char gcCommandLine[];
+
+extern int __fastcall EarlySetup(void);
+extern int __fastcall AppInit(void *, void *, int, char *);
+extern int __fastcall AppIdle(void);
+extern void __fastcall ShutDown(char*);
+
+
+extern "C"
+int WINAPI WinMain_asm(HINSTANCE instance, HINSTANCE prevInstance, LPSTR lpCmdnLine, int nCmdShow)
+	{
+	hInstApp = instance;
+	gEventHandle = CreateEventA(0, 0, 0, "Heroes II");
+	auto error = GetLastError();
+	if(!gEventHandle)
+		return 0;
+	
+	// && error != ERROR_CLIENT_ALREADY_EXISTS)
+		
+	memset(gcCommandLine, 0, 0x3Du);
+	strncpy(gcCommandLine, lpCmdnLine, 0x3Cu);
+	if(!EarlySetup())
+		return 0;
+
+		
+	if(!AppInit(instance, prevInstance, nCmdShow, lpCmdnLine))
+		return 0;
+	
+	struct tagMSG Msg; // [sp+Ch] [bp-20h]@8
+
+	while(1)
+		{
+		while(!PeekMessageA(&Msg, 0, 0, 0, 1u))
+			{
+			if(AppIdle())
+				WaitMessage();
+			}
+		if(Msg.message == 18)
+			break;
+		TranslateMessage(&Msg);
+		DispatchMessageA(&Msg);
+		}
+
+	ShutDown(0);
+
+	return Msg.wParam;
+	}
+
 
 #endif

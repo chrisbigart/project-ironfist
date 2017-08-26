@@ -29,6 +29,21 @@ union Event
 
 extern void __fastcall QuickViewWait(void);
 
+//extern char* terrainNames[];
+char *terrainNames[9] =
+	{
+	"Ocean",
+	"Grass",
+	"Snow",
+	"Swamp",
+	"Lava",
+	"Desert",
+	"Dirt",
+	"Wasteland",
+	"Beach"
+	};
+
+
 void advManager::QuickInfo(int a2, int a3)
 	{
 	char *v3; // ST28_4@74
@@ -254,40 +269,42 @@ void advManager::QuickInfo(int a2, int a3)
 				//		strcat(gText, &a2a);
 				//		}
 				//	break;
-				//case LOCATION_RESOURCE:
-				//	sprintf(gText, "%s", *(char **)((char *)gResourceNames + 2 * (map_cell->objectIndex & 0xFE)));
-				//	break;
-				//case LOCATION_ARMY_CAMP:
-				//	if(advManager::IsCrystalBallInEffect(a2 + v9->viewX, a3 + v9->viewY, 8))
-				//		{
-				//		sprintf(
-				//			gText,
-				//			"%d %s",
-				//			(unsigned __int8)((unsigned __int8)(map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5),
-				//			gArmyNamesPlural[map_cell->objectIndex]);
-				//		}
-				//	else
-				//		{
-				//		v5 = gArmyNamesPlural[map_cell->objectIndex];
-				//		v6 = advManager::GetArmySizeName(
-				//			(unsigned __int8)((unsigned __int8)(map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5),
-				//			1);
-				//		sprintf(gText, "%s %s", v6, v5);
-				//		}
-				//	break;
-				//case LOCATION_BARRIER:
-				//case LOCATION_TRAVELLER_TENT:
-				//	if(map_cell->objType & 0x80)
-				//		{
-				//		v7 = map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 3;
-				//		sprintf(gText, adventureMapLocations[object_type], xBarrierColor[v7 & 7]);
-				//		gText[0] = toupper(gText[0]);
-				//		}
-				//	else
-				//		{
-				//		sprintf(gText, "%s", terrainNames[(unsigned __int8)giGroundToTerrain[map_cell->groundIndex]]);
-				//		}
-				//	break;
+				case LOCATION_RESOURCE:
+					sprintf(gText, "%s", gResourceNames[(map_cell->objectIndex & 0xFE)]);
+					break;
+				case LOCATION_ARMY_CAMP:
+					if(IsCrystalBallInEffect(a2 + v9->viewX, a3 + v9->viewY, 8))
+						{
+						sprintf(
+							gText,
+							"%d %s",
+							//(unsigned __int8)((unsigned __int8)(map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5),
+							extra_info,
+							gArmyNamesPlural[map_cell->objectIndex]);
+						}
+					else
+						{
+						v5 = gArmyNamesPlural[map_cell->objectIndex];
+						v6 = GetArmySizeName(
+							//(unsigned __int8)((unsigned __int8)(map_cell->field_4_1_1_isShadow_1_13_extraInfo >> 8) >> -5),
+							map_cell->extraInfo & 0x0FFF,
+							1);
+						sprintf(gText, "%s %s", v6, v5);
+						}
+					break;
+				case LOCATION_BARRIER:
+				case LOCATION_TRAVELLER_TENT:
+					if(map_cell->objType & 0x80)
+						{
+						v7 = (map_cell->extraInfo) & 7;
+						sprintf(gText, adventureMapLocations[object_type], xBarrierColor[v7]);
+						gText[0] = toupper(gText[0]);
+						}
+					else
+						{
+						sprintf(gText, "%s", terrainNames[giGroundToTerrain[map_cell->groundIndex]]);
+						}
+					break;
 				//case LOCATION_ALCHEMIST_TOWER:
 				//	if(map_cell->objectIndex == 255)
 				//		{

@@ -39,6 +39,9 @@ public:
   void CopyTo(class bitmap *, int, int, int, int, int, int);
   void CopyTo_orig(class bitmap *, int, int, int, int, int, int);
   void CopyToCareful(bitmap *target, int targX, int targY, int offX, int offY, int width, int height);
+  void GrabBitmapCareful(class bitmap *, short, short);
+  void DrawToBuffer(short, short);
+  void DrawToBufferCareful(short, short);
 
   bitmap();
   bitmap(unsigned long);

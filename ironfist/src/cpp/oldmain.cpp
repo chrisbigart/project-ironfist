@@ -42,66 +42,6 @@ class ExpCampaign
 
 ExpCampaign* xCampaign;
 
-extern void * hmnuDflt;
-extern class font * bigFont;
-extern class icon * gShingleAnim;
-extern int giTCPHostStatus;
-//extern DWORD gbthisaNetHumanPlayer;
-extern int gGameCommand;
-//extern signed char * gbThisNetHumanPlayer;
-	extern int gbTCPFirstTime;
-	extern int giMenuCommand;
-extern class heroWindow * gpInitWin;
-extern int gbInSetupDialog;
-extern int gbWaitForRemoteReceive;
-extern void* gpWindowManagerDoDialog;
-extern unsigned char giSetupGameType;
-extern int gMapX;
-extern int gMapY;
-extern int gbRemoteOn;
-extern int gbCampaignSideChoice;
-extern unsigned char xIsPlayingExpansionCampaign;
-//extern DWORD gbGamePosToNetPos;
-extern int giThisNetPos;
-extern signed char * gbGamePosToNetPos;
-extern int gbShowHighScore;
-//?cPlayerNames@@3PAY0BF@DA
-//char* cPlayerNames[21];
-extern char cPlayerNames[6][21];
-//extern char** cPlayerNames;
-extern int gbGameInitialized;
-extern class highScoreManager * gpHighScoreManager;
-extern char ** gColors;
-extern int iLastDiffSendTo;
-extern struct configStruct gConfig;
-extern int giHighScoreRank;
-extern int giThisGamePos;
-//extern int gbGamePosToNetPos;
-extern struct SNetPlayerInfo * gsNetPlayerInfo;
-//extern int gbGamePosToNetPos;
-//extern int gbGamePosToNetPos;
-//extern int githisaGamePos;
-extern char gbUseDiffCompression;
-extern int giHighMemBuffer;
-extern int iLastMsgNumHumanPlayers;
-extern unsigned int byte_526CFA;
-extern char* byte_526CFB;
-extern char gbUseRegularCompression;
-extern int iLastMsgNumHumanPlayers;
-extern int iMPBaseType;
-extern int iMPNetProtocol;
-extern int iMPExtendedType;
-extern int giTCPType;
-extern int iMPExtendedType;
-extern int iMPExtendedType;
-//extern int cPlayerNames;
-extern int byte_50CE04;
-extern int gbInCampaign;
-extern int giCurWatchPlayer;
-extern int gbthisaNetHumanPlayer;
-extern unsigned char giCurWatchPlayerBit;
-extern int giEndSequence;
-extern int bForceCheckTimeEvent;
 
 int __fastcall oldmain(void)
 	{

@@ -5,9 +5,53 @@
 #include "resource/resourceManager.h"
 #include "sound/sound.h"
 
-void heroWindowManager::SaveFizzleSource(int a1, int a2, int a3, int a4)
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 480;
+
+void heroWindowManager::SaveFizzleSource(int x, int y, int width, int height)
 	{
-	return SaveFizzleSource_orig(a1, a2, a3, a4);
+	//return SaveFizzleSource_orig(a1, a2, a3, a4);
+	//heroWindowManager *thisa; // ebp@1
+	int left; // eax@2
+	int actualWidth; // edi@2
+	int top; // esi@4
+	int actualHeight; // ebx@4
+	resource *v10; // ecx@12
+	//bitmap *v11; // ecx@14
+
+	//thisa = this;
+	if (bShowIt)
+		{
+		left = x;
+		actualWidth = width;
+		if (x < 0)
+			{
+			x = 0;
+			actualWidth = left + width;
+			}
+		top = y;
+		actualHeight = height;
+		if (y < 0)
+			{
+			actualHeight = y + height;
+			top = 0;
+			}
+		if (actualWidth + x > SCREEN_WIDTH)
+			actualWidth = SCREEN_WIDTH - x;
+
+		if (top + actualHeight > SCREEN_HEIGHT)
+			actualHeight = SCREEN_HEIGHT - top;
+
+		if (actualWidth > 0 && actualHeight > 0)
+			{
+			v10 = (resource *)this->fizzleSource;
+			if (v10)
+				delete v10;//v10->vtable->scalarDeletingDestructor(v10, 1);
+			
+			fizzleSource = new bitmap(0, actualWidth, actualHeight);
+			BlitBitmap(gpWindowManager->screenBuffer, x, top, actualWidth, actualHeight, fizzleSource, 0, 0);
+			}
+		}
 	}
 
 void advManager::FizzleCenter(int a2)
@@ -68,8 +112,6 @@ void heroWindowManager::FizzleForward(int x, int y, int width, int height, int d
 	int v32; // [sp+38h] [bp-4h]@12
 
 	typedef BYTE _BYTE;
-	const int SCREEN_WIDTH = 800;
-	const int SCREEN_HEIGHT = 480;
 
 	if(bShowIt)
 		{
